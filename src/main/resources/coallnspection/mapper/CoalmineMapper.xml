@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="coallnspection.mapper.CoalmineMapper">
+    <!--    int addCoalmine(Coalmine coalmine)-->
+    <insert id="addCoalmine" useGeneratedKeys="true" >
+        insert into coalmine values (null,#{area},#{datetime},#{type},#{length},#{width})
+    </insert>
+
+    <!--    List<Coalmine> selectAllCoalmine()-->
+    <select id="selectAllCoalmine" resultType="Coalmine">
+        select * from coalmine
+    </select>
+
+    <!--    int getAccount()-->
+    <select id="getAccount" resultType="Integer">
+        select count(*) from coalmine where datemine > DATE_SUB(NOW(),INTERVAL 1 MINUTE)
+    </select>
+</mapper>

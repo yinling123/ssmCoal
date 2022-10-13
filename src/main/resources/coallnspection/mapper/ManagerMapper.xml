@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="coallnspection.mapper.ManagerMapper">
+    <!--    int addManager(Manager manager)-->
+    <insert id="addManager">
+        insert into managers values(#{username},#{password},#{email})
+    </insert>
+
+    <!--    int deleteManager(String username)-->
+    <delete id="deleteManager">
+        delete from managers where username = #{username}
+    </delete>
+
+    <!--    List<Manager> selectAllManager()-->
+    <select id="selectAllManager" resultType="Manager">
+        select * from managers
+    </select>
+
+    <!--    Manager selectManager(Manager manager)-->
+    <select id="selectManager" resultType="Manager">
+        select * from managers where username = #{username}
+    </select>
+</mapper>

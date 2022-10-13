@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="coallnspection.mapper.WorkerMapper">
+    <!--    addWorker(Worker worker)-->
+    <insert id="addWorker">
+        insert into workers values(#{job},#{name},#{phone})
+    </insert>
+
+    <!--    int deleteWorker(String name)-->
+    <delete id="deleteWorker">
+        delete from workers where phone = #{phone}
+    </delete>
+
+    <!--    List<Worker> selectAllWorkers()-->
+    <select id="selectAllWorkers" resultType="Worker">
+        select * from workers
+    </select>
+</mapper>

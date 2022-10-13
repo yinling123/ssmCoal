@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--引入对应的接口文件-->
+<mapper namespace="coallnspection.mapper.UserMapper">
+    <!--    int addUser(User user)-->
+    <insert id="addUser" >
+        insert into users values (#{username},#{password},#{email});
+    </insert>
+
+    <!--    int deleteUser(String username)-->
+    <delete id="deleteUser">
+        delete from Users where username = #{username}
+    </delete>
+
+    <!--    int updatePassword(String username,String password);-->
+    <update id="updatePassword">
+        update users set password = #{password} where username = #{username}
+    </update>
+
+    <!--    List<User> selectAllUsers()-->
+    <select id="selectAllUsers" resultType="User">
+        select * from users
+    </select>
+
+    <!--    User selectUser(User user)-->
+    <select id="selectUser" resultType="User">
+        select * from users where username = #{username}
+    </select>
+</mapper>
