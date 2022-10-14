@@ -1,0 +1,41 @@
+package coallnspection.service.serviceImpl;
+
+import coallnspection.mapper.ManagerMapper;
+import coallnspection.pojo.Manager;
+import coallnspection.service.ManagerService;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.List;
+
+public class ManagerServiceImpl implements ManagerService {
+
+    @Autowired
+    ManagerMapper managerMapper;
+
+    @Override
+    public boolean addManager(Manager manager) {
+        //进行管理员增加
+        int i = managerMapper.addManager(manager);
+        if(i > 0){
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean deleteManager(Manager manager) {
+        //进行管理员删除
+        int i = managerMapper.deleteManager(manager.getUsername());
+        if(i > 0){
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public List<Manager> checkManagers() {
+        //进行管理员查询
+        List<Manager> managers = managerMapper.selectAllManager();
+        return managers;
+    }
+}

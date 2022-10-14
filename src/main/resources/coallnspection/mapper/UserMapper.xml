@@ -26,6 +26,11 @@
 
     <!--    User selectUser(User user)-->
     <select id="selectUser" resultType="User">
+        select * from users where username = #{username} and password = #{passwird}
+    </select>
+
+<!--    User selectUsername(User user);-->
+    <select id="selectUsername" resultType="User">
         select * from users where username = #{username}
     </select>
 </mapper>

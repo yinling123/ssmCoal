@@ -23,7 +23,10 @@ public interface UserMapper {
     //查询所有用户
     public List<User> selectAllUsers();
 
-    //查询单个用户
+    //根据账号和密码查询单个用户(验证登录)
     public User selectUser(User user);
+
+    //根据用户名查询单个用户(判断用户名是否存在)
+    public User selectUsername(String username);
 
 }
