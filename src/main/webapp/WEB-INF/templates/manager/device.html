@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <script type="text/javascript" th:src="@{/static/js/vue.js}"></script>
+    <link rel="stylesheet" th:href="@{/static/css/decive.css}">
+</head>
+<body>
+    <div class = 'leftBox'>
+        <div class = 'hun'></div>
+        <a th:href="@{/manager/toUser}" ><ion-icon name="person" ></ion-icon>用户信息</a>
+        <a th:href="@{/manager/toDevice}" style="font-size: 28px; font-weight: 800;"><ion-icon name="build"></ion-icon>设备信息</a>
+        <a th:href="@{/manager/toAccount}"><ion-icon name="settings"></ion-icon>账号信息</a>
+    </div>
+    <div class = 'cenBox'>
+        <div class = 'TopBox'>
+            <input type="text" name="search" placeholder="输入你要搜索的设备编号" class = 'Search' @keyup.enter = 'Searchmsg'/>
+            <div class = 'Message'>
+                <div class = 'headBox'>
+                    <p>设备名称</p>
+                    <p>使用时间</p>
+                    <p>区域</p>
+                    <p>编号</p>
+                </div>
+                <div class="addDevice" @click="addDevice" style="line-height: 50px; text-align: center; color: white; font-size: 15px; font-weight: 600;"> 添加设备</div>
+                
+                <!-- 添加设备表单 -->
+                <div v-if="this.is_show" class = 'bg'>
+                    <button class = 'addf' @click="addf">返回</button>
+                    <div class="addD">
+                         <label for="i1">
+                            设备名称：&emsp;<input type="text" v-model="dName" id = 'i1' name="">
+                            <p v-if="this.dn" style="color: red;">输入信息不能为空</p>
+                         </label>
+                         <label for="i2">
+                            使用时间：&emsp;<input type="text" v-model="dTime" id = 'i2' name="">
+                            <p v-if="this.dt" style="color: red;">输入信息不能为空</p>
+                        </label>
+                        <label for="i3">
+                            区&emsp;&emsp;域：&emsp;<input type="text" v-model="dZoom" id = 'i3' name="">
+                            <p v-if="this.dz" style="color: red;">输入信息不能为空</p>
+                        </label>
+                        <label for="i4">
+                            编&emsp;&emsp;号：&emsp;<input type="text" v-model="dNo" id = 'i4' name="">
+                            <p v-if="this.dn" style="color: red;">输入信息不能为空</p>
+                      </label>
+                        <button class="queRen" type="button" @click="queRen">确认</button>
+                    </div>
+                </div>
+                <div class = 'occupy'></div>
+                <!-- 修改、展示信息的表单 -->
+                <div v-if="this.is_msg_show" class = 'bg_msg'>
+                    <button class="close" @click="closeB">返回</button>
+                    <div class="showD">
+                         <label for="i1">
+                            设备名称：&emsp;<input type="text" v-model="dName" id = 'i1' name="">
+                            <p v-if="this.dn" style="color: red;">输入信息不能为空</p>
+                         </label>
+                         <label for="i2">
+                            使用时间：&emsp;<input type="text" v-model="dTime" id = 'i2' name="">
+                            <p v-if="this.dt" style="color: red;">输入信息不能为空</p>
+                        </label>
+                        <label for="i3">
+                            区&emsp;&emsp;域：&emsp;<input type="text" v-model="dZoom" id = 'i3' name="">
+                            <p v-if="this.dz" style="color: red;">输入信息不能为空</p>
+                        </label>
+                        <label for="i4">
+                            编&emsp;&emsp;号：&emsp;<input type="text" v-model="dNo" id = 'i4' name="">
+                            <p v-if="this.dno" style="color: red;">输入信息不能为空</p>
+                      </label>
+                        <button class="queRen" type="button" @click="xiuGai">确认</button>
+                    </div>
+                </div>
+                <div v-for="user in users" :key="user.no" class = 'usList' @click="showMsg(user)"> 
+                        <p>{{user.name}}</p>
+                        <p>{{user.time}}</p>
+                        <p>{{user.zoom}}</p>
+                        <p>{{user.no}}</p>
+                </div>
+            </div>
+            <button class = 'huif' @click = 'huif'>返回</button>
+        </div>
+    </div>
+</body>
+<script th:inline = 'javascript'>
+    new Vue({
+        el:'.cenBox',
+        data() {
+            return {
+                users:[
+                    {name:'张三',time:'1232121',zoom:'区域一',no:'0001'},
+                    {name:'李四',time:'1232122',zoom:'区域二',no:'0002'},
+                    {name:'王五',time:'1232123',zoom:'区域三',no:'0003'},
+                    {name:'赵华',time:'1232124',zoom:'区域四',no:'0004'},
+                    {name:'你干嘛~',time:'1232125',zoom:'区域五',no:'0005'},
+                    {name:'张三',time:'1232121',zoom:'区域一',no:'0005'},
+                    {name:'张三',time:'1232121',zoom:'区域一',no:'0006'},
+                    {name:'张三',time:'1232121',zoom:'区域一',no:'0007'},
+                    {name:'张三',time:'1232121',zoom:'区域一',no:'0008'},
+                    {name:'张三',time:'1232121',zoom:'区域一',no:'0009'},
+                    {name:'张三',time:'1232121',zoom:'区域一',no:'0010'},
+                    {name:'张三',time:'1232121',zoom:'区域一',no:'0011'},
+                ],
+                //解开下面这个注掉users接收数据
+                // users : /*[${}]*/ {},
+                save:null,
+                dName:'',
+                dTime:'',
+                dZoom:'',
+                dNo:'',
+                dn:false,
+                dt:false,
+                dz:false,
+                dno:false,
+                is_show:false,
+                is_msg_show:false
+            }
+        },
+        mounted() {
+            this.save = this.users
+        },
+        methods: {
+            showMsg(a){
+                this.is_msg_show = true
+                this.dName = a.name
+                this.dTime = a.time
+                this.dZoom = a.zoom
+                this.dNo = a.no
+            },
+            addDevice(){
+                this.is_show = true
+            },
+            queRen(){
+                if(this.dName.trim() && this.dTime.trim() && this.dZoom.trim() && this.dNo.trim())
+                {
+                    const ele = {name:this.dName,time:this.dTime,zoom:this.dZoom,no:this.dNo}
+                    this.users.unshitf(ele)
+                    this.is_msg_show = false
+                    this.dn = false
+                    this.dt = false
+                    this.dz = false
+                    this.dno = false
+                }else{
+                    if(!this.dName.trim()) this.dn = true
+                    if(!this.dTime.trim()) this.dt = true
+                    if(!this.dZoom.trim()) this.dz = true
+                    if(!this.dNo.trim())   this.dno = true
+                }
+            },
+            xiuGai(){
+                if(this.dName.trim() && this.dTime.trim() && this.dZoom.trim() && this.dNo.trim())
+                {
+                    this.users.forEach(element => {
+                        if(element.no === this.dNo) 
+                        {
+                            element.name = this.dName
+                            element.time = this.dTime
+                            element.zoom = this.dZoom
+                            element.no = this.dNo
+                        }
+                    });
+                    this.is_msg_show = false
+                    this.dName = ''
+                    this.dTime = ''
+                    this.dZoom = ''
+                    this.dNo = ''
+                    this.dn = false
+                    this.dt = false
+                    this.dz = false
+                    this.dno = false
+                }else{
+                    if(!this.dName.trim()) this.dn = true
+                    if(!this.dTime.trim()) this.dt = true
+                    if(!this.dZoom.trim()) this.dz = true
+                    if(!this.dNo.trim())   this.dno = true
+                }
+            },
+            closeB(){
+                this.dName = ''
+                this.dTime = ''
+                this.dZoom = ''
+                this.dNo = ''
+                this.dn = false
+                this.dt = false
+                this.dz = false
+                this.dno = false
+                this.is_msg_show = false
+            },
+            Searchmsg(e){
+                if(!e.target.value.trim()) 
+                {
+                    alert('input can not be null')
+                }else{
+                    this.users = this.users.filter((user)=>{
+                        return user.no === e.target.value
+                    })
+                }
+            },
+            huif(){
+                this.users = this.save
+                console.log(123)
+            },
+            addf(){
+                this.is_show = false
+            }
+        },
+    })
+
+</script>
+</html>

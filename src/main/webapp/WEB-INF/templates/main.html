@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="zh-UN">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/view.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/view2.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/view3.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/view4.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/view4.css}">
+
+    <script type="text/javascript" th:src="@{/static/js/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/static/js/echarts.js}"></script>
+    <script type="text/javascript" th:src="@{/static/js/suib.js}"></script>
+</head>
+<body>
+    <div class = 'box'>
+        <div class = 'LeftBox'>
+            <div class = "toux">
+                <img th:src="@{/static/img/img/shui.jpg}" >
+            </div>
+            <div class = 'xuanx'>
+                
+                <div class = 'action'>
+                    <ion-icon name="cube"></ion-icon>
+                    用户主页
+                </div>
+                <div >
+                    <ion-icon name="book-sharp" ></ion-icon>
+                    监控画面
+                </div>
+                <div >
+                    <ion-icon name="bar-chart-sharp"></ion-icon>
+                    数据显示
+                </div>
+                <div >
+                    <ion-icon name="chatbubble-sharp"></ion-icon>
+                    信息通知
+                </div>
+                <div >
+                    <ion-icon name="settings-sharp"></ion-icon>
+                    外观设置
+                </div>
+            </div>
+        </div>
+        <div class = 'CenterBox'>
+            <!-- 第一个页面 -->
+            <div style="display: block;"> 
+                <!-- 中间那两 -->
+                <div class = 'cenBox'>
+                    <div class = 'cenTop'>  
+                        <div>
+                            <div id = 'yuan'></div>
+                            <span>Person</span>
+                        </div>
+                        <div>
+                            <div id = 'yuan'></div>
+                            <span>Person</span>
+                        </div>
+                        <div>
+                            <div id = 'yuan'></div>
+                            <span>Person</span>
+                        </div>
+                    </div>
+                    <div class = 'cenFoot'>
+                        <input type="text" placeholder="inupt information" id="sous"/>
+                        <button id = 'search'>Search</button>
+                    </div>
+                </div>
+                <!-- 右边的 -->
+                <div class = 'RightBox'>
+                    <div id = 'rightTop'></div>
+                    <div id = 'rightFoot'>
+                        <div id = 'daY'>
+                            <div id = 'xiaoY'> 79%
+                                <span>Explant</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 第二个界面 -->
+            <div>
+                <div class = 'centerBox2'>
+                    <div class = 'zhuHM'><img id="img" width="800"   height="500"   src=".\imge\coal@1.jpg" ></div>
+                </div>
+                <script>
+                    i = 1;
+                    setInterval(function () {
+                        i++
+                  var img = document.getElementById('img')
+                  img.setAttribute('src', './imge/coal@'+i+'.jpg')
+                }, 50);
+                </script>
+                <div class = 'rightBox2'>
+                    <div id = 'xiaoH'></div>
+                    <div id = 'xiaoH'></div>
+                    <div id = 'xiaoH'></div>
+                </div>
+            </div>
+            <!-- 第三个界面 -->
+            <div >
+                <!-- 中间那两 -->
+                <div class = 'cenBox'>
+                    <div class = 'cenTop'>  
+                        <div>
+                            <div id = 'yuan'></div>
+                            <span>区域</span>
+                        </div>
+                        <div>
+                            <div id = 'yuan'></div>
+                            <span>质量</span>
+                        </div>
+                        <div>
+                            <div id = 'yuan'></div>
+                            <span>状态</span>
+                        </div>
+                    </div>
+                    <div class = 'cenFoot' id="main" >
+
+                    </div>
+                    <script>
+                        var chartDom = document.getElementById('main');
+                        var myChart = echarts.init(chartDom);
+                        var option;
+                        var i = 0;
+                        function randomData() {
+                          let now = new Date();
+                          now = new Date(+now + 10000);
+                          let value = Math.random() * 1000;
+                          value = value + Math.random() * 21 - 10;
+                          return {
+                            value: [
+                            now.toLocaleTimeString().replace(/^\D*/, ''),
+                            Math.round(value)
+                            ]
+                          };
+                        }
+                        let data = [];
+                        let now = new Date();
+                        for (var i = 0; i<5;i++){
+                          data.push(randomData())
+                        }
+                        
+                        
+                        option = {
+                          title: {
+                            text: 'Dynamic Data & Time Axis'
+                          },
+                          tooltip: {
+                            trigger: 'axis',
+                            formatter: function (params) {
+                              params = params[0];
+                              var date = new Date(params.name);
+                              return (
+                                '数量'+
+                                ' : ' +
+                                params.value[1]
+                              );
+                            },
+                            axisPointer: {
+                              animation: false
+                            }
+                          },
+                          xAxis: {
+                            type: 'category',
+                            data: [new Date(+now+1).toLocaleTimeString().replace(/^\D*/, ''),
+                            new Date(+now+2).toLocaleTimeString().replace(/^\D*/, ''),
+                            new Date(+now+3).toLocaleTimeString().replace(/^\D*/, ''),
+                            new Date(+now+4).toLocaleTimeString().replace(/^\D*/, ''),
+                            new Date(+now+5).toLocaleTimeString().replace(/^\D*/, ''),  
+                          ], // 把时间组成的数组接过来，放在x轴上
+                            boundaryGap: true
+                          },
+                          yAxis: {
+                            type: 'value',
+                            
+                            splitLine: {
+                              show: false
+                            }
+                          },
+                          series: [
+                            {
+                              name: 'Fake Data',
+                              type: 'bar',
+                              showSymbol: false,
+                              data: data
+                            }
+                          ]
+                        };
+                        setInterval(function () {
+                          // console.log(data[0])
+                          // console.log(data)
+                        
+                          if (data.length=5){
+                          data.shift();
+                          }
+                          data.push(randomData());
+                          const time = (function () { // 立即执行函数
+                            let now = new Date();
+                          now = new Date(+now + 10000);
+                          let res = []; // 存放时间的数组
+                          let len = 5; // 要存几个时间？
+                          while (len--) {
+                          res.unshift(now.toLocaleTimeString().replace(/^\D*/, '')); // 转换时间，大家可以打印出来看一下
+                          now = new Date(+now - 10000) // 延迟几秒存储一次？
+                          }
+                          return res;
+                        })()
+                          myChart.setOption({
+                            series: [
+                              {
+                                data: data
+                              }
+                            ],
+                            xAxis:[
+                              {
+                                data:time
+                              }
+                            ]
+                          });
+                        }, 10000);
+                        
+                        option && myChart.setOption(option);
+                        </script>
+                </div>
+                <!-- 右边的 -->
+                <div class = 'RightBox'>
+                    <div id = 'rightTop'></div>
+                    <div id = 'rightFoot'>
+                    </div>
+                </div>
+            </div>
+            <!-- 第四个界面 -->
+            <div >
+                <div class = 'centerBox4'>
+                </div>
+                <div class = 'rightBox4'></div>
+            </div>
+            <!-- 第五个界面 -->
+            <div >
+                <div class = 'topBox5'>
+                    <button class = 'shang'>
+                        <ion-icon name="arrow-back-outline" id = 'v5'></ion-icon>
+                    </button>
+                    <div class = 'zhuTi'> 
+                        <div class = 'cColor'></div>
+                        <span>青花瓷 </span>
+                    </div>
+                    <button class = 'xia'>
+                        <ion-icon name="arrow-forward-outline" id = 'v5'></ion-icon>
+                    </button>
+                </div>
+                <div class = 'footBox5'>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="coallnspection.mapper.CodeMapper">
+
+<!--    boolean addCode(Code code)-->
+    <insert id="addCode" useGeneratedKeys="true" >
+        insert into auto_code values (null,#{phone},#{code},#{createtime},#{endtime})
+    </insert>
+
+    <select id="selectCodes" resultType="Code" >
+        select * from auto_code where phone = #{phone} and code = #{code} and createtime &lt;= now() and now() &lt;= endtime
+    </select>
+
+</mapper>

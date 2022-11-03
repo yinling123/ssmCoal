@@ -1,0 +1,14 @@
+.centerBox4{
+    display: inline-block;
+    width: 800px;
+    height: 690px;
+    background-color: rgb(224, 236, 254);
+    margin-left: 20px;
+}
+.rightBox4{
+    display: inline-block;
+    width: 300px;
+    height: 690px;
+    margin-left: 20px;
+    background-color: rgb(212, 234, 255);
+}

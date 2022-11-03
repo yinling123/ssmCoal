@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <script type="text/javascript" th:src="@{/static/js/vue.js}"></script>
+    <script type="text/javascript" th:src="@{/static/js/jquery.min.js}"></script>
+    <script th:src="@{/static/js/echarts.min.js}"></script>
+    <script th:src="@{/static/js/chalk.js}"></script>
+    <link rel="stylesheet" th:href="@{/static/css/theme1.css}">
+    <link rel="stylesheet" th:href="@{/static/css/user.css}">
+</head>
+<body>
+<div class = 'external'>
+    <div class = 'leftBox'>
+        <!-- 用户头像 -->
+        <div class = 'toux'>
+            <img th:src="@{/static/img/shui.jpg}" class = 'img_h'>
+        </div>
+        <!-- 切换按钮 -->
+        <div>
+            <a th:href="@{/user/user}" class = 'skip'>
+                <ion-icon name="cube"></ion-icon>
+                用户主页</a>
+            <a th:href="@{/user/monitor}" class = 'skip'>
+                <ion-icon name="book-sharp" ></ion-icon>
+                监控画面</a>
+            <a th:href="@{/user/dataChart}" class = 'skip'>
+                <ion-icon name="bar-chart-sharp"></ion-icon>
+                数据显示</a>
+            <a th:href="@{/user/information}" class = 'skip' style="color: white; font-size: 25px; font-weight: 600;">
+                <ion-icon name="chatbubble-sharp"></ion-icon>
+                消息通知</a>
+            <a th:href="@{/user/appearance}" class = 'skip'>
+                <ion-icon name="settings-sharp"></ion-icon>
+                主题外观</a>
+        </div>
+    </div>
+    <div class = 'showBox'>
+        <div class = 'cenTop'>
+            <div @click="changeList = true; upDate()">已处理<p>{{chuli}}</p></div>
+            <div @click="changeList = false; upDate()">未处理<p>{{meichuli}}</p></div>
+            <div>总数<p>{{sum}}</p></div>
+        </div>
+        <div class = 'cenFoot'>
+            <div class="msgList">
+                <transition-group name="hby" :appear="true">
+                    <div v-for="event in newList" class="event" :key="event.id"><div class="bloBox" @click="deleteE(event)">已处理</div>{{event.content}}&emsp;&emsp;&emsp;&emsp;&emsp;{{event.Time}}</div>
+                </transition-group>
+            </div>
+        </div>
+    </div>
+    <div class = 'cenRight'>
+    </div>
+</div>
+</div>
+</body>
+<script th:inline = 'javascript'>
+    new Vue({
+        el:'.showBox',
+        data() {
+            return {
+                eventList:[
+                    {content:'一号皮带出现异常',state:false,Time:'nicai',id:'0001'},
+                    {content:'二号皮带出现异常',state:false,Time:'nicai',id:'0002'},
+                    {content:'三号皮带出现异常',state:false,Time:'nicai',id:'0003'},
+                    {content:'四号皮带出现异常',state:false,Time:'nicai',id:'0004'},
+                    {content:'五号皮带出现异常',state:false,Time:'nicai',id:'0005'},
+                    {content:'六号皮带出现异常',state:false,Time:'nicai',id:'0006'},
+                    {content:'一号皮带出现异常',state:false,Time:'nicai',id:'0007'},
+                    {content:'二号皮带出现异常',state:false,Time:'nicai',id:'0008'},
+                    {content:'三号皮带出现异常',state:false,Time:'nicai',id:'0009'},
+                ],
+                chuliList:[],
+                meichuliList:[],
+                newList:[],
+                changeList:false,
+                sum:null,
+                chuli:null,
+                meichuli:null
+            }
+        },
+        mounted() {
+            this.sum = this.eventList.length
+            this.upDate()
+            this.newList = this.meichuliList
+        },
+        methods: {
+            upDate(){
+                this.chuliList = this.eventList.filter(ele =>{
+                    return ele.state == true
+                })
+                this.meichuliList = this.eventList.filter(ele =>{
+                    return ele.state == false
+                })
+                if(this.changeList){
+                    this.newList = this.chuliList
+                }else{
+                    this.newList = this.meichuliList
+                }
+                this.chuli = this.chuliList.length
+                this.meichuli = this.meichuliList.length
+            },
+            deleteE(eve){
+                this.eventList.forEach(element => {
+                    if(element.id === eve.id) {
+                        element.state = true
+                    }
+                });
+                this.upDate()
+            },
+        },
+    })
+</script>
+</html>

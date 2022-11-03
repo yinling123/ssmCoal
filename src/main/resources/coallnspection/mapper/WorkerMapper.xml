@@ -4,8 +4,8 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="coallnspection.mapper.WorkerMapper">
     <!--    addWorker(Worker worker)-->
-    <insert id="addWorker">
-        insert into workers values(#{job},#{name},#{phone})
+    <insert id="addWorker" useGeneratedKeys="true" >
+        insert into workers values(#{job},#{name},#{phone},null)
     </insert>
 
     <!--    int deleteWorker(String name)-->

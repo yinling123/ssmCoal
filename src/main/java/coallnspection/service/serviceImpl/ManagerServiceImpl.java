@@ -4,9 +4,11 @@ import coallnspection.mapper.ManagerMapper;
 import coallnspection.pojo.Manager;
 import coallnspection.service.ManagerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class ManagerServiceImpl implements ManagerService {
 
     @Autowired
@@ -36,6 +38,18 @@ public class ManagerServiceImpl implements ManagerService {
     public List<Manager> checkManagers() {
         //进行管理员查询
         List<Manager> managers = managerMapper.selectAllManager();
+        return managers;
+    }
+
+    @Override
+    public Manager checkManager(Manager manager) {
+        Manager manager1 = managerMapper.selectManager(manager);
+        return manager;
+    }
+
+    @Override
+    public List<Manager> checkUsername(Manager manager) {
+        List<Manager> managers = managerMapper.checkUsername(manager);
         return managers;
     }
 }

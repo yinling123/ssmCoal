@@ -5,8 +5,8 @@
 <!--引入对应的接口文件-->
 <mapper namespace="coallnspection.mapper.UserMapper">
     <!--    int addUser(User user)-->
-    <insert id="addUser" >
-        insert into users values (#{username},#{password},#{email});
+    <insert id="addUser" useGeneratedKeys="true" >
+        insert into users values (#{username},#{password},#{phone},null);
     </insert>
 
     <!--    int deleteUser(String username)-->
@@ -26,7 +26,7 @@
 
     <!--    User selectUser(User user)-->
     <select id="selectUser" resultType="User">
-        select * from users where username = #{username} and password = #{passwird}
+        select * from users where username = #{username} and password = #{password}
     </select>
 
 <!--    User selectUsername(User user);-->

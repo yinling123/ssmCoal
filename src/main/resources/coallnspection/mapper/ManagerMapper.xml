@@ -5,7 +5,7 @@
 <mapper namespace="coallnspection.mapper.ManagerMapper">
     <!--    int addManager(Manager manager)-->
     <insert id="addManager">
-        insert into managers values(#{username},#{password},#{email})
+        insert into managers values(#{username},#{password},#{phone},#{company})
     </insert>
 
     <!--    int deleteManager(String username)-->
@@ -20,6 +20,11 @@
 
     <!--    Manager selectManager(Manager manager)-->
     <select id="selectManager" resultType="Manager">
+        select * from managers where username = #{username} and password = #{password}
+    </select>
+
+<!--    List<Manager> checkUsername(String username);-->
+    <select id="checkUsername" resultType="Manager">
         select * from managers where username = #{username}
     </select>
 </mapper>

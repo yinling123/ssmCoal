@@ -1,0 +1,16 @@
+:root{
+    /* 背景色 */
+    --bg_color:rgb(0, 0, 0);
+    /* 导航栏 */
+    --nav_color:rgb(2, 2, 35);
+    /* 展示板 */
+    --cen_color:rgb(3, 0, 13);
+    /* 组件色 */
+    --comp_color:rgb(3, 11, 34);
+    /* 适中色 */
+    --mid_color:rgb(0, 0, 123);
+    /* 深色 */
+    --dark_color:rgb(0, 0, 160);
+    /* 文字颜色 */
+    --word_color:rgb(144, 144, 255);
+}

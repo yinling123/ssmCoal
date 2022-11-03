@@ -1,0 +1,181 @@
+html,body{
+    width: 100px;
+    height: 100px;
+    margin: 0;
+    padding: 0;
+    background-color: rgb(95, 97, 96);
+}
+
+.leftBox{
+    width: 300px;
+    height: 730px;
+    background-color: aliceblue;
+    border-radius: 10px;
+    position: absolute;
+    top: 10px;
+    left: 0;
+}
+.hun{
+    height: 30px;
+}
+.leftBox > a{
+    display: inline-block;
+    width: 200px;
+    height: 50px;
+    margin-left: 100px;
+    text-decoration: none;
+    font-size: 25px;
+    font-weight: 600;
+    line-height: 50px;
+    text-align: center;
+    color: black;
+    margin-top: 30px;
+}
+
+.cenBox{
+    width: 1230px;
+    height: 750px;
+    background-color: rgb(95, 97, 96);
+    position: absolute;
+    top: 0;
+    left: 300px;
+}
+.TopBox{
+    width: 1200px;
+    height: 730px;
+    background-color: aliceblue;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    border-radius: 10px;
+    border: 1px solid rgb(95, 97, 96);
+}
+.formBox{
+    width: 1000px;
+    height: 600px;
+    margin-top: 50px;
+    margin-left: 100px;
+    border: 1px solid black;
+    border-radius: 10px;
+}
+.yuan{
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    background-color: white;
+    border: 1px solid ;
+    margin-left: 400px;
+    margin-top: 30px;
+}
+.l_phone{
+    display: block;
+    width: 800px;
+    height: 40px;
+    margin-left: 50px;
+    margin-top: 30px;
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 40px;
+}
+.l_phone > p{
+    position: absolute;
+    right: 500px;
+    top: 110px;
+}
+.phone{
+    width: 300px;
+    height: 30px;
+}
+.l_company{
+    display: block;
+    width: 800px;
+    height: 40px;
+    margin-left: 50px;
+    margin-top: 30px;
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 40px;
+}
+.l_company > p{
+    position: absolute;
+    right: 500px;
+    top: 180px;
+}
+.company{
+    width: 300px;
+    height: 30px;
+}
+#tarea{
+    margin-left: 50px;
+    margin-top: 30px;
+}
+.submit{
+    width: 100px;
+    height: 40px;
+    display: block;
+    margin-left: 400px;
+    margin-top: 20px;
+}
+.change{
+    color: red;
+    font-size: 15px;
+    font-weight: 500;
+    position: absolute;
+    top: 70px;
+    right: 120px;
+}
+.change:hover{
+    color: blue;
+}
+ion-icon {
+    float: left;
+    margin-left: 10px;
+    margin-top: 10px;
+    font-size: 26px;
+    /* color: rgb(34, 122, 253); */
+    color:black;
+  }
+.bg{
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgba(15, 15, 15,0.5);
+}
+.changeP{
+    width: 400px;
+    height: 500px;
+    background-color: white;
+    border-radius: 10px;
+    margin-left: 600px;
+    margin-top: 100px;
+    border: 1px solid white;
+}
+.changeP > label{
+    display: block;
+    width: 380px;
+    height: 50px;
+    margin-top: 30px;
+    margin-left: 20px;
+}
+.changeP > label > input{
+    width: 250px;
+    height: 25px;
+}
+.queRen{
+    width: 100px;
+    height: 40px;
+    display: block;
+    margin-top: 60px;
+    margin-left: 150px;
+}
+.changef{
+    width: 70px;
+    height: 30px;
+    border: none;
+    border-radius: 5px;
+    position: fixed;
+    top: 100px;
+    left: 930px;
+}

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <script type="text/javascript" th:src="@{/static/js/vue.js}"></script>
+    <script type="text/javascript" th:src="@{/static/js/jquery.min.js}"></script>
+    <script th:src="@{/static/js/echarts.min.js}"></script>
+    <script th:src="@{/static/js/chalk.js}"></script>
+    <link rel="stylesheet" th:href="@{/static/css/theme1.css}">
+    <link rel="stylesheet" th:href="@{/static/css/user.css}">
+</head>
+<body>
+<div class = 'external'>
+    <div class = 'leftBox'>
+        <!-- 用户头像 -->
+        <div class = 'toux'>
+            <img th:src="@{/static/img/shui.jpg}" class = 'img_h'>
+        </div>
+        <!-- 切换按钮 -->
+        <div>
+            <a th:href="@{/user/user}" class = 'skip'>
+                <ion-icon name="cube"></ion-icon>
+                用户主页</a>
+            <a th:href="@{/user/monitor}" class = 'skip' style="color: white; font-size: 25px; font-weight: 600;">
+                <ion-icon name="book-sharp" ></ion-icon>
+                监控画面</a>
+            <a th:href="@{/user/dataChart}" class = 'skip'>
+                <ion-icon name="bar-chart-sharp"></ion-icon>
+                数据显示</a>
+            <a th:href="@{/user/information}" class = 'skip'>
+                <ion-icon name="chatbubble-sharp"></ion-icon>
+                消息通知</a>
+            <a th:href="@{/user/appearance}" class = 'skip'>
+                <ion-icon name="settings-sharp"></ion-icon>
+                主题外观</a>
+        </div>
+    </div>
+    <div class = 'showBox'>
+        <div class = 'cenTop'>
+        </div>
+        <div class = 'cenFoot'>
+
+        </div>
+        <div class = 'cenRight'>
+            <div class = 'add' @click="addDevice">添加设备</div>
+            <div v-if="if_show" class = 'menus_bg'>
+                <div class = 'menus'>
+                    <form action="">
+                        <label for="get_name">
+                            输入设备名称：
+                            <input type="text" id = 'get_name' name="name" v-model="D_name">
+                        </label>
+                        <label for="get_zoom">
+                            设备工作区域：
+                            <input type="text" id = 'get_zoom' name="zoom" v-model="D_zoom">
+                        </label>
+                        <button @click="close" id = 'close_b'>关闭</button>
+                        <!-- 先写成button，submit点击后会刷新页面 -->
+                        <button @click="addEvent" id = 'comit_b' type="submit">提交</button>
+                    </form>
+                </div>
+            </div>
+            <div v-for="ins in numb" :key="ins.id" class = 'view'><div class = 'state'>{{ins.name}} </div> </div>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+    new Vue({
+        el:'.cenRight',
+        data:{
+            if_show:false,
+            D_name:'',
+            D_zoom:'',
+            // 这里的数据到时候会从后端获取测试阶段先写死
+            numb:[
+                {id:'1',name:'1号区域',zoom:'1'},
+                {id:'2',name:'2号区域',zoom:'2'},
+                {id:'3',name:'3号区域',zoom:'3'},
+            ]
+        },
+        methods: {
+            addDevice(){
+                this.if_show = true
+            },
+            close(){
+                this.if_show = false
+            },
+            addEvent(){
+                if((!this.D_name.trim())||(!this.D_zoom.trim())) {
+                    alert('请输入正确内容')
+                }else{
+                    const ele = {id:this.numb.length+1,name:this.D_name,zoom:this.D_zoom}
+                    this.numb.unshift(ele)
+                    this.if_show = false
+                }
+            }
+        },
+    })
+</script>
+</html>

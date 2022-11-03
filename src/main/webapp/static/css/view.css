@@ -1,0 +1,216 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+body{
+    background-color: rgb(231, 231, 231);
+}
+.box{
+    width: 92%;
+    height: 92%;
+    display: flex;
+    margin: 20px auto;
+    background-color: rgb(255, 255, 255);
+}
+
+.LeftBox{
+    float: left;
+    width: 200px;
+    height: 700px;
+    background-color: rgb(255, 255, 255);
+    margin-left: 5px;
+}
+
+.LeftBox > .xuanx > div{
+    margin-left: 30px;
+    margin-top: 10px;
+    width: 170px;
+    height: 70px;
+    border-radius: 5px;
+    font-size: 15px;
+    font-weight: 700;
+    color: rgb(31, 31, 31);
+    text-align: center;
+    line-height: 70px;
+    cursor: pointer;
+    display: inline-block;
+}
+
+.LeftBox > .toux{
+    width: 195px;
+    height: 190px;
+    border: 2px solid rgb(51, 133, 255);
+    border-radius: 5px;
+    margin: 0;
+}
+
+.LeftBox > .toux > img{
+    float: left;
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    margin: 25px; 
+}
+ion-icon {
+    float: left;
+    margin-left: 10px;
+    margin-top: 20px;
+    font-size: 24px;
+    color: rgb(34, 122, 253);
+  }
+.CenterBox{
+    position: relative;
+    margin-left: 10px;
+    width: 1200px;
+    height: 700px;
+    background-color: rgb(248, 249, 255);
+}
+.CenterBox > div{
+    display: inline-block;
+    width: 1160px;
+    height: 690px;
+    margin-left: 10px;
+    background-color: rgb(255, 255, 255);
+    display: none;
+}
+.cenBox{
+    width: 800px;
+    height: 690px;
+    margin-right: 50px;
+    display: inline-block;
+}
+.cenTop{
+    width: 800px;
+    height: 200px;
+    margin: 10px auto;
+    
+}
+
+.cenTop > div{
+    width: 250px;
+    height: 200px;
+    float: left;
+    margin-left: 15px;
+    background-color: rgb(150, 192, 255) ;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 20px;
+    font-weight: 700;
+}
+#yuan{
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    background-color: rgb(70, 59, 222);
+    margin: 10px auto;
+}
+.cenFoot{
+    width: 780px;
+    height: 460px;
+    margin: 5px auto;
+    background-color: rgb(172, 205, 255) ;
+    border-radius: 15px;
+}
+
+#sous{
+    border: none;
+    width: 500px;
+    height: 50px;
+    border-radius: 15px 0px 0px 15px;
+    margin-left: 100px;
+    margin-top: 10px;
+}
+#search{
+    width: 90px;
+    height: 50px;
+    text-align:center;
+    line-height: 50px;
+    background-color: blue;
+    margin-top: 20px;
+    color: white;
+    font-size: 20px;
+    border-radius: 0px 15px 15px 0px;
+    border: none;
+}
+#rightTop{
+    width: 300px;
+    height: 280px;
+    background-color: rgb(136, 158, 255);
+    margin: 10px auto;
+    border-radius: 10px;
+}
+#rightFoot{
+    width: 300px;
+    height: 380px;
+    background-color: rgb(118, 94, 255);
+    margin:10px auto;
+    border-radius: 10px;
+}
+.action{
+    background-color: rgb(247, 248, 255);
+    color: rgb(51, 133, 255) !important;
+    font-size: 18px !important;
+    font-weight: 750 !important;
+}
+
+.RightBox{
+    float: right;
+    display: inline-block;
+    width: 300px;
+    height: 700px;
+    background-color: rgb(241, 250, 255);
+    margin-left: 10px;
+}
+#daY{
+    margin-top: 30px;
+    width: 230px;
+    height: 230px;
+    background-color: rgb(197, 182, 255);
+    margin:auto;
+    
+    border-radius: 50%;
+}
+#xiaoY{
+    float: left;
+    width: 150px;
+    height: 150px;
+    background-color: rgb(118, 94, 255);
+    border-radius: 50%;
+    margin-top:40px;
+    margin-left: 40px;
+    color: white;
+    font-size: 40px;
+    font-weight: 800;
+    text-align: center;
+    line-height: 150px;
+}
+
+.open {
+    visibility: visible;
+    animation: ease 0.5s open;
+}
+
+.close {
+    visibility: hidden;
+    animation: ease 0.5s close;
+}
+
+@keyframes open {
+    0% {
+        top: 500px;
+    }
+    100% {
+        top: 0;
+    }
+}
+
+@keyframes close {
+    0% {
+        top: 0;
+        visibility: visible;
+    }
+    100% {
+        top: -500px;
+        visibility: visible;
+    }
+}

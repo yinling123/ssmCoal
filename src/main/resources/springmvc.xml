@@ -32,7 +32,7 @@
     <mvc:default-servlet-handler/>
 
 <!--    配置首页视图控制器-->
-    <mvc:view-controller path="/" view-name="index"></mvc:view-controller>
+    <mvc:view-controller path="/" view-name="login/login"></mvc:view-controller>
 
     <!--    开启mvc注解驱动-->
     <mvc:annotation-driven/>

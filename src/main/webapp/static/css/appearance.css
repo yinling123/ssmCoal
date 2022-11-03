@@ -1,0 +1,155 @@
+html,body{
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+.external{
+    width: 100%;
+    height: 100%;
+    background-color: var(--bg_color);
+}
+.leftBox{
+    width: 200px;
+    height: 750px;;
+    background-color: var(--nav_color);
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: inline-block;
+}
+.showBox{
+    width: 1250px;
+    height: 750px;
+    background-color: var(--cen_color);
+    position: absolute;
+    top: 0;
+    left: 210px;
+    display: inline-block;
+}
+.toux{
+    width: 200px;
+    height: 200px;
+}
+.img_h{
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin-left: 25px;
+    margin-top: 20px;
+}
+.skip{
+    display: inline-block;
+    width: 200px;
+    height: 70px;
+    color: var(--word_color);
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: 500;
+    text-align: center;
+    line-height: 70px;
+    margin-top: 10px;
+}
+.skip:hover{
+    color: white;
+    font-size: 23px;
+    font-weight: 600;
+}
+.cenTop{
+    width: 800px;
+    height: 300px;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: var(--comp_color);
+    border-radius: 20px;
+}
+.cenFoot{
+    width: 800px;
+    height: 420px;
+    display: inline-block;
+    position: absolute;
+    top: 320px;
+    left: 10px;
+    background-color: var(--comp_color);
+    border-radius: 20px;
+}
+.cenRight{
+    width: 400px;
+    height: 730px;
+    display: inline-block;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    background-color: var(--comp_color);
+    border-radius: 20px;
+}
+ion-icon {
+    float: left;
+    margin-left: 30px;
+    margin-top: 20px;
+    font-size: 24px;
+    /* color: rgb(34, 122, 253); */
+    color: var(--word_color);
+  }
+
+.winBox{
+    width: 700px;
+    height: 280px;
+    overflow: hidden;
+    position: absolute;
+    top: 10px;
+    left: 40px;
+    margin: 0;
+    padding: 0;
+}
+
+.listBox{
+    width: 1100px;
+    height: 280px;
+    transition: all 0.2s;
+}
+.listBox > div{
+    width: 240px;
+    height: 240px;
+    display: inline-block;
+    border-radius: 20px;
+    margin-left: 100px;
+    font-size: 40px;
+    line-height: 240px;
+    font-weight: 600;
+    text-align: center;
+}
+
+.left_b{
+    width: 40px;
+    height: 70px;
+    border-radius: 0px 10px 10px 0px;
+    position: absolute;
+    top: 100px;
+    left: 0px;
+    background: linear-gradient(
+                to right bottom,
+                rgba(255,255,255,0.3),
+                rgba(255,255,255,0.2),
+                rgba(255,255,255,0.1)
+            );
+    backdrop-filter: blur(7px);
+}
+.right_b{
+    width: 40px;
+    height: 70px;
+    border-radius: 10px 0px 0px 10px;
+    position: absolute;
+    top: 100px;
+    right: 0px;
+    background: linear-gradient(
+                to right bottom,
+                rgba(255,255,255,0.3),
+                rgba(255,255,255,0.2),
+                rgba(255,255,255,0.2)
+            );
+    backdrop-filter: blur(7px);
+    text-decoration: none;
+}

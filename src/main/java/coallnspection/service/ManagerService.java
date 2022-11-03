@@ -27,4 +27,16 @@ public interface ManagerService {
      * @return 返回管理员列表
      */
     public List<Manager> checkManagers();
+
+    /**
+     * 查看单个管理员
+     */
+    public Manager checkManager(Manager manager);
+
+    /**
+     * 查询用户名是否存在
+     * @param manager
+     * @return
+     */
+    public List<Manager> checkUsername(Manager manager);
 }

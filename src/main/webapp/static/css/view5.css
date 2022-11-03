@@ -1,0 +1,60 @@
+.footBox5{
+    width: 1100px;
+    height: 360px;
+    background-color: rgb(224, 236, 254);
+    margin-left: 20px;
+    margin-top: 10px;
+}
+.topBox5{
+    display: flex;
+    width: 1100px;
+    height: 300px;
+    margin-left: 20px;
+    background-color: rgb(212, 234, 255);
+}
+
+.zhuTi{
+    width: 300px;
+    height: 400px;
+    color: rgb(51, 133, 255);
+    font-size: 30px;
+    font-weight: 1000;
+    text-align: center;
+    margin: auto;
+   
+}
+
+.cColor{
+    background-color: rgb(51, 133, 255);
+    width: 240px;
+    height: 240px;
+    margin: 10px auto;
+    border-radius: 10px;
+}
+
+.shang{
+    float: left;
+    margin-top: 80px;
+    width: 50px;
+    height: 100px;
+    border: none;
+    background-color: aliceblue;
+    border-radius: 0px 10px 10px 0px;
+}
+.xia{
+    float: right;
+    margin-top: 80px;
+    width: 50px;
+    height: 100px;
+    border: none;
+    background-color: aliceblue;
+    border-radius: 10px 0px 0px 10px;
+}
+
+#v5{
+    font-size: 30px;
+    font-weight: 700;
+    color: rgb(51, 133, 255);
+    text-align: center;
+    margin-top: 8px;
+}

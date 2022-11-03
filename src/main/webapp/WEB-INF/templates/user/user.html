@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <script type="text/javascript" th:src="@{/static/js/vue.js}"></script>
+    <script type="text/javascript" th:src="@{/static/js/jquery.min.js}"></script>
+    <script th:src="@{/static/js/echarts.min.js}"></script>
+    <script th:src="@{/static/js/chalk.js}"></script>
+    <link rel="stylesheet" th:href="@{/static/css/theme1.css}">
+    <link rel="stylesheet" th:href="@{/static/css/user.css}">
+</head>
+<body>
+    <div class = 'external'>
+       <div class = 'leftBox'>
+        <!-- 用户头像 -->
+        <div class = 'toux'>
+            <img th:src="@{/static/img/shui.jpg}" class = 'img_h'>
+        </div>
+        <!-- 切换按钮 -->
+        <div>
+            <a th:href="@{/user/user}" class = 'skip' style="color: white; font-size: 25px; font-weight: 600;">
+            <ion-icon name="cube"></ion-icon>
+            用户主页</a>
+            <a th:href="@{/user/monitor}" class = 'skip'>
+            <ion-icon name="book-sharp" ></ion-icon>
+            监控画面</a>
+            <a th:href="@{/user/dataChart}" class = 'skip'>
+            <ion-icon name="bar-chart-sharp"></ion-icon>
+            数据显示</a>
+            <a th:href="@{/user/information}" class = 'skip'>
+            <ion-icon name="chatbubble-sharp"></ion-icon>
+            消息通知</a>
+            <a th:href="@{/user/appearance}" class = 'skip'>
+            <ion-icon name="settings-sharp"></ion-icon>
+            主题外观</a>
+        </div>
+       </div>
+        <div class = 'showBox'>
+            <div class = 'cenTop'>
+                <div class = "time">
+                    <div class = 'hour'>{{this.hour}}</div>
+                    <div class = 'minute'>:{{this.minute}}</div>
+                    <div class = 'second'>:{{this.second}}</div>
+                </div>
+            </div>
+            <div class = 'cenFoot'>
+                <input type="text" placeholder="添加今日计划" class = 'addEvent' @keyup.enter="addEvent" name="" >
+                <button class = 'left_b' @click="left_b"></button>
+                <div class="windowBox">
+                    <div class="task" :style=" 'width:'+ listWidth + 'px; transform:translateX(' + dis + 'px);'">
+                        <div v-for="blo in task" :key="blo.id" class = 't_block' @click="blo.state = true">
+                            <transition name = 'hby' :appear = 'true'>
+                                <div v-show="blo.state" class = 'eveBox'>
+                                    <div class="wancheng"  @click="wancheng(blo.id)">完成</div>
+                                    <div class="fanhui" @click.stop="blo.state = false;">返回</div>
+                                </div>
+                            </transition>
+                            {{blo.task}}
+                        </div>
+                    </div>
+                </div>
+                <button class = 'right_b' @click="right_b"></button>
+            </div>
+            <div class = 'cenRight'>
+                <div class="clim">
+                    <div class = 'clim-cion'></div>
+                    <p>21°</p>
+                </div>
+                <div>
+                    <p style="font-size: 50px; font-weight:600; color:white; text-indent: 50px;">你好啊！</p>
+                    <p style="font-size: 50px; font-weight:600; color:white; text-indent: 50px;">万里无云</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script th:inline = 'javascript'>
+    var vm1 = new Vue({
+        el:'.showBox',
+        data() {
+            return {
+                hour:null,
+                minute:null,
+                second:null,
+                is_show:false,
+                task:[
+                    {id:'1',task:'来杯咖啡',state:false},
+                    {id:'2',task:'调试设备',state:false},
+                    {id:'3',task:'晒太阳',state:false},
+                ],
+                dis:0,
+                listWidth:700,
+                is_show_e:false
+            }
+        },
+        mounted() {
+            this.startInterval()
+        },
+        methods: {
+            getTime(){
+                this.hour = new Date().getHours()     >= 10? new Date().getHours() : '0' + new Date().getHours();
+                this.minute = new Date().getMinutes() >= 10? new Date().getMinutes() : '0' + new Date().getMinutes();
+                this.second = new Date().getSeconds() >= 10? new Date().getSeconds() : '0' + new Date().getSeconds();
+            },
+            undataLW(){
+                this.listWidth = this.task.length >= 3 ? (this.task.length + 1 ) * 240 : 700
+            },
+            addEvent(e){
+                if(!e.target.value.trim())
+                {
+                    alert('input can not be null')
+                }else{
+                    const ele = {id:this.task.length + 1,task:e.target.value,state:false}
+                    this.undataLW()
+                    this.task.unshift(ele)
+                    console.log(this.listWidth)
+                }
+            },
+            wancheng(id){
+                this.task = this.task.filter( ele =>{
+                    return ele.id != id
+                })
+                this.undataLW()
+            },
+            clickEvent(e){
+                console.log(e.target)
+            },
+            startInterval(){
+                setInterval(()=>{
+                    this.getTime()
+                },1000)
+            },
+            left_b(){
+                this.dis = this.dis - 230
+            },
+            right_b(){
+                this.dis = this.dis + 230
+            }
+        },
+
+    })
+
+</script>
+</html>

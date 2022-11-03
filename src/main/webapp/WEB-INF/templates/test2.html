@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+<h1>客户端</h1>333
+<img id="scree">
+<a th:href="@{/websocket/test/2}">开始检测</a>
+<script th:inline="none">
+    var img = document.getElementById('scree')
+    //实例化
+    let ws = new WebSocket('ws://localhost:8080/ssmCoal/websocketDemo/2')
+    //链接成功后
+    ws.onopen = function(evt){
+      ws.send('连接成功')
+    }
+    //传递和接收信息
+    ws.onmessage = function(evt){
+      console.log(evt.data)
+      img.src = evt.data
+    }
+</script>
+</body>
+</html>

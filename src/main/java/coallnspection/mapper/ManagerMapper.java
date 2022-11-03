@@ -23,4 +23,6 @@ public interface ManagerMapper {
     //查询单个管理员
     public Manager selectManager(Manager manager);
 
+    //查看管理员用户名是否存在
+    public List<Manager> checkUsername(Manager manager);
 }

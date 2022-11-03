@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="text/javascript" th:src="@{/static/js/vue.js}"></script>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <style>
+        body{
+            width: 100%;
+            height: 750px;
+            padding: 0;
+            margin: 0;
+        }
+        .box{
+            width: 100%;
+            height: 100%;
+            background-color: rgb(23, 23, 23);
+            margin: 10px auto;
+            border-radius: 10px;
+            
+        }
+        .word{
+            width: 100%;
+            height: 100%;
+            color: white;
+            font-size: 120px;
+            font-weight: 3000;
+            text-align: center;
+            line-height: 750px;
+        }
+        .log{
+            position: absolute;
+            top: 170px;
+            left: 520px;
+            width: 450px;
+            height:450px;
+            background: linear-gradient(
+                to right bottom,
+                rgba(255,255,255,0.7),
+                rgba(255,255,255,0.6),
+                rgba(255,255,255,0.4)
+            );
+            backdrop-filter: blur(7px);
+            border-top: 2px solid rgba(255,255,255,0.9);
+            border-left: 2px solid rgba(255,255,255,0.9);
+            border-radius: 15px;
+        }
+        label{
+            width: 80%;
+            height: 50px;
+            display: block;
+            margin: auto;
+            margin-top: 30px;
+            font-size: 18px;
+            font-weight: 500;
+        }
+        .u_input{
+            width: 78%;
+            height: 55%;
+            border-radius: 10px;
+            border: none;
+        }
+        .log_b{
+            width: 100px;
+            height: 50px;
+            background-color: rgb(54, 54, 54);
+            color: white;
+            text-align: center;
+            line-height: 50px;
+            border-radius: 5px;
+            font-size: 18px;
+            font-weight: 500;
+            border: none;
+            position: absolute;
+            bottom: 35px;
+            left: 75px;
+        }
+        .reg_b{
+            width: 100px;
+            height: 50px;
+            background-color: rgb(54, 54, 54);
+            color: white;
+            text-align: center;
+            line-height: 50px;
+            border-radius: 5px;
+            font-size: 18px;
+            font-weight: 500;
+            border: none;
+            position: absolute;
+            bottom: 35px;
+            left: 285px;
+            text-decoration: none;
+        }
+        button:hover{
+            background-color: black;
+        }
+        span{
+            display: block;
+            font-size: 35px;
+            font-weight: 600;
+            margin-left: 190px;
+            margin-top: 20px;
+    
+            color: rgb(51, 51, 51);
+        }
+        .yanz{
+            width: 430px;
+            height: 100px;
+        }
+        .yanz > label > #yan{
+        
+            display: inline-block;
+            width: 100px;
+            height: 40px;
+            border: none;
+            border-radius: 5px;
+        }
+        .yanz > label > img{
+            float: right;
+            width: 100px;
+            height: 50px;
+            border: none;
+            border-radius: 5px;
+        }
+        .yanz > a{
+            float: right;
+            margin-right: 30px;
+            margin-top: 8px;
+            color: black;
+        }
+    </style>
+</head>
+<body>
+    <div class = 'box'>
+        <div class = 'word'>
+            welcome to login
+        </div>
+        <form th:action="@{/login/signIn}">
+            <div class = 'log'>
+                <span>登 录</span>
+                <label for="userw" >
+                    账 号：<input type="text" class="u_input" id="userw" v-mldel="userNameValue" name="username">
+                    <p v-if="userName" style="color: red; margin-left: 80px;">输入的信息不能为空</p>
+                    <p v-if="denglu" style="color: red; margin-left: 80px;">账号或密码错误</p>
+                </label>
+                <label for="passw">
+                    密 码：<input type="password" class="u_input" id="passw" v-model="passWordValue" name="password">
+                    <p v-if="passWord" style="color: red; margin-left: 80px;">输入的信息不能为空</p>
+                </label>
+                <div class = 'yanz'>
+                    <label for="yan" v-if="Yanzheng">
+                        验证码：<input type="text" id = 'yan'>
+                        <img src="ma.png" title = "看不清，点击换一张">
+                        <p style="color: red;">验证码错误</p>
+                    </label>
+                    <a href="">忘记密码</a>
+                </div>
+                <button class = 'log_b' @click="Login()" type="submit">登 录</button>
+            <a th:href="@{/login/toSignUp}" class = 'reg_b'>注 册</a>
+        </div>
+        </form>
+    </div>
+</body>
+<script th:inline = 'javascript'>
+    new Vue({
+        el:'.box',
+        data() {
+            return {
+                userNameValue:'',
+                passWordValue:'',
+                userName:false,
+                passWord:false,
+                // 如果多次登录不成功就把下面这个值改为true就会显示验证码
+                Yanzheng:false,
+                // 这个是登录失败后显示账号或密码错误的
+                denglu:false
+            }
+        },
+        methods: {
+            Login(){
+                if(this.userNameValue.trim() && this.passWordValue.trim())
+                { 
+                    this.userName = false
+                    this.passWord = false
+                    console.log('登陆成功')
+                }else{
+                    this.userName = false
+                    this.passWord = false
+                    if(!this.userNameValue.trim()) this.userName = true
+                    if(!this.passWordValue.trim()) this.passWord = true
+                }
+            }
+        },
+    })
+</script>
+
+</html>

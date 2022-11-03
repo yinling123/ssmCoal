@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- 下面这两是我导图标的网站 -->
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <script type="text/javascript" th:src="@{/static/js/vue.js}"></script>
+    <link rel="stylesheet" th:href="@{/static/css/user.css}">
+    <link rel="stylesheet" th:href="@{/static/css/decive.css}">
+</head>
+<body>
+    <div class = 'leftBox'>
+        <div class = 'hun'></div>
+        <a th:href = "@{/manager/toUser}" style="font-size: 28px; font-weight: 800;"><ion-icon name="person" ></ion-icon>用户信息</a>
+        <a th:href = "@{/manager/toDevice}"><ion-icon name="build"></ion-icon>设备信息</a>
+        <a th:href = "@{/manager/toAccount}"><ion-icon name="settings"></ion-icon>账号信息</a>
+    </div>
+    <div class = 'cenBox'>
+        <div class = 'TopBox'>
+            <input type="text" name="search" placeholder="输入你要搜索的信息" class = 'Search' @keyup.enter = 'Searchmsg'>
+            <div class = 'Message'>
+                <div class = 'headBox'>
+                    <p>姓名</p>
+                    <p>电话</p>
+                    <p>负责区域</p>
+                    <p>编号</p>
+                </div>
+                <div class = 'occupy'></div>
+                <div v-for="user in users" :key="user.no" class = 'usList' @click="showMsg(user)"> 
+                        <p>{{user.name}}</p>
+                        <p>{{user.phone}}</p>
+                        <p>{{user.zoom}}</p>
+                        <p>{{user.no}}</p>
+                </div>
+            </div>
+        </div>
+        <div v-if="this.is_msg_show" class = 'bg_msg'>
+            <button class="close" @click="closeB">返回</button>
+            <div class="showD">
+                 <label for="i1">
+                    设备名称：&emsp;<input type="text" v-model="usName" id = 'i1' name="">
+                    <p v-if="dn" style="color: red;">输入信息不能为空</p>
+                 </label>
+                 <label for="i2">
+                    使用时间：&emsp;<input type="text" v-model="usPhone" id = 'i2' name="">
+                    <p v-if="this.dp" style="color: red;">输入信息不能为空</p>
+                </label>
+                <label for="i3">
+                    区&emsp;&emsp;域：&emsp;<input type="text" v-model="usZoom" id = 'i3' name="">
+                    <p v-if="this.dz" style="color: red;">输入信息不能为空</p>
+                </label>
+                <label for="i4">
+                    编&emsp;&emsp;号：&emsp;<input type="text" v-model="usNo" id = 'i4' name="">
+                    <p v-if="this.dno" style="color: red;">输入信息不能为空</p>
+              </label>
+                <button class="queRen" type="button" @click="xiuGai">确认</button>
+            </div>
+        </div>
+        <button class = 'huif' @click="huif">返回</button>
+        <div class = 'RightBox'>
+            <div class = 'usName'>{{this.usName}}</div>
+            <div class = 'usMsg'>
+                <p>电话：{{this.usPhone}}</p>
+                <p>负责区域：{{this.usZoom}}</p>
+                <p>编号：{{this.usNo}}</p>
+                <button type="button" class="change" @click="changeB">修改</button>
+            </div>
+            
+        </div>
+    </div>
+</body>
+<script th:inline = 'javascript'>
+    new Vue({
+        el:'.cenBox',
+        data() {
+            return {
+                users:[
+                    {name:'张三',phone:'1232121',zoom:'区域一',no:'0001'},
+                    {name:'李四',phone:'1232122',zoom:'区域二',no:'0002'},
+                    {name:'王五',phone:'1232123',zoom:'区域三',no:'0003'},
+                    {name:'赵华',phone:'1232124',zoom:'区域四',no:'0004'},
+                    {name:'你干嘛~',phone:'1232125',zoom:'区域五',no:'0005'},
+                    {name:'张三',phone:'1232121',zoom:'区域一',no:'0005'},
+                    {name:'张三',phone:'1232121',zoom:'区域一',no:'0006'},
+                    {name:'张三',phone:'1232121',zoom:'区域一',no:'0007'},
+                    {name:'张三',phone:'1232121',zoom:'区域一',no:'0008'},
+                    {name:'张三',phone:'1232121',zoom:'区域一',no:'0009'},
+                    {name:'张三',phone:'1232121',zoom:'区域一',no:'0010'},
+                    {name:'张三',phone:'1232121',zoom:'区域一',no:'0011'},
+                ],
+                //解开下面这个注掉users接收数据
+                // users : /*[${}]*/ {},
+                usName:'',
+                usPhone:'',
+                usZoom:'',
+                usNo:'',
+                is_msg_show:false,
+                save:null,
+                dn:false,
+                dp:false,
+                dz:false,
+                dno:false,
+            }
+        },
+        mounted() {
+            this.save = this.users
+        },
+        methods: {
+            showMsg(a){
+                this.usName = a.name
+                this.usPhone = a.phone
+                this.usZoom = a.zoom
+                this.usNo = a.no
+            },
+            changeB(){
+                this.is_msg_show = true
+            },
+            xiuGai(){
+                if(this.usName.trim() && this.usPhone.trim() && this.usZoom.trim() && this.usNo.trim())
+                {
+                    this.users.forEach(element => {
+                        if(element.no === this.dNo) 
+                        {
+                            element.name = this.usName
+                            element.phone = this.usPhone
+                            element.zoom = this.usZoom
+                            element.no = this.usNo
+                        }
+                    });
+                    this.is_msg_show = false
+                    this.dn = false
+                    this.dp = false
+                    this.dz = false
+                    this.dno = false
+                }else{
+                    if(!this.usName.trim()) this.dn = true
+                    if(!this.usPhone.trim()) this.dp = true
+                    if(!this.usZoom.trim()) this.dz = true
+                    if(!this.usNo.trim())   this.dno = true
+                }
+            },
+            closeB(){
+                this.dn = false
+                this.dp = false
+                this.dz = false
+                this.dno = false
+                this.is_msg_show = false
+            },
+            Searchmsg(e){
+                if(!e.target.value.trim()) 
+                {
+                    alert('input can not be null')
+                }else{
+                    this.users = this.users.filter((user)=>{
+                        return user.no === e.target.value
+                    })
+                }
+            },
+            huif(){
+                this.users = this.save
+            }
+        },
+    })
+
+</script>
+</html>

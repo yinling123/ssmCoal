@@ -4,11 +4,13 @@ import coallnspection.mapper.CoalmineMapper;
 import coallnspection.pojo.Coalmine;
 import coallnspection.service.CoalService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  * coal数据表操作的相关实现类
  */
 
+@Service
 public class CoalServiceImpl implements CoalService {
 
     @Autowired

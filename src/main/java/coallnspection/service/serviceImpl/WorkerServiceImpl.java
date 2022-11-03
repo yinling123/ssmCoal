@@ -4,9 +4,12 @@ import coallnspection.mapper.WorkerMapper;
 import coallnspection.pojo.Worker;
 import coallnspection.service.WorkerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+
+@Service
 public class WorkerServiceImpl implements WorkerService {
 
     @Autowired

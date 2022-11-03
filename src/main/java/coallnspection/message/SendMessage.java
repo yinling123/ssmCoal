@@ -1,6 +1,7 @@
 package coallnspection.message;
 
 import com.alibaba.fastjson.JSON;
+import org.springframework.stereotype.Component;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -10,6 +11,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.security.MessageDigest;
 
+@Component
 public class SendMessage {
     /**
      * 封装的发验证码的方法
@@ -21,7 +23,7 @@ public class SendMessage {
      * @param code  验证码
      * @return
      */
-    public static MsgResult sendMsgPost(String account,String password,String token,String templateid,String phone,String code){
+    public MsgResult sendMsgPost(String account,String password,String token,String templateid,String phone,String code){
         //时间戳
         long timestamp = System.currentTimeMillis();
         //System.out.println(timestamp);
@@ -38,7 +40,7 @@ public class SendMessage {
         return msgResult;
     }
     //原本的发送方法
-    public static String sendPost(String url, String param) {
+    public String sendPost(String url, String param) {
         PrintWriter out = null;
         BufferedReader in = null;
         String result = "";
@@ -85,7 +87,7 @@ public class SendMessage {
     }
 
     //用来计算MD5的函数
-    public static String getMD5String(String rawString){
+    public String getMD5String(String rawString){
         String[] hexArray = {"0","1","2","3","4","5","6","7","8","9","A","B","C","D","E","F"};
         try{
             MessageDigest md = MessageDigest.getInstance("MD5");

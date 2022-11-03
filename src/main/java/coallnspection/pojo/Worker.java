@@ -2,9 +2,13 @@ package coallnspection.pojo;
 
 public class Worker {
 
+    private int id;
     private String name;
     private String job;
     private String phone;
+
+    public Worker() {
+    }
 
     public Worker(String name, String job, String phone) {
         this.name = name;
@@ -34,5 +38,13 @@ public class Worker {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }
