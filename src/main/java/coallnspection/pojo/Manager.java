@@ -19,6 +19,13 @@ public class Manager {
         this.password = password;
     }
 
+    public Manager(String username, String password, String phone, String company) {
+        this.username = username;
+        this.password = password;
+        this.phone = phone;
+        this.company = company;
+    }
+
     public String getUsername() {
         return username;
     }
@@ -49,5 +56,15 @@ public class Manager {
 
     public void setCompany(String company) {
         this.company = company;
+    }
+
+    @Override
+    public String toString() {
+        return "Manager{" +
+                "username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", phone='" + phone + '\'' +
+                ", company='" + company + '\'' +
+                '}';
     }
 }

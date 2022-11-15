@@ -11,81 +11,86 @@
     <link rel="stylesheet" th:href="@{/static/css/decive.css}">
 </head>
 <body>
-    <div class = 'leftBox'>
-        <div class = 'hun'></div>
+<div class = 'leftBox'>
+    <div class = 'hun'></div>
+    <div class = 'a_bg'>
         <a th:href="@{/manager/toUser}" ><ion-icon name="person" ></ion-icon>用户信息</a>
         <a th:href="@{/manager/toDevice}" style="font-size: 28px; font-weight: 800;"><ion-icon name="build"></ion-icon>设备信息</a>
         <a th:href="@{/manager/toAccount}"><ion-icon name="settings"></ion-icon>账号信息</a>
     </div>
-    <div class = 'cenBox'>
-        <div class = 'TopBox'>
-            <input type="text" name="search" placeholder="输入你要搜索的设备编号" class = 'Search' @keyup.enter = 'Searchmsg'/>
-            <div class = 'Message'>
-                <div class = 'headBox'>
-                    <p>设备名称</p>
-                    <p>使用时间</p>
-                    <p>区域</p>
-                    <p>编号</p>
-                </div>
-                <div class="addDevice" @click="addDevice" style="line-height: 50px; text-align: center; color: white; font-size: 15px; font-weight: 600;"> 添加设备</div>
-                
-                <!-- 添加设备表单 -->
-                <div v-if="this.is_show" class = 'bg'>
-                    <button class = 'addf' @click="addf">返回</button>
-                    <div class="addD">
-                         <label for="i1">
-                            设备名称：&emsp;<input type="text" v-model="dName" id = 'i1' name="">
-                            <p v-if="this.dn" style="color: red;">输入信息不能为空</p>
-                         </label>
-                         <label for="i2">
-                            使用时间：&emsp;<input type="text" v-model="dTime" id = 'i2' name="">
-                            <p v-if="this.dt" style="color: red;">输入信息不能为空</p>
-                        </label>
-                        <label for="i3">
-                            区&emsp;&emsp;域：&emsp;<input type="text" v-model="dZoom" id = 'i3' name="">
-                            <p v-if="this.dz" style="color: red;">输入信息不能为空</p>
-                        </label>
-                        <label for="i4">
-                            编&emsp;&emsp;号：&emsp;<input type="text" v-model="dNo" id = 'i4' name="">
-                            <p v-if="this.dn" style="color: red;">输入信息不能为空</p>
-                      </label>
-                        <button class="queRen" type="button" @click="queRen">确认</button>
-                    </div>
-                </div>
-                <div class = 'occupy'></div>
-                <!-- 修改、展示信息的表单 -->
-                <div v-if="this.is_msg_show" class = 'bg_msg'>
-                    <button class="close" @click="closeB">返回</button>
-                    <div class="showD">
-                         <label for="i1">
-                            设备名称：&emsp;<input type="text" v-model="dName" id = 'i1' name="">
-                            <p v-if="this.dn" style="color: red;">输入信息不能为空</p>
-                         </label>
-                         <label for="i2">
-                            使用时间：&emsp;<input type="text" v-model="dTime" id = 'i2' name="">
-                            <p v-if="this.dt" style="color: red;">输入信息不能为空</p>
-                        </label>
-                        <label for="i3">
-                            区&emsp;&emsp;域：&emsp;<input type="text" v-model="dZoom" id = 'i3' name="">
-                            <p v-if="this.dz" style="color: red;">输入信息不能为空</p>
-                        </label>
-                        <label for="i4">
-                            编&emsp;&emsp;号：&emsp;<input type="text" v-model="dNo" id = 'i4' name="">
-                            <p v-if="this.dno" style="color: red;">输入信息不能为空</p>
-                      </label>
-                        <button class="queRen" type="button" @click="xiuGai">确认</button>
-                    </div>
-                </div>
-                <div v-for="user in users" :key="user.no" class = 'usList' @click="showMsg(user)"> 
-                        <p>{{user.name}}</p>
-                        <p>{{user.time}}</p>
-                        <p>{{user.zoom}}</p>
-                        <p>{{user.no}}</p>
+    <div class = 'lang'>
+        <div class = 'langs'></div>
+    </div>
+</div>
+<div class = 'cenBox'>
+    <div class = 'TopBox'>
+        <input type="text" name="search" placeholder="输入你要搜索的设备编号" class = 'Search' @keyup.enter = 'Searchmsg'/>
+        <div class = 'Message'>
+            <div class = 'headBox'>
+                <p>设备名称</p>
+                <p>使用时间</p>
+                <p>区域</p>
+                <p>编号</p>
+            </div>
+            <div class="addDevice" @click="addDevice" style="line-height: 50px; text-align: center; color: white; font-size: 15px; font-weight: 600;"> 添加设备</div>
+
+            <!-- 添加设备表单 -->
+            <div v-if="this.is_show" class = 'bg'>
+                <button class = 'addf' @click="addf">返回</button>
+                <div class="addD">
+                    <label for="i1">
+                        设备名称：&emsp;<input type="text" v-model="dName" id = 'i1' name="">
+                        <p v-if="this.dn" style="color: red;">输入信息不能为空</p>
+                    </label>
+                    <label for="i2">
+                        使用时间：&emsp;<input type="text" v-model="dTime" id = 'i2' name="">
+                        <p v-if="this.dt" style="color: red;">输入信息不能为空</p>
+                    </label>
+                    <label for="i3">
+                        区&emsp;&emsp;域：&emsp;<input type="text" v-model="dZoom" id = 'i3' name="">
+                        <p v-if="this.dz" style="color: red;">输入信息不能为空</p>
+                    </label>
+                    <label for="i4">
+                        编&emsp;&emsp;号：&emsp;<input type="text" v-model="dNo" id = 'i4' name="">
+                        <p v-if="this.dn" style="color: red;">输入信息不能为空</p>
+                    </label>
+                    <button class="queRen" type="button" @click="queRen">确认</button>
                 </div>
             </div>
-            <button class = 'huif' @click = 'huif'>返回</button>
+            <div class = 'occupy'></div>
+            <!-- 修改、展示信息的表单 -->
+            <div v-if="this.is_msg_show" class = 'bg_msg'>
+                <button class="close" @click="closeB">返回</button>
+                <div class="showD">
+                    <label for="i1">
+                        设备名称：&emsp;<input type="text" v-model="dName" id = 'i1' name="">
+                        <p v-if="this.dn" style="color: red;">输入信息不能为空</p>
+                    </label>
+                    <label for="i2">
+                        使用时间：&emsp;<input type="text" v-model="dTime" id = 'i2' name="">
+                        <p v-if="this.dt" style="color: red;">输入信息不能为空</p>
+                    </label>
+                    <label for="i3">
+                        区&emsp;&emsp;域：&emsp;<input type="text" v-model="dZoom" id = 'i3' name="">
+                        <p v-if="this.dz" style="color: red;">输入信息不能为空</p>
+                    </label>
+                    <label for="i4">
+                        编&emsp;&emsp;号：&emsp;<input type="text" v-model="dNo" id = 'i4' name="">
+                        <p v-if="this.dno" style="color: red;">输入信息不能为空</p>
+                    </label>
+                    <button class="queRen" type="button" @click="xiuGai">确认</button>
+                </div>
+            </div>
+            <div v-for="user in users" :key="user.no" class = 'usList' @click="showMsg(user)">
+                <p>{{user.name}}</p>
+                <p>{{user.time}}</p>
+                <p>{{user.zoom}}</p>
+                <p>{{user.no}}</p>
+            </div>
         </div>
+        <button class = 'huif' @click = 'huif'>返回</button>
     </div>
+</div>
 </body>
 <script th:inline = 'javascript'>
     new Vue({
@@ -156,7 +161,7 @@
                 if(this.dName.trim() && this.dTime.trim() && this.dZoom.trim() && this.dNo.trim())
                 {
                     this.users.forEach(element => {
-                        if(element.no === this.dNo) 
+                        if(element.no === this.dNo)
                         {
                             element.name = this.dName
                             element.time = this.dTime
@@ -192,7 +197,7 @@
                 this.is_msg_show = false
             },
             Searchmsg(e){
-                if(!e.target.value.trim()) 
+                if(!e.target.value.trim())
                 {
                     alert('input can not be null')
                 }else{

@@ -33,4 +33,9 @@ public class CoalServiceImpl implements CoalService {
         int account = coalmineMapper.getAccount();
         return account;
     }
+
+    @Override
+    public int countArea(int area) {
+        return coalmineMapper.countArea(area);
+    }
 }

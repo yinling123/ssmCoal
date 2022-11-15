@@ -39,4 +39,13 @@ public interface ManagerService {
      * @return
      */
     public List<Manager> checkUsername(Manager manager);
+
+    /**
+     * 进行用户更新
+     * @param manager
+     * @return
+     */
+    public boolean updateManager(Manager manager);
+
+    public boolean updatePassword(String username, String password);
 }

@@ -11,7 +11,7 @@ public interface MessageService {
     public void codeMessage(String phone,String randomCode);
 
     /**
-     * 发送异常信息
+     * 发送检测过程中的异常信息，给对应的人员
      */
-    public void coalMessage();
+    public void coalMessage(String phone,String token);
 }

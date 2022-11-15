@@ -3,52 +3,95 @@ html,body{
     height: 100px;
     margin: 0;
     padding: 0;
-    background-color: rgb(95, 97, 96);
+    background-color: rgb(72, 72, 72);
 }
 
 .leftBox{
     width: 300px;
-    height: 730px;
-    background-color: aliceblue;
+    height: 700px;
+    background-color: rgb(0, 0, 0);
     border-radius: 10px;
     position: absolute;
-    top: 10px;
-    left: 0;
+    top: 30px;
+    left: 20px;
 }
 .hun{
     height: 30px;
 }
-.leftBox > a{
+.leftBox > .a_bg > a{
     display: inline-block;
     width: 200px;
     height: 50px;
-    margin-left: 100px;
+    margin-left: 50px;
     text-decoration: none;
     font-size: 25px;
     font-weight: 600;
     line-height: 50px;
     text-align: center;
-    color: black;
+    color: rgb(255, 108, 50);
     margin-top: 30px;
 }
-
-.cenBox{
-    width: 1230px;
-    height: 750px;
-    background-color: rgb(95, 97, 96);
+.a_bg{
+    width: 250px;
+    height: 270px;
+    background-color: white;
+    margin-left: 40px;
+    background-color: rgb(45, 45, 45);
+    border-radius: 10px 0px 0px 10px;
+}
+.lang{
+    width: 300px;
+    height: 400px;
     position: absolute;
-    top: 0;
-    left: 300px;
+    bottom: 0;
+    background-color: rgb(255, 73, 22);
+    border-radius: 10px;
+    overflow: hidden;
+}
+.langs::before,.langs::after{
+    width: 500px;
+    height: 400px;
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: -30%;
+    border-radius: 45%;
+    transform: translate(-50%,0) rotateZ(0);
+    background-color: rgb(40, 40, 40);
+    animation: zhuan 5s linear infinite;
+}
+.langs::after{
+    top: -35%;
+    background-color: black;
+}
+@keyframes zhuan{
+    0% {
+        transform: translate(-50%,0) rotateZ(0deg);
+    }
+    50% {
+        transform: translate(-50%,2%) rotateZ(180deg);
+    }
+    100%{
+        transform: translate(-50%,0) rotateZ(360deg);
+    }
+}
+.cenBox{
+    width: 1100px;
+    height: 700px;
+    position: absolute;
+    top: 20px;
+    left: 320px;
+
 }
 .TopBox{
-    width: 1200px;
-    height: 730px;
-    background-color: aliceblue;
+    width: 1149px;
+    height: 700px;
+    background-color: rgb(0, 0, 0);
     position: absolute;
     top: 10px;
     left: 10px;
     border-radius: 10px;
-    border: 1px solid rgb(95, 97, 96);
+    border-right: 2px solid rgb(255, 77, 17);
 }
 .Search{
     width: 500px;
@@ -56,32 +99,45 @@ html,body{
     margin-top: 20px;
     margin-left: 300px;
     border-radius: 20px;
+    border: 3px solid orange;
+    outline: none;
 }
 .Message{
     width: 1000px;
-    height: 550px;
+    height: 500px;
     border: 1px solid black;
     border-radius: 5px;
     overflow: auto;
     position: absolute;
     top: 100px;
     left: 50px;
-    background-color: rgb(239, 250, 255);
+    background-color: rgb(39, 39, 39);
+}
+.Message::-webkit-scrollbar {
+    -webkit-appearance: none;
+}
+.Message::-webkit-scrollbar:vertical {
+    width: 10px;
+}
+.Message::-webkit-scrollbar-thumb {
+    border-radius: 8px;
+    border: 3px solid rgb(255, 75, 43);
+    background-color: rgba(255, 101, 24, 0.5);
 }
 .headBox{
     width: 700px;
     height: 50px;
     position: fixed;
-    background-color: rgb(59, 59, 59);
+    background-color: rgb(255, 83, 15);
     color: white;
 }
 .addDevice{
     position: fixed;
-    width: 280px;
+    width: 293px;
     height: 50px;
-    background-color: rgb(59, 59, 59);
-    top: 112px;
-    left: 1065px;
+    background-color: rgb(255, 83, 15);
+    top: 131px;
+    left: 1080px;
 }
 .occupy{
     height: 50px;
@@ -95,13 +151,15 @@ html,body{
     font-weight: 600;
     line-height: 30px;
     padding: 0;
+
 }
 .usList{
     margin-top: 0px;
-    background-color: white;
+    background-color: rgb(39, 39, 39);
+    color: rgb(255, 60, 26);
 }
 .usList:hover{
-    background-color: rgb(240, 240, 240);
+    background-color:rgb(171, 171, 171);
 }
 .usList > p{
     display: inline-block;
@@ -119,8 +177,8 @@ ion-icon {
     margin-top: 10px;
     font-size: 26px;
     /* color: rgb(34, 122, 253); */
-    color:black;
-  }
+    color:rgb(255, 119, 41);
+}
 .bg{
     width: 100%;
     height: 100%;
@@ -203,13 +261,16 @@ ion-icon {
 }
 .huif{
     position: absolute;
-    bottom: 39px;
-    right: 150px;
-    width: 100px;
-    height: 40px;
+    border: none;
+    bottom: 0px;
+    right: 0px;
+    width: 110px;
+    height: 50px;
+    font-size: 20px;
+    font-weight: 700;
     color: white;
-    background-color: black;
-    border-radius: 0px 0px 10px 10px ;
+    background-color: rgb(255, 83, 15);
+    border-radius: 10px 0px 9px 0px ;
 }
 .addf{
     width: 70px;

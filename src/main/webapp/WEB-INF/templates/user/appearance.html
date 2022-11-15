@@ -8,11 +8,11 @@
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
     <script type="text/javascript" th:src="@{/static/js/vue.js}"></script>
-    <script type="text/javascript" th:src="@{/static/js/jquery.min.js}"></script>
-    <script th:src="@{/static/js/echarts.min.js}"></script>
-    <script th:src="@{/static/js/chalk.js}"></script>
-    <link rel="stylesheet" th:href="@{/static/css/theme1.css}">
-    <link rel="stylesheet" th:href="@{/static/css/user.css}">
+    <script th:src="@{/static/css/theme_change.js}"></script>
+    <!-- <script src="./js/jquery.min.js"></script>
+    <script src="./js/echarts.min.js"></script>
+    <script src="./js/chalk.js"></script> -->
+    <link rel="stylesheet" th:href="@{/static/css/appearance.css}">
 </head>
 <body>
 <div class = 'external'>
@@ -23,31 +23,32 @@
         </div>
         <!-- 切换按钮 -->
         <div>
-            <a th:href="@{/user/user}" class = 'skip'>
+            <a th:href="@{/user/toUser}" class = 'skip'>
                 <ion-icon name="cube"></ion-icon>
                 用户主页</a>
-            <a th:href="@{/user/monitor}" class = 'skip'>
+            <a th:href="@{/user/toMonitor}" class = 'skip'>
                 <ion-icon name="book-sharp" ></ion-icon>
                 监控画面</a>
-            <a th:href="@{/user/dataChart}" class = 'skip'>
+            <a th:href="@{/user/toDataChart}" class = 'skip'>
                 <ion-icon name="bar-chart-sharp"></ion-icon>
                 数据显示</a>
-            <a th:href="@{/user/information}" class = 'skip'>
+            <a th:href="@{/user/toInformation}" class = 'skip'>
                 <ion-icon name="chatbubble-sharp"></ion-icon>
                 消息通知</a>
-            <a th:href="@{/user/appearance}" class = 'skip' style="color: white; font-size: 25px; font-weight: 600;">
+            <a th:href="@{/user/toAppearance}" class = 'skip' style="color: rgb(190, 190, 190); font-size: 25px; font-weight: 600;">
                 <ion-icon name="settings-sharp"></ion-icon>
                 主题外观</a>
         </div>
     </div>
     <div class = 'showBox'>
+        <link rel="stylesheet" th:href="'/static/css/' + theme + '.css'">
         <div class = 'cenTop'>
             <button class = 'left_b' @click="to_left"></button>
             <div class="winBox">
                 <div class="listBox" :style="'transform: translateX(' + dis + 'px);'">
-                    <div style="background-color: rgb(53, 69, 255); color:white;">青花瓷</div>
-                    <div style="background-color: rgb(203, 61, 0); color:white;">万圣节</div>
-                    <div style="background-color: rgb(55, 0, 97); color:white;">夜阑谣</div>
+                    <button style="background-color: rgb(53, 69, 255); color:white;" @click="changeTh1">青花瓷</button>
+                    <button style="background-color: rgb(203, 61, 0); color:white;" @click="changeTh2">万圣节</button>
+                    <button style="background-color: rgb(55, 0, 97); color:white;" @click="changeTh3">夜阑谣</button>
                 </div>
             </div>
             <button class = 'right_b' @click="to_right"></button>
@@ -61,12 +62,14 @@
     </div>
 </div>
 </body>
-<script th:inline = 'javascript'>
+<script>
+    var the = 'theme1'
     var vm1 = new Vue({
         el:'.showBox',
         data() {
             return {
-                dis:-200
+                dis:-200,
+                theme:the
             }
         },
         methods: {
@@ -75,16 +78,23 @@
             },
             to_right(){
                 this.dis = this.dis + 350
-            }
+            },
+            changeTh1(){
+                the = 'theme3'
+                this.theme = the
+                console.log(this.theme)
+            },
+            changeTh2(){
+                the = 'theme2'
+                this.theme = the
+                console.log(this.theme)
+            },
+            changeTh3(){
+                the = 'theme1'
+                this.theme = the
+                console.log(this.theme)
+            },
         },
-    })
-    var vm2 = new Vue({
-        el:'.importA',
-        data(){
-            return {
-                theme:'theme1'
-            }
-        }
     })
 </script>
 </html>

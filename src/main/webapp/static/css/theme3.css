@@ -1,0 +1,40 @@
+:root{
+    /* 背景色 */
+    --bg_color:rgb(190, 190, 190);
+    /* 导航栏 */
+    --nav_color:rgb(242, 246, 255);
+    /* 展示板 */
+    --cen_color:rgb(227, 227, 227);
+    /* 组件色 */
+    --comp_color:rgb(244, 247, 255);
+    /* 适中色 */
+    --mid_color:rgb(35, 83, 255);
+    /* 深色 */
+    --dark_color:rgb(0, 0, 114);
+    /* 文字颜色 */
+    --word_color:rgb(37, 139, 255);
+    /* 事件块 */
+    --event_block1:rgba(46, 60, 217, 0.9);
+    --event_block2:rgba(30, 83, 255, 0.7);
+    --event_block3:rgba(56, 165, 255, 0.6);
+    /* 展示块 */
+    --monitor_block:rgb(25, 148, 255);
+    --state_block:rgb(0, 69, 147);
+    /* 天气 */
+    --tianq_block:rgb(0, 73, 220);
+    --wend_color:rgb(0, 58, 183);
+    --wend_bg:rgba(16, 95, 255, 0.155);
+    /* 时间 */
+    --hour_color:rgb(75, 123, 255);
+    --minute_color:rgb(75, 123, 255);
+    --second_color:rgb(40, 97, 255);
+    --time_bg1:rgba(16, 96, 255, 0.3);
+    --time_bg2:rgba(16, 96, 255, 0.2);
+    --time_bg3:rgba(16, 96, 255, 0.1);
+    /* 切换按钮 */
+    --change_color1:rgba(45, 45, 45, 0.7);
+    --change_color2:rgba(54, 54, 54, 0.6);
+    --change_color3:rgba(50, 50, 50, 0.5);
+    /* 事件列表 */
+    --event_B:rgb(0, 105, 190);
+}

@@ -16,4 +16,6 @@ public interface CoalmineMapper {
 
     //获取每分钟的异常数目
     public int getAccount();
+
+    public int countArea(int area);
 }

@@ -11,55 +11,60 @@
     <link rel="stylesheet" th:href="@{/static/css/account.css}">
 </head>
 <body>
-    <div class = 'leftBox'>
-        <div class = 'hun'></div>
+<div class = 'leftBox'>
+    <div class = 'hun'></div>
+    <div class = 'a_bg'>
         <a th:href="@{/manager/toUser}"><ion-icon name="person" ></ion-icon>用户信息</a>
         <a th:href="@{/manager/toDevice}"><ion-icon name="build"></ion-icon>设备信息</a>
         <a th:href="@{/manager/toAccount}" style="font-size: 28px; font-weight: 800;"><ion-icon name="settings"></ion-icon>账号信息</a>
     </div>
-    <div class = 'cenBox'>
-        <div class = 'TopBox'>
-            <div class = 'formBox'>
-                <!-- 个人信息的表单 -->
-                <form action="">
-                    <div class="change" @click="changePassword()">修改密码</div>
-                    <p style="margin-left: 50px; margin-top: 20px;">用户：&emsp;&emsp;manager</p>
-                    <label for="phone" class="l_phone">
-                        联系电话：<input type="text" name="phone" class = 'phone' v-model="phone">
-                        <p v-if="nans" style="color: red; ">输入信息不能为空</p>
-                    </label>
-                    <label for="company" class="l_company">
-                        公司：&emsp;&emsp;<input type="text" name="company" class = 'company' v-model="company">
-                        <p v-if="nansa" style="color: red;">输入信息不能为空</p>
-                    </label>
-                    <textarea name="describe" id="tarea" cols="100" rows="20">信息描述</textarea>
-                    <button class = 'submit' @click="zhendns" type="button">保存</button>
-                </form>
-                <!-- 修改密码的表单 -->
-                <form action="">
-                    
-                    <div v-if="this.is_show" class = 'bg'>
-                        <button class="changef" @click="changef" type="button">返回</button>
-                        <div class="changeP">
-                             <label for="i1">
-                                  旧密码：&emsp;<input type="text" v-model="old_password" id = 'i1' name="">
-                                  <p v-if="this.oldP" style="color: red;">密码错误</p>
-                             </label>
-                             <label for="i2">
-                                  新密码：&emsp;<input type="text" v-model="new_password" id = 'i2' name="">
-                                  <p v-if="this.newP" style="color: red;">输入格式错误</p>
-                            </label>
-                            <label for="i3">
-                                  确认密码：<input type="text" v-model="current_password" id = 'i3' name="">
-                                  <p v-if="this.currentP" style="color: red;">两次输入密码不一致</p>
-                            </label>
-                            <button class="queRen" type="button" @click="baoCun">确认</button>
-                        </div>
+    <div class = 'lang'>
+        <div class = 'langs'></div>
+    </div>
+</div>
+<div class = 'cenBox'>
+    <div class = 'TopBox'>
+        <div class = 'formBox'>
+            <!-- 个人信息的表单 -->
+            <form action="">
+                <div class="change" @click="changePassword()">修改密码</div>
+                <p style="margin-left: 50px; margin-top: 20px;">用户：&emsp;&emsp;manager</p>
+                <label for="phone" class="l_phone">
+                    联系电话：<input type="text" name="phone" class = 'phone' v-model="phone">
+                    <p v-if="nans" style="color: red;margin-left: 10px; ">输入信息不能为空</p>
+                </label>
+                <label for="company" class="l_company">
+                    公司：&emsp;&emsp;<input type="text" name="company" class = 'company' v-model="company">
+                    <p v-if="nansa" style="color: red;">输入信息不能为空</p>
+                </label>
+                <textarea name="describe" id="tarea" cols="100" rows="20">信息描述</textarea>
+                <button class = 'submit' @click="zhendns" type="button">保存</button>
+            </form>
+            <!-- 修改密码的表单 -->
+            <form >
+
+                <div v-if="this.is_show" class = 'bg'>
+                    <button class="changef" @click="changef" type="button">返回</button>
+                    <div class="changeP">
+                        <label for="i1">
+                            旧密码：&emsp;<input type="text" v-model="old_password" id = 'i1' name="oldPassword">
+                            <p v-if="this.oldP" style="color: red;">密码错误</p>
+                        </label>
+                        <label for="i2">
+                            新密码：&emsp;<input type="text" v-model="new_password" id = 'i2' name="rePassword">
+                            <p v-if="this.newP" style="color: red;">输入格式错误</p>
+                        </label>
+                        <label for="i3">
+                            确认密码：<input type="text" v-model="current_password" id = 'i3' name="newPassword">
+                            <p v-if="this.currentP" style="color: red;">两次输入密码不一致</p>
+                        </label>
+                        <button class="queRen" type="button" @click="baoCun">确认</button>
                     </div>
-                </form>
-            </div>
+                </div>
+            </form>
         </div>
     </div>
+</div>
 </body>
 <script th:inline = 'javascript'>
     new Vue({
@@ -95,7 +100,7 @@
                 }
             },
             zhendns(){
-                if(this.phone.trim() && this.company.trim()) 
+                if(this.phone.trim() && this.company.trim())
                 {
                     alert('修改信息成功')
                     this.nans = false

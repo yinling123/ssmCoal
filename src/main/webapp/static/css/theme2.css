@@ -1,33 +1,33 @@
 :root{
     /* 背景色 */
-    --bg_color:rgb(0, 0, 0);
+    --bg_color:rgb(43, 43, 43);
     /* 导航栏 */
-    --nav_color:rgb(2, 2, 35);
+    --nav_color:rgb(0, 0, 0);
     /* 展示板 */
-    --cen_color:rgb(3, 0, 13);
+    --cen_color:rgb(43, 43, 43);
     /* 组件色 */
-    --comp_color:rgb(3, 11, 34);
+    --comp_color:rgb(26, 26, 26);
     /* 适中色 */
-    --mid_color:rgb(0, 0, 123);
+    --mid_color:rgb(255, 107, 38);
     /* 深色 */
-    --dark_color:rgb(0, 0, 160);
+    --dark_color:rgb(232, 54, 0);
     /* 文字颜色 */
-    --word_color:rgb(144, 144, 255);
+    --word_color:rgb(255, 119, 16);
     /* 事件块 */
-    --event_block1:rgba(46, 60, 217, 0.9);
-    --event_block2:rgba(96, 46, 205, 0.7);
-    --event_block3:rgba(139, 31, 189, 0.6);
+    --event_block1:rgba(255, 79, 31, 0.9);
+    --event_block2:rgba(255, 116, 29, 0.7);
+    --event_block3:rgba(255, 111, 45, 0.6);
     /* 展示块 */
-    --monitor_block:rgb(25, 90, 255);
-    --state_block:rgb(56, 0, 223);
+    --monitor_block:rgb(255, 87, 25);
+    --state_block:rgb(223, 37, 0);
     /* 天气 */
     --tianq_block:white;
     --wend_color:white;
     --wend_bg:rgba(250, 235, 215, 0.1);
     /* 时间 */
-    --hour_color:rgb(161, 185, 253);
-    --minute_color:rgb(161, 185, 253);
-    --second_color:rgb(187, 205, 255);
+    --hour_color:rgb(245, 248, 255);
+    --minute_color:rgb(242, 245, 255);
+    --second_color:rgb(255, 228, 212);
     --time_bg1:rgba(255,255,255,0.3);
     --time_bg2:rgba(255,255,255,0.2);
     --time_bg3:rgba(255,255,255,0.1);

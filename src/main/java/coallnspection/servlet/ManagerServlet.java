@@ -1,19 +1,27 @@
 package coallnspection.servlet;
 
+import coallnspection.pojo.Manager;
 import coallnspection.pojo.User;
 import coallnspection.pojo.Worker;
 import coallnspection.service.ManagerService;
 import coallnspection.service.UserService;
 import coallnspection.service.WorkerService;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * 管理员的界面servlet
  */
 
+@SuppressWarnings("all")
 @Controller
 @RequestMapping(value = "/manager")
 public class ManagerServlet {
@@ -34,7 +42,7 @@ public class ManagerServlet {
      */
     @RequestMapping(value = "/toUser")
     public String toUser(){
-        return "/manager/user";
+        return "manager/user";
     }
 
     /**
@@ -43,7 +51,7 @@ public class ManagerServlet {
      */
     @RequestMapping(value = "/toDevice")
     public String toDevice(){
-        return "/manager/device";
+        return "manager/device";
     }
 
     /**
@@ -52,7 +60,7 @@ public class ManagerServlet {
      */
     @RequestMapping(value = "/toAccount")
     public String toAccount(){
-        return "/manager/account";
+        return "manager/account";
     }
 
     /**
@@ -64,11 +72,11 @@ public class ManagerServlet {
         boolean b = workerService.addWorker(worker);
         //如果增加成功
         if(b){
-
+            model.addAttribute("error","增加成功");
         }else{
-
+            model.addAttribute("error","增加失败");
         }
-        return "";
+        return "manager/user";
     }
 
     /**
@@ -81,11 +89,11 @@ public class ManagerServlet {
         boolean b = workerService.deleteWorker(worker);
         //如果删除成功
         if(b){
-
+            model.addAttribute("error","删除成功");
         }else{
-
+            model.addAttribute("error","删除失败");
         }
-        return "";
+        return "manager/user";
     }
 
     /**
@@ -119,6 +127,50 @@ public class ManagerServlet {
             return "";
         }
     }
+
+    /**
+     * 给前台传递用户数据
+     * @return
+     */
+    @RequestMapping(value = "/getUsers")
+    public String getUser(Model model){
+        List<Worker> workers = workerService.checkAllWorkers();
+        String string = JSON.toJSONString(workers);
+        model.addAttribute("userdata",string);
+        return "manager/user";
+    }
+
+    /**
+     * 进行用户页面的修改
+     * @param phone
+     * @param company
+     * @return
+     */
+    @RequestMapping(value = "/updateManager")
+    public String updateManager(String username, String password,String phone, String company){
+        boolean b = managerService.updateManager(new Manager(username, password, phone, company));
+        if(b){
+
+        }else{
+
+        }
+        return "manager/account";
+    }
+
+    @RequestMapping(value = "/updatePassword")
+    public String updatePassword(String oldPassword, String rePassword, String newPassword, HttpServletRequest request, Model model){
+        //获取当前用户名
+        String username = (String)request.getSession().getAttribute("username");
+        //进行密码修改
+        boolean b = managerService.updatePassword(username, newPassword);
+        //如果修改成功
+        if(b){
+            return "redirect:/toAccount";
+        }else{
+            return "manager/account";
+        }
+    }
+
 
 
 

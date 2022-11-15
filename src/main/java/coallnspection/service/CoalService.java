@@ -15,9 +15,13 @@ public interface CoalService {
     public boolean addCoal(Coalmine coalmine);
 
     /**
-     *进行煤矿数目查询操作
+     *进行煤矿异常总数目查询操作
      */
     public int countCoal();
 
+    /**
+     * 求出对应的区域的煤矿数目
+     */
+    public int countArea(int area);
 
 }

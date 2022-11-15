@@ -1,6 +1,7 @@
 package coallnspection.mapper;
 
 import coallnspection.pojo.Manager;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -25,4 +26,7 @@ public interface ManagerMapper {
 
     //查看管理员用户名是否存在
     public List<Manager> checkUsername(Manager manager);
+
+    //修改管理员密码
+    public boolean updatePassword(@Param("username") String username, @Param("password") String password);
 }

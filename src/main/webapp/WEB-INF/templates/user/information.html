@@ -8,11 +8,8 @@
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
     <script type="text/javascript" th:src="@{/static/js/vue.js}"></script>
-    <script type="text/javascript" th:src="@{/static/js/jquery.min.js}"></script>
-    <script th:src="@{/static/js/echarts.min.js}"></script>
-    <script th:src="@{/static/js/chalk.js}"></script>
-    <link rel="stylesheet" th:href="@{/static/css/theme1.css}">
-    <link rel="stylesheet" th:href="@{/static/css/user.css}">
+    <script th:src="@{/static/js/theme_change.js}"></script>
+    <link rel="stylesheet" th:href="@{/static/css/information.css}">
 </head>
 <body>
 <div class = 'external'>
@@ -23,24 +20,25 @@
         </div>
         <!-- 切换按钮 -->
         <div>
-            <a th:href="@{/user/user}" class = 'skip'>
+            <a th:href="@{/user/toUser}" class = 'skip'>
                 <ion-icon name="cube"></ion-icon>
                 用户主页</a>
-            <a th:href="@{/user/monitor}" class = 'skip'>
+            <a th:href="@{/user/toMonitor}" class = 'skip'>
                 <ion-icon name="book-sharp" ></ion-icon>
                 监控画面</a>
-            <a th:href="@{/user/dataChart}" class = 'skip'>
+            <a th:href="@{/user/toDataChart}" class = 'skip'>
                 <ion-icon name="bar-chart-sharp"></ion-icon>
                 数据显示</a>
-            <a th:href="@{/user/information}" class = 'skip' style="color: white; font-size: 25px; font-weight: 600;">
+            <a th:href="@{/user/toInformation}" class = 'skip' style="color: rgb(190, 190, 190); font-size: 25px; font-weight: 600;">
                 <ion-icon name="chatbubble-sharp"></ion-icon>
                 消息通知</a>
-            <a th:href="@{/user/appearance}" class = 'skip'>
+            <a th:href="@{/user/toAppearance}" class = 'skip'>
                 <ion-icon name="settings-sharp"></ion-icon>
                 主题外观</a>
         </div>
     </div>
     <div class = 'showBox'>
+        <link rel="stylesheet" th:href="'/static/css/' + theme + '.css'">
         <div class = 'cenTop'>
             <div @click="changeList = true; upDate()">已处理<p>{{chuli}}</p></div>
             <div @click="changeList = false; upDate()">未处理<p>{{meichuli}}</p></div>
@@ -49,7 +47,7 @@
         <div class = 'cenFoot'>
             <div class="msgList">
                 <transition-group name="hby" :appear="true">
-                    <div v-for="event in newList" class="event" :key="event.id"><div class="bloBox" @click="deleteE(event)">已处理</div>{{event.content}}&emsp;&emsp;&emsp;&emsp;&emsp;{{event.Time}}</div>
+                    <div v-for="event in newList" class="event" :key="event.id"><div class="bloBox" @click="deleteE(event)">已处理</div >{{event.content}}&emsp;&emsp;&emsp;&emsp;&emsp;{{event.Time}}</div>
                 </transition-group>
             </div>
         </div>
@@ -59,29 +57,33 @@
 </div>
 </div>
 </body>
-<script th:inline = 'javascript'>
+<script>
+    var the = 'theme1'
+    // 信息通知列表
+    var eventLists = [
+        {content:'一号皮带出现异常',state:false,Time:'nicai',id:'0001'},
+        {content:'二号皮带出现异常',state:false,Time:'nicai',id:'0002'},
+        {content:'三号皮带出现异常',state:false,Time:'nicai',id:'0003'},
+        {content:'四号皮带出现异常',state:false,Time:'nicai',id:'0004'},
+        {content:'五号皮带出现异常',state:false,Time:'nicai',id:'0005'},
+        {content:'六号皮带出现异常',state:false,Time:'nicai',id:'0006'},
+        {content:'一号皮带出现异常',state:false,Time:'nicai',id:'0007'},
+        {content:'二号皮带出现异常',state:false,Time:'nicai',id:'0008'},
+        {content:'三号皮带出现异常',state:false,Time:'nicai',id:'0009'},
+    ]
     new Vue({
         el:'.showBox',
         data() {
             return {
-                eventList:[
-                    {content:'一号皮带出现异常',state:false,Time:'nicai',id:'0001'},
-                    {content:'二号皮带出现异常',state:false,Time:'nicai',id:'0002'},
-                    {content:'三号皮带出现异常',state:false,Time:'nicai',id:'0003'},
-                    {content:'四号皮带出现异常',state:false,Time:'nicai',id:'0004'},
-                    {content:'五号皮带出现异常',state:false,Time:'nicai',id:'0005'},
-                    {content:'六号皮带出现异常',state:false,Time:'nicai',id:'0006'},
-                    {content:'一号皮带出现异常',state:false,Time:'nicai',id:'0007'},
-                    {content:'二号皮带出现异常',state:false,Time:'nicai',id:'0008'},
-                    {content:'三号皮带出现异常',state:false,Time:'nicai',id:'0009'},
-                ],
+                eventList:eventLists,
                 chuliList:[],
                 meichuliList:[],
                 newList:[],
                 changeList:false,
                 sum:null,
                 chuli:null,
-                meichuli:null
+                meichuli:null,
+                theme:the
             }
         },
         mounted() {

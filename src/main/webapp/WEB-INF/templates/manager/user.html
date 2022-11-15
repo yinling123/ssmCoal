@@ -9,17 +9,24 @@
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
     <script type="text/javascript" th:src="@{/static/js/vue.js}"></script>
-    <link rel="stylesheet" th:href="@{/static/css/user.css}">
-    <link rel="stylesheet" th:href="@{/static/css/decive.css}">
+    <link rel="stylesheet" th:href="@{/static/css/manager.css}">
 </head>
 <body>
-    <div class = 'leftBox'>
-        <div class = 'hun'></div>
+<div class = 'leftBox'>
+    <div class = 'hun'></div>
+    <div class = 'a_bg'>
         <a th:href = "@{/manager/toUser}" style="font-size: 28px; font-weight: 800;"><ion-icon name="person" ></ion-icon>用户信息</a>
         <a th:href = "@{/manager/toDevice}"><ion-icon name="build"></ion-icon>设备信息</a>
         <a th:href = "@{/manager/toAccount}"><ion-icon name="settings"></ion-icon>账号信息</a>
     </div>
-    <div class = 'cenBox'>
+
+    <div class = 'lang'>
+        <div class = 'langs'></div>
+    </div>
+</div>
+<div class = 'cenBox'>
+    <div class = 'shift' @click="shift">{{shift_data}}</div>
+    <div class = 'shift_box' :style="'transform:rotateX(' + angle + 'deg);'">
         <div class = 'TopBox'>
             <input type="text" name="search" placeholder="输入你要搜索的信息" class = 'Search' @keyup.enter = 'Searchmsg'>
             <div class = 'Message'>
@@ -30,55 +37,91 @@
                     <p>编号</p>
                 </div>
                 <div class = 'occupy'></div>
-                <div v-for="user in users" :key="user.no" class = 'usList' @click="showMsg(user)"> 
-                        <p>{{user.name}}</p>
-                        <p>{{user.phone}}</p>
-                        <p>{{user.zoom}}</p>
-                        <p>{{user.no}}</p>
+                <div v-for="user in users" :key="user.no" class = 'usList' @click="showMsg(user)">
+                    <p>{{user.name}}</p>
+                    <p>{{user.phone}}</p>
+                    <p>{{user.zoom}}</p>
+                    <p>{{user.no}}</p>
                 </div>
             </div>
+            <button class = 'huif' @click="huif">返回</button>
         </div>
-        <div v-if="this.is_msg_show" class = 'bg_msg'>
-            <button class="close" @click="closeB">返回</button>
-            <div class="showD">
-                 <label for="i1">
-                    设备名称：&emsp;<input type="text" v-model="usName" id = 'i1' name="">
-                    <p v-if="dn" style="color: red;">输入信息不能为空</p>
-                 </label>
-                 <label for="i2">
-                    使用时间：&emsp;<input type="text" v-model="usPhone" id = 'i2' name="">
-                    <p v-if="this.dp" style="color: red;">输入信息不能为空</p>
-                </label>
-                <label for="i3">
-                    区&emsp;&emsp;域：&emsp;<input type="text" v-model="usZoom" id = 'i3' name="">
-                    <p v-if="this.dz" style="color: red;">输入信息不能为空</p>
-                </label>
-                <label for="i4">
-                    编&emsp;&emsp;号：&emsp;<input type="text" v-model="usNo" id = 'i4' name="">
-                    <p v-if="this.dno" style="color: red;">输入信息不能为空</p>
-              </label>
-                <button class="queRen" type="button" @click="xiuGai">确认</button>
+        <div class = 'bottom_box'>
+            <input type="text" name="search" placeholder="输入你要搜索的信息" class = 'Search' @keyup.enter = 'Searchmsg'>
+            <div class = 'Message'>
+                <div class = 'headBox'>
+                    <p>用户名</p>
+                    <p>密码</p>
+                    <p>电话</p>
+                    <p>编号</p>
+                </div>
+                <div class = 'occupy'></div>
+                <div v-for="sup in supervisor" :key="sup.no" class = 'usList' @click="showMsg(sup)">
+                    <p>{{sup.name}}</p>
+                    <p>{{sup.phone}}</p>
+                    <p>{{sup.zoom}}</p>
+                    <p>{{sup.no}}</p>
+                </div>
             </div>
-        </div>
-        <button class = 'huif' @click="huif">返回</button>
-        <div class = 'RightBox'>
-            <div class = 'usName'>{{this.usName}}</div>
-            <div class = 'usMsg'>
-                <p>电话：{{this.usPhone}}</p>
-                <p>负责区域：{{this.usZoom}}</p>
-                <p>编号：{{this.usNo}}</p>
-                <button type="button" class="change" @click="changeB">修改</button>
-            </div>
-            
+            <button class = 'huif' @click="huif">返回</button>
         </div>
     </div>
+
+    <div v-if="is_msg_show" class = 'bg_msg'>
+        <button class = 'close' @click="closeB">返回</button>
+        <div class="showD">
+            <label for="i1">
+                设备名称：&emsp;<input type="text" v-model="usName" id = 'i1' name="">
+                <p v-if="dn" style="color: red;">输入信息不能为空</p>
+            </label>
+            <label for="i2">
+                使用时间：&emsp;<input type="text" v-model="usPhone" id = 'i2' name="">
+                <p v-if="this.dp" style="color: red;">输入信息不能为空</p>
+            </label>
+            <label for="i3">
+                区&emsp;&emsp;域：&emsp;<input type="text" v-model="usZoom" id = 'i3' name="">
+                <p v-if="this.dz" style="color: red;">输入信息不能为空</p>
+            </label>
+            <label for="i4">
+                编&emsp;&emsp;号：&emsp;<input type="text" v-model="usNo" id = 'i4' name="">
+                <p v-if="this.dno" style="color: red;">输入信息不能为空</p>
+            </label>
+            <button class="queRen" type="button" @click="xiuGai">确认</button>
+        </div>
+    </div>
+    <div class = 'RightBox'>
+        <div class = 'usName'>{{usName}}</div>
+        <div class = 'usMsg'>
+            <p>{{value2}}<span>{{usPhone}}</span></p>
+            <p>{{value3}}<span>{{usZoom}}</span></p>
+            <p>{{value4}}<span>{{usNo}}</span></p>
+            <button type="button" class="change" @click="changeB">修改</button>
+        </div>
+
+    </div>
+</div>
 </body>
 <script th:inline = 'javascript'>
+    var data1 = [
+        {name:'张三',phone:'1232121',zoom:'区域一',no:'0001'},
+        {name:'李四',phone:'1232122',zoom:'区域二',no:'0002'},
+        {name:'王五',phone:'1232123',zoom:'区域三',no:'0003'},
+        {name:'赵华',phone:'1232124',zoom:'区域四',no:'0004'},
+        {name:'你干嘛~',phone:'1232125',zoom:'区域五',no:'0005'},
+        {name:'张三',phone:'1232121',zoom:'区域一',no:'0005'},
+        {name:'张三',phone:'1232121',zoom:'区域一',no:'0006'},
+        {name:'张三',phone:'1232121',zoom:'区域一',no:'0007'},
+        {name:'张三',phone:'1232121',zoom:'区域一',no:'0008'},
+        {name:'张三',phone:'1232121',zoom:'区域一',no:'0009'},
+        {name:'张三',phone:'1232121',zoom:'区域一',no:'0010'},
+        {name:'张三',phone:'1232121',zoom:'区域一',no:'0011'},
+    ]
     new Vue({
         el:'.cenBox',
         data() {
             return {
-                users:[
+                users:data1,
+                supervisor:[
                     {name:'张三',phone:'1232121',zoom:'区域一',no:'0001'},
                     {name:'李四',phone:'1232122',zoom:'区域二',no:'0002'},
                     {name:'王五',phone:'1232123',zoom:'区域三',no:'0003'},
@@ -93,7 +136,7 @@
                     {name:'张三',phone:'1232121',zoom:'区域一',no:'0011'},
                 ],
                 //解开下面这个注掉users接收数据
-                // users : /*[${}]*/ {},
+                // users : /*[${}]*/,
                 usName:'',
                 usPhone:'',
                 usZoom:'',
@@ -104,6 +147,12 @@
                 dp:false,
                 dz:false,
                 dno:false,
+                angle:0,
+                shift_data:'Worker Data',
+                value1:'姓名：',
+                value2:'电  话：',
+                value3:'工作区：',
+                value4:'编  号：',
             }
         },
         mounted() {
@@ -123,7 +172,7 @@
                 if(this.usName.trim() && this.usPhone.trim() && this.usZoom.trim() && this.usNo.trim())
                 {
                     this.users.forEach(element => {
-                        if(element.no === this.dNo) 
+                        if(element.no === this.dNo)
                         {
                             element.name = this.usName
                             element.phone = this.usPhone
@@ -151,7 +200,7 @@
                 this.is_msg_show = false
             },
             Searchmsg(e){
-                if(!e.target.value.trim()) 
+                if(!e.target.value.trim())
                 {
                     alert('input can not be null')
                 }else{
@@ -162,6 +211,25 @@
             },
             huif(){
                 this.users = this.save
+            },
+            shift(){
+                if(this.shift_data === 'Worker Data')
+                {
+                    this.angle = 90.01
+                    this.shift_data = 'Supervisor Data'
+                    this.value1 = '用户名：'
+                    this.value2 = '密  码：'
+                    this.value3 = '电  话：'
+                    this.value4 = '编  号：'
+                }else{
+                    this.angle = 0
+                    this.shift_data = 'Worker Data'
+                    this.value1 = '姓  名：'
+                    this.value2 = '电  话：'
+                    this.value3 = '工作区：'
+                    this.value4 = '编  号：'
+                }
+
             }
         },
     })

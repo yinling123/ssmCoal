@@ -27,4 +27,9 @@
     <select id="checkUsername" resultType="Manager">
         select * from managers where username = #{username}
     </select>
+
+<!--    boolean updatePassword(String username, String password)-->
+    <update id="updatePassword">
+        update managers set password = #{password} where username = #{username}
+    </update>
 </mapper>

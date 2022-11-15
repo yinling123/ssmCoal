@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 /**
  * 用户功能的跳转实现
  */
+@SuppressWarnings("all")
 @RequestMapping(value = "/user")
 @Controller
 public class UserServlet {
@@ -15,45 +16,45 @@ public class UserServlet {
      * 跳转到主题外观界面
      * @return
      */
-    @RequestMapping(value = "/appearance")
+    @RequestMapping(value = "/toAppearance")
     public String toAppearance(){
-        return "/user/appearance";
+        return "user/appearance";
     }
 
     /**
      * 跳转到表格界面
      * @return
      */
-    @RequestMapping(value = "/dataChart")
+    @RequestMapping(value = "/toDataChart")
     public String toDataChart(){
-        return "/user/dataChart";
+        return "user/dataChart";
     }
 
     /**
      * 跳转到信息界面
      * @return
      */
-    @RequestMapping(value = "/information")
+    @RequestMapping(value = "/toInformation")
     public String toInformation(){
-        return "/user/information";
+        return "user/information";
     }
 
     /**
      * 跳转到监控界面
      * @return
      */
-    @RequestMapping(value = "/monitor")
+    @RequestMapping(value = "/toMonitor")
     public String toMonitor(){
-        return "/user/monitor";
+        return "user/monitor";
     }
 
     /**
      * 跳转到用户界面
      * @return
      */
-    @RequestMapping(value = "/user")
+    @RequestMapping(value = "/toUser")
     public String toUser(){
-        return "/user/user";
+        return "user/user";
     }
 
 

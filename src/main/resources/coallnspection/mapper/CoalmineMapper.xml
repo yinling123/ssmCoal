@@ -17,4 +17,9 @@
     <select id="getAccount" resultType="Integer">
         select count(*) from coalmine where datemine > DATE_SUB(NOW(),INTERVAL 1 MINUTE)
     </select>
+
+<!--    public int countArea(int index);-->
+    <select id="countArea" resultType="Integer">
+        select count(*) from coalmine where datemine > DATE_SUB(NOW(),INTERVAL 1 MINUTE) and area = #{area}
+    </select>
 </mapper>

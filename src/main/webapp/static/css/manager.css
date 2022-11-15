@@ -1,0 +1,329 @@
+html,body{
+    width: 100px;
+    height: 100px;
+    margin: 0;
+    padding: 0;
+    background-color: rgb(72, 72, 72);
+}
+
+.leftBox{
+    width: 300px;
+    height: 700px;
+    background-color: rgb(0, 0, 0);
+    border-radius: 10px;
+    position: absolute;
+    top: 30px;
+    left: 20px;
+}
+.hun{
+    height: 30px;
+}
+.leftBox >.a_bg> a{
+    display: inline-block;
+    width: 200px;
+    height: 50px;
+    margin-left: 50px;
+    text-decoration: none;
+    font-size: 25px;
+    font-weight: 600;
+    line-height: 50px;
+    text-align: center;
+    color: rgb(255, 108, 50);
+    margin-top: 30px;
+}
+
+.cenBox{
+    width: 1200px;
+    height: 700px;
+    position: absolute;
+    top: 30px;
+    left: 320px;
+    transform-style: preserve-3d;
+    perspective: 200000px;
+}
+.TopBox{
+    width: 800px;
+    height: 700px;
+    background-color: rgb(0, 0, 0);
+    position: absolute;
+    top: 0px;
+    left: 10px;
+    border-radius: 5px 5px 0px 0px;
+    border: 1px solid rgb(95, 97, 96);
+    transform: translateZ(347px);
+}
+.shift{
+    width: 300px;
+    height: 30px;
+    background-color: orangered;
+    position: absolute;
+    top: -30px;
+    left: 250px;
+    font-weight: 600;
+    line-height: 30px;
+    text-align: center;
+}
+.shift_box{
+    width: 800px;
+    height: 700px;
+    transform-style: preserve-3d;
+    transition: all .7s;
+}
+.bottom_box{
+    width: 800px;
+    height:700px;
+    background-color:black;
+    margin-left: 10px;
+    transform: translateY(347px) rotateX(-90deg);
+    border-radius: 0px 0px 5px 5px;
+}
+.huif{
+    width: 120px;
+    height: 40px;
+    color: white;
+    border: none;
+    margin: 0;
+    background-color: rgb(255, 108, 50);
+    border-radius: 10px 0px 4px 0px;
+    font-size: 17px;
+    font-weight: 700;
+    position: absolute;
+    bottom: -2px;
+    right: 0px;
+    z-index: 1;
+}
+.RightBox{
+    width: 370px;
+    height: 700px;
+    background-color: rgb(0, 0, 0);
+    border-radius: 10px;
+    position: absolute;
+    top: 0px;
+    left: 820px;
+}
+.Search{
+    width: 400px;
+    height: 40px;
+    margin-top: 20px;
+    margin-left: 200px;
+    border-radius: 20px;
+    border: 3px solid rgb(255, 130, 12);
+    outline: none;
+}
+.Message{
+    width: 700px;
+    height: 500px;
+    border: 1px solid black;
+    border-radius: 5px;
+    overflow: auto;
+    position: absolute;
+    top: 100px;
+    left: 50px;
+    background-color: rgb(39, 39, 39);
+}
+.Message::-webkit-scrollbar {
+    -webkit-appearance: none;
+}
+.Message::-webkit-scrollbar:vertical {
+    width: 10px;
+}
+.Message::-webkit-scrollbar-thumb {
+    border-radius: 8px;
+    border: 3px solid rgb(255, 75, 43);
+    background-color: rgba(255, 101, 24, 0.5);
+}
+.headBox{
+    width: 700px;
+    height: 50px;
+    position: fixed;
+    background-color: rgb(255, 83, 15);
+    color: white;
+}
+.occupy{
+    height: 50px;
+}
+.headBox > p{
+    display: inline-block;
+    width: 150px;
+    height: 30px;
+    margin-left: 15px;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 30px;
+    padding: 0;
+}
+.usList{
+    margin-top: 0px;
+    background-color: rgb(39, 39, 39);
+}
+.usList:hover{
+    background-color: rgb(171, 171, 171);
+}
+.usList > p{
+    display: inline-block;
+    width: 150px;
+    height: 50px;
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 50px;
+    margin-top: 0px;
+    margin-left: 15px;
+    color: rgb(255, 60, 26);
+}
+.usName{
+    width: 230px;
+    height: 230px;
+    border-radius: 50%;
+    margin-top: 30px;
+    background-color: rgb(196, 196, 196);
+    box-shadow: rgba(75, 75, 75, 0.674) 0 0 0 15px;
+    margin-left: 80px;
+    margin-bottom: 50px;
+    font-size: 35px;
+    font-weight: 800;
+    line-height: 250px;
+    text-align: center;
+    border: 2px solid black;
+}
+.usMsg{
+    width: 300px;
+    height: 400px;
+    margin-left: 50px;
+    margin-top: 20px;
+    border-radius: 10px;
+}
+.usMsg > p{
+    width: 300px;
+    height: 50px;
+    font-size: 25px;
+    font-weight: 600;
+    margin-top: 30px;
+    color: rgb(255, 74, 34);
+}
+.usMsg > p > span{
+    display: inline-block;
+    color: white;
+}
+.change{
+    width: 100px;
+    height: 40px;
+    font-size: 17px;
+    font-weight: 600;
+    text-align: center;
+    line-height: 10px;
+    border: none;
+    background-color: rgb(255, 111, 39);
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    border-radius: 10px 0px 8px 0px;
+    color: white;
+}
+.change:hover{
+    color: black;
+}
+ion-icon {
+    float: left;
+    margin-left: 10px;
+    margin-top: 10px;
+    font-size: 26px;
+    /* color: rgb(34, 122, 253); */
+    color:rgb(255, 108, 50);
+}
+.queRen{
+    width: 100px;
+    height: 40px;
+    display: block;
+    margin-top: 60px;
+    margin-left: 250px;
+}
+
+.bg_msg{
+    width: 1550px;
+    height: 800px;
+    position: fixed;
+    top: -30px;
+    left: -320px;
+    background-color: rgba(15, 15, 15,0.5);
+    transform: translateZ(1000px);
+}
+.showD{
+    width: 600px;
+    height: 500px;
+    background-color: white;
+    border-radius: 10px;
+    margin-left: 500px;
+    margin-top: 100px;
+    border: 1px solid white;
+}
+.showD > label{
+    display: block;
+    width: 550px;
+    height: 50px;
+    margin-top: 30px;
+    margin-left: 20px;
+}
+.showD > label > input{
+    width: 350px;
+    height: 25px;
+}
+.xiuGai{
+    width: 100px;
+    height: 40px;
+    display: block;
+    margin-top: 60px;
+    margin-left: 250px;
+}
+.close{
+    position: fixed;
+    width: 70px;
+    height: 30px;
+    top: 100px;
+    left: 1030px;
+    border-radius: 10px;
+    border: none;
+}
+.lang{
+    width: 300px;
+    height: 400px;
+    position: absolute;
+    bottom: 0;
+    background-color: rgb(255, 73, 22);
+    border-radius: 10px;
+    overflow: hidden;
+}
+.langs::before,.langs::after{
+    width: 500px;
+    height: 400px;
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: -30%;
+    border-radius: 45%;
+    transform: translate(-50%,0) rotateZ(0);
+    background-color: rgb(40, 40, 40);
+    animation: zhuan 5s linear infinite;
+}
+.langs::after{
+    top: -35%;
+    background-color: black;
+}
+@keyframes zhuan{
+    0% {
+        transform: translate(-50%,0) rotateZ(0deg);
+    }
+    50% {
+        transform: translate(-50%,2%) rotateZ(180deg);
+    }
+    100%{
+        transform: translate(-50%,0) rotateZ(360deg);
+    }
+}
+.a_bg{
+    width: 250px;
+    height: 270px;
+    background-color: white;
+    margin-left: 40px;
+    background-color: rgb(45, 45, 45);
+    border-radius: 10px 0px 0px 10px;
+}

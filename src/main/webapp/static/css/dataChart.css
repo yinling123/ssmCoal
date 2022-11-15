@@ -20,7 +20,7 @@ html,body{
     display: inline-block;
 }
 .showBox{
-    width: 1250px;
+    width: 1300px;
     height: 750px;
     background-color: var(--cen_color);
     position: absolute;
@@ -61,8 +61,9 @@ html,body{
     height: 350px;
     position: absolute;
     top: 10px;
-    left: 10px;
+    left: 25px;
     background-color: var(--comp_color);
+    border-radius: 20px;
 }
 .cenFoot{
     width: 800px;
@@ -70,8 +71,9 @@ html,body{
     display: inline-block;
     position: absolute;
     top: 370px;
-    left: 10px;
+    left: 25px;
     background-color: var(--comp_color);
+    border-radius: 20px;
 }
 .cenRight{
     width: 400px;
@@ -81,6 +83,7 @@ html,body{
     top: 10px;
     right: 20px;
     background-color: var(--comp_color);
+    border-radius: 20px;
 }
 ion-icon {
     float: left;

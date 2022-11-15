@@ -20,7 +20,7 @@ html,body{
     display: inline-block;
 }
 .showBox{
-    width: 1250px;
+    width: 1300px;
     height: 750px;
     background-color: var(--cen_color);
     position: absolute;
@@ -61,7 +61,7 @@ html,body{
     height: 200px;
     position: absolute;
     top: 10px;
-    left: 10px;
+    left: 25px;
     background-color: var(--comp_color);
     border-radius: 20px;
 }
@@ -75,7 +75,7 @@ html,body{
     margin-top: 10px;
     font-size: 30px;
     font-weight: 600;
-    color: blue;
+    color: var(--mid_color);
     line-height: 50px;
     text-align: center;
 }
@@ -90,7 +90,7 @@ html,body{
     display: inline-block;
     position: absolute;
     top: 220px;
-    left: 10px;
+    left: 25px;
     background-color: var(--comp_color);
     border-radius: 20px;
     position: relative;
@@ -112,7 +112,7 @@ html,body{
     height: 50px;
     font-size: 15px;
     font-weight: 400;
-    color: white;
+    color: var(--event_B);
     background-color: rgba(133, 159, 190, 0.3);
     margin-top: 20px;
     border-radius: 10px;  
@@ -122,10 +122,10 @@ html,body{
     width: 100px;
     height: 50px;
     border-radius: 10px 0px 0px 10px;
-    background-color: rgb(38, 0, 113);
+    background-color: var(--mid_color);
     display: inline-block;
     margin-right: 20px;
-    color: rgb(38, 0, 113);
+    color: var(--dark_color);
     text-align: center;
     line-height: 50px;
 }
@@ -152,7 +152,7 @@ html,body{
     display: inline-block;
     position: absolute;
     top: 10px;
-    right: 20px;
+    right: 50px;
     background-color: var(--comp_color);
     border-radius: 20px;
 }
@@ -193,34 +193,3 @@ ion-icon {
     text-align: center;
 }
 
-.left_b{
-    width: 40px;
-    height: 70px;
-    border-radius: 0px 10px 10px 0px;
-    position: absolute;
-    top: 100px;
-    left: 0px;
-    background: linear-gradient(
-                to right bottom,
-                rgba(255,255,255,0.3),
-                rgba(255,255,255,0.2),
-                rgba(255,255,255,0.1)
-            );
-    backdrop-filter: blur(7px);
-}
-.right_b{
-    width: 40px;
-    height: 70px;
-    border-radius: 10px 0px 0px 10px;
-    position: absolute;
-    top: 100px;
-    right: 0px;
-    background: linear-gradient(
-                to right bottom,
-                rgba(255,255,255,0.3),
-                rgba(255,255,255,0.2),
-                rgba(255,255,255,0.2)
-            );
-    backdrop-filter: blur(7px);
-    text-decoration: none;
-}

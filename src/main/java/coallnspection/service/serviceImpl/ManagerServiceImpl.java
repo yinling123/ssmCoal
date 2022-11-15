@@ -44,7 +44,7 @@ public class ManagerServiceImpl implements ManagerService {
     @Override
     public Manager checkManager(Manager manager) {
         Manager manager1 = managerMapper.selectManager(manager);
-        return manager;
+        return manager1;
     }
 
     @Override
@@ -52,4 +52,23 @@ public class ManagerServiceImpl implements ManagerService {
         List<Manager> managers = managerMapper.checkUsername(manager);
         return managers;
     }
+
+    @Override
+    public boolean updateManager(Manager manager) {
+        //先进行删除，再增加
+        int i = managerMapper.deleteManager(manager.getUsername());
+        int i1 = managerMapper.addManager(manager);
+        if(i1 > 0){
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean updatePassword(String username, String password) {
+        boolean b = managerMapper.updatePassword(username, password);
+        return b;
+    }
+
+
 }

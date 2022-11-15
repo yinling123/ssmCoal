@@ -8,78 +8,82 @@
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
     <script type="text/javascript" th:src="@{/static/js/vue.js}"></script>
-    <script type="text/javascript" th:src="@{/static/js/jquery.min.js}"></script>
-    <script th:src="@{/static/js/echarts.min.js}"></script>
-    <script th:src="@{/static/js/chalk.js}"></script>
-    <link rel="stylesheet" th:href="@{/static/css/theme1.css}">
+    <script th:src="@{/static/js/theme_change.js}"></script>
+    <!-- <script src="../importFile/chalk.js"></script>
+    <script src="../importFile/echarts.min.js"></script>
+    <script src="../importFile/jquery.min.js"></script>  -->
     <link rel="stylesheet" th:href="@{/static/css/user.css}">
 </head>
 <body>
-    <div class = 'external'>
-       <div class = 'leftBox'>
+<div class = 'external'>
+    <div class = 'leftBox'>
         <!-- 用户头像 -->
         <div class = 'toux'>
             <img th:src="@{/static/img/shui.jpg}" class = 'img_h'>
         </div>
         <!-- 切换按钮 -->
         <div>
-            <a th:href="@{/user/user}" class = 'skip' style="color: white; font-size: 25px; font-weight: 600;">
-            <ion-icon name="cube"></ion-icon>
-            用户主页</a>
-            <a th:href="@{/user/monitor}" class = 'skip'>
-            <ion-icon name="book-sharp" ></ion-icon>
-            监控画面</a>
-            <a th:href="@{/user/dataChart}" class = 'skip'>
-            <ion-icon name="bar-chart-sharp"></ion-icon>
-            数据显示</a>
-            <a th:href="@{/user/information}" class = 'skip'>
-            <ion-icon name="chatbubble-sharp"></ion-icon>
-            消息通知</a>
-            <a th:href="@{/user/appearance}" class = 'skip'>
-            <ion-icon name="settings-sharp"></ion-icon>
-            主题外观</a>
+            <a th:href="@{/user/toUser}" class = 'skip' style="color: rgb(190, 190, 190); font-size: 25px; font-weight: 600;">
+                <ion-icon name="cube"></ion-icon>
+                用户主页</a>
+            <a th:href="@{/user/toMonitor}" class = 'skip'>
+                <ion-icon name="book-sharp" ></ion-icon>
+                监控画面</a>
+            <a th:href="@{/user/toDataChart}" class = 'skip'>
+                <ion-icon name="bar-chart-sharp"></ion-icon>
+                数据显示</a>
+            <a th:href="@{/user/toInformation}" class = 'skip'>
+                <ion-icon name="chatbubble-sharp"></ion-icon>
+                消息通知</a>
+            <a th:href="@{/user/toAppearance}" class = 'skip'>
+                <ion-icon name="settings-sharp"></ion-icon>
+                主题外观</a>
         </div>
-       </div>
-        <div class = 'showBox'>
-            <div class = 'cenTop'>
-                <div class = "time">
-                    <div class = 'hour'>{{this.hour}}</div>
-                    <div class = 'minute'>:{{this.minute}}</div>
-                    <div class = 'second'>:{{this.second}}</div>
-                </div>
+    </div>
+    <div class = 'showBox'>
+        <link rel="stylesheet" th:href="'/static/css/' + theme + '.css'">
+        <div class = 'cenTop'>
+            <div class = "time">
+                <div class = 'hour'>{{hour}}</div>
+                <div class = 'minute'>:{{minute}}</div>
+                <div class = 'second'>:{{second}}</div>
             </div>
-            <div class = 'cenFoot'>
-                <input type="text" placeholder="添加今日计划" class = 'addEvent' @keyup.enter="addEvent" name="" >
-                <button class = 'left_b' @click="left_b"></button>
-                <div class="windowBox">
-                    <div class="task" :style=" 'width:'+ listWidth + 'px; transform:translateX(' + dis + 'px);'">
-                        <div v-for="blo in task" :key="blo.id" class = 't_block' @click="blo.state = true">
-                            <transition name = 'hby' :appear = 'true'>
-                                <div v-show="blo.state" class = 'eveBox'>
-                                    <div class="wancheng"  @click="wancheng(blo.id)">完成</div>
-                                    <div class="fanhui" @click.stop="blo.state = false;">返回</div>
-                                </div>
-                            </transition>
-                            {{blo.task}}
-                        </div>
+        </div>
+        <div class = 'cenFoot'>
+            <input type="text" placeholder="添加今日计划" class = 'addEvent' @keyup.enter="addEvent" name="" >
+            <button class = 'left_b' @click="left_b"></button>
+            <div class="windowBox">
+                <div class="task" :style=" 'width:'+ listWidth + 'px; transform:translateX(' + dis + 'px);'">
+                    <div v-for="blo in task" :key="blo.id" class = 't_block' @click="blo.state = true">
+                        <transition name = 'hby' :appear = 'true'>
+                            <div v-show="blo.state" class = 'eveBox'>
+                                <div class="wancheng"  @click="wancheng(blo.id)">完成</div>
+                                <div class="fanhui" @click.stop="blo.state = false;">返回</div>
+                            </div>
+                        </transition>
+                        {{blo.task}}
                     </div>
                 </div>
-                <button class = 'right_b' @click="right_b"></button>
             </div>
-            <div class = 'cenRight'>
-                <div class="clim">
-                    <div class = 'clim-cion'></div>
-                    <p>21°</p>
-                </div>
-                <div>
-                    <p style="font-size: 50px; font-weight:600; color:white; text-indent: 50px;">你好啊！</p>
-                    <p style="font-size: 50px; font-weight:600; color:white; text-indent: 50px;">万里无云</p>
-                </div>
+            <button class = 'right_b' @click="right_b"></button>
+        </div>
+        <div class = 'cenRight'>
+            <div class="clim">
+                <div class = 'clim-cion'></div>
+                <p>{{clime}}°</p>
+            </div>
+            <div class = 'tianq'>
+                <p style="font-size: 50px; font-weight:600;  text-indent: 50px;">你好啊！</p>
+                <p style="font-size: 50px; font-weight:600;  text-indent: 50px;">万里无云</p>
             </div>
         </div>
     </div>
+</div>
 </body>
 <script th:inline = 'javascript'>
+    var the = 'theme3'
+    // 温度
+    var climeData = 21
     var vm1 = new Vue({
         el:'.showBox',
         data() {
@@ -95,7 +99,9 @@
                 ],
                 dis:0,
                 listWidth:700,
-                is_show_e:false
+                is_show_e:false,
+                clime:climeData,
+                theme:the
             }
         },
         mounted() {

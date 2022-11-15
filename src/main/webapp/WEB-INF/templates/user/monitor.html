@@ -8,11 +8,11 @@
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
     <script type="text/javascript" th:src="@{/static/js/vue.js}"></script>
-    <script type="text/javascript" th:src="@{/static/js/jquery.min.js}"></script>
-    <script th:src="@{/static/js/echarts.min.js}"></script>
-    <script th:src="@{/static/js/chalk.js}"></script>
-    <link rel="stylesheet" th:href="@{/static/css/theme1.css}">
-    <link rel="stylesheet" th:href="@{/static/css/user.css}">
+    <script th:src="@{/static/js/theme_change.js}"></script>
+    <script th:src="@{/static/js/jquery.min.js}"></script>
+    <!-- <script src="./js/echarts.min.js"></script>
+    <script src="./js/chalk.js"></script> -->
+    <link rel="stylesheet" th:href="@{/static/css/monitor.css}">
 </head>
 <body>
 <div class = 'external'>
@@ -23,30 +23,32 @@
         </div>
         <!-- 切换按钮 -->
         <div>
-            <a th:href="@{/user/user}" class = 'skip'>
+            <a th:href="@{/user/toUser}" class = 'skip'>
                 <ion-icon name="cube"></ion-icon>
                 用户主页</a>
-            <a th:href="@{/user/monitor}" class = 'skip' style="color: white; font-size: 25px; font-weight: 600;">
+            <a th:href="@{/user/toMonitor}" class = 'skip' style="color: rgb(190, 190, 190); font-size: 25px; font-weight: 600;">
                 <ion-icon name="book-sharp" ></ion-icon>
                 监控画面</a>
-            <a th:href="@{/user/dataChart}" class = 'skip'>
+            <a th:href="@{/user/toDataChart}" class = 'skip'>
                 <ion-icon name="bar-chart-sharp"></ion-icon>
                 数据显示</a>
-            <a th:href="@{/user/information}" class = 'skip'>
+            <a th:href="@{/user/toInformation}" class = 'skip'>
                 <ion-icon name="chatbubble-sharp"></ion-icon>
                 消息通知</a>
-            <a th:href="@{/user/appearance}" class = 'skip'>
+            <a th:href="@{/user/toAppearance}" class = 'skip'>
                 <ion-icon name="settings-sharp"></ion-icon>
                 主题外观</a>
         </div>
     </div>
     <div class = 'showBox'>
         <div class = 'cenTop'>
+            <img id = 'mainView' style="width: 750px;height: 500px;margin-left: 25px;margin-top: 10px;">
         </div>
         <div class = 'cenFoot'>
 
         </div>
         <div class = 'cenRight'>
+            <link rel="stylesheet" :href="'../Themecss.css/' + theme + '.css'">
             <div class = 'add' @click="addDevice">添加设备</div>
             <div v-if="if_show" class = 'menus_bg'>
                 <div class = 'menus'>
@@ -61,28 +63,36 @@
                         </label>
                         <button @click="close" id = 'close_b'>关闭</button>
                         <!-- 先写成button，submit点击后会刷新页面 -->
-                        <button @click="addEvent" id = 'comit_b' type="submit">提交</button>
+                        <button @click="addEvent" id = 'comit_b' type="button">提交</button>
                     </form>
                 </div>
             </div>
-            <div v-for="ins in numb" :key="ins.id" class = 'view'><div class = 'state'>{{ins.name}} </div> </div>
+            <!-- <div v-for="ins in numb" :key="ins.id" class = 'view' ><img :id = "'hby' + ins.id" style="width: 350px;height: 220px;"> <div class = 'state'>{{ins.name}} </div> </div> -->
+
+            <div v-for="ins in numb" :key="ins.id" class = 'view' :style="'border:'+ ins.is_focus +'px solid var(--mid_color);'" @click="getFocuse(ins)">
+                <img :id="'hby' + ins.id" style="width: 350px;height: 220px;">
+                <div class = 'state'>{{ins.name}} </div>
+            </div>
         </div>
     </div>
 </div>
 </body>
 <script>
-    new Vue({
+    var the = 'theme3'
+    var deviceList = [
+        {id:'1',name:'1号区域',zoom:'1',path:'ws://localhost:5000',is_focus:'0'},
+        {id:'2',name:'2号区域',zoom:'2',path:'ws://localhost:5001',is_focus:'0'},
+        {id:'3',name:'3号区域',zoom:'3',path:'ws://localhost:5002',is_focus:'0'},
+    ]
+    var vm1 = new Vue({
         el:'.cenRight',
         data:{
             if_show:false,
             D_name:'',
             D_zoom:'',
             // 这里的数据到时候会从后端获取测试阶段先写死
-            numb:[
-                {id:'1',name:'1号区域',zoom:'1'},
-                {id:'2',name:'2号区域',zoom:'2'},
-                {id:'3',name:'3号区域',zoom:'3'},
-            ]
+            numb:deviceList,
+            theme:the
         },
         methods: {
             addDevice(){
@@ -99,8 +109,90 @@
                     this.numb.unshift(ele)
                     this.if_show = false
                 }
+            },
+            getFocuse(e){
+                this.numb.forEach(element => {
+                    if(element.id  === e.id){
+                        element.is_focus = 5
+                    }else{
+                        element.is_focus = 0
+                    }
+                });
+                mainViewChange(e.path)
             }
         },
     })
+    // var img1 = document.getElementById('hby1')
+    // var img2 = document.getElementById('hby2')
+    // var img3 = document.getElementById('hby3')
+    // var img4 = document.getElementById('mianView')
+    // //实例化
+    // let ws = new WebSocket('ws://localhost:5000')
+    // //链接成功后
+    // ws.onopen = function(evt){
+    //   ws.send('连接成功')
+    // }
+    // //传递和接收信息
+    // ws.onmessage = function(evt){
+    //   img1.src = evt.data
+    //   img2.src = evt.data
+    //   img3.src = evt.data
+    // //   img4.src = evt.data
+    // }
+    var img1 = document.getElementById('hby1')
+    var img2 = document.getElementById('hby2')
+    var img3 = document.getElementById('hby3')
+    var img4 = document.getElementById('mainView')
+    //实例化
+    let ws = new WebSocket(vm1.numb[0].path)
+    //链接成功后
+    ws.onopen = function(evt){
+        ws.send('连接成功0')
+    }
+    //传递和接收信息
+    ws.onmessage = function(evt){
+        img1.src = evt.data
+    }
+    //实例化
+    let ws1 = new WebSocket('ws://localhost:5001')
+    //链接成功后
+    ws1.onopen = function(evt){
+        ws1.send('连接成功1')
+    }
+    //传递和接收信息
+    ws1.onmessage = function(evt){
+        img1.src = evt.data
+    }
+    //实例化
+    let ws2 = new WebSocket('ws://localhost:5002')
+    //链接成功后
+    ws2.onopen = function(evt){
+        ws2.send('连接成功2')
+    }
+    //传递和接收信息
+    ws2.onmessage = function(evt){
+        img3.src = evt.data
+    }
+    // 实例化
+    let ws3 = new WebSocket('ws://localhost:5003')
+    //链接成功后
+    ws3.onopen = function(evt){
+        ws3.send('连接成功3')
+    }
+    //传递和接收信息
+    ws3.onmessage = function(evt){
+        img4.src = evt.data
+    }
+    function mainViewChange(e_Path){
+        let ws3 = new WebSocket(e_Path)
+        //链接成功后
+        ws3.onopen = function(evt){
+            ws3.send('连接成功3')
+        }
+        //传递和接收信息
+        ws3.onmessage = function(evt){
+            img4.src = evt.data
+        }
+    }
 </script>
 </html>

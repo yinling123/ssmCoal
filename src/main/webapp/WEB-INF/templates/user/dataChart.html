@@ -8,14 +8,17 @@
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
     <script type="text/javascript" th:src="@{/static/js/vue.js}"></script>
-    <script type="text/javascript" th:src="@{/static/js/jquery.min.js}"></script>
+    <script th:src="@{/static/js/theme_change.js}"></script>
+    <script th:src="@{/static/js/jquery.min.js}"></script>
     <script th:src="@{/static/js/echarts.min.js}"></script>
-    <script th:src="@{/static/js/chalk.js}"></script>
-    <link rel="stylesheet" th:href="@{/static/css/theme1.css}">
-    <link rel="stylesheet" th:href="@{/static/css/user.css}">
+    <script th:src="@{/static/js/chalk1.js}"></script>
+    <link rel="stylesheet" th:href="@{/static/css/dataChart.css}">
 </head>
 <body>
 <div class = 'external'>
+    <div id = 'boxx'>
+        <link rel="stylesheet" th:href="'/static/css/' + theme + '.css'">
+    </div>
     <div class = 'leftBox'>
         <!-- 用户头像 -->
         <div class = 'toux'>
@@ -23,40 +26,80 @@
         </div>
         <!-- 切换按钮 -->
         <div>
-            <a th:href="@{/user/user}" class = 'skip'>
+            <a th:href="@{/user/toUser}" class = 'skip'>
                 <ion-icon name="cube"></ion-icon>
                 用户主页</a>
-            <a th:href="@{/user/monitor}" class = 'skip'>
+            <a th:href="@{/user/toMonitor}" class = 'skip'>
                 <ion-icon name="book-sharp" ></ion-icon>
                 监控画面</a>
-            <a th:href="@{/user/dataChart}" class = 'skip' style="color: white; font-size: 25px; font-weight: 600;">
+            <a th:href="@{/user/toDataChart}" class = 'skip' style="color: rgb(190, 190, 190); font-size: 25px; font-weight: 600;">
                 <ion-icon name="bar-chart-sharp"></ion-icon>
                 数据显示</a>
-            <a th:href="@{/user/information}" class = 'skip'>
+            <a th:href="@{/user/toInformation}" class = 'skip' >
                 <ion-icon name="chatbubble-sharp"></ion-icon>
                 消息通知</a>
-            <a th:href="@{/user/appearance}" class = 'skip'>
+            <a th:href="@{/user/toAppearance}" class = 'skip'>
                 <ion-icon name="settings-sharp"></ion-icon>
                 主题外观</a>
         </div>
     </div>
-       <div class = 'showBox' id = "fir">
+    <div class = 'showBox' id = "fir">
         <div id = 'two'>
-           <div class = 'cenTop'>
-           </div>
+            <div class = 'cenTop'>
+            </div>
         </div>
-           <div class = 'cenFoot'>
-           </div>
-         <div class= "thr">
-           <div class = 'cenRight'>
-           </div>
-         </div>
-         
-       </div>
+        <div class = 'cenFoot'>
+        </div>
+        <div class= "thr">
+            <div class = 'cenRight'>
+            </div>
+        </div>
+
     </div>
+</div>
 </body>
-    <script th:inline = 'javascript'>
-        var vm1 = new Vue({
+<script th:inline = 'javascript'>
+    var the = 'theme1'
+    // 中间下面那个x轴值
+    var dataList1 = ['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15']
+    // y轴
+    var dataList2 = ['72','90','87','75','63','52','98','41','32','49','54','63','74','66','31']
+    // 中间上面x轴
+    var dataList3 = ['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15']
+    // y轴
+    var dataList4 = ['72','90','87','75','63','52','98','41','32','49','54','63','74','66','31']
+    // 饼图
+    var dataList5 = [
+        {value:235, name:'1'},
+        {value:274, name:'2'},
+    ]
+    var chalkNum = ''
+    var c1 = ''
+    var c2 = ''
+    if(the === 'theme1'){
+        c1 = theme.theme1.color1
+        c2 = theme.theme1.color2
+        chalkNum = 'chalk1'
+    }else if(the === 'theme2'){
+        c1 = theme.theme2.color1
+        c2 = theme.theme2.color2
+        chalkNum = 'chalk2'
+    }else{
+        c1 = theme.theme3.color1
+        c2 = theme.theme3.color2
+        chalkNum = 'chalk3'
+    }
+    var vm0 = new Vue({
+        el:'#boxx',
+        data(){
+            return{
+                theme:the,
+
+            }
+        },
+    })
+
+    var vm1 = new Vue({
         el:'#fir',
         data:{
             return : {
@@ -64,20 +107,24 @@
                 startValue:0,
                 endValue:7,
                 timeId:null,
+                color1:'',
+                color2:''
             }
         },
         mounted() {
+            this.color1 = c1
+            this.color2 = c2
             this.initChart()
             this.updateChart()
             this.startInterval()
+
         },
         destroyed(){
             clearInterval(this.timeId)
-            console.log(123)
         },
         methods:{
             initChart(){
-                this.initChart = echarts.init(document.querySelector('.cenFoot'),'chalk')
+                this.initChart = echarts.init(document.querySelector('.cenFoot'),chalkNum)
                 this.startValue = 0
                 this.endValue = 7
                 var option = {
@@ -89,22 +136,22 @@
                     },
                     barWidth:40,
                     label: {
-                    show : true,
-                    position : 'top',
-                    textStyle :{
-                    color:'white'
-                     }
+                        show : true,
+                        position : 'top',
+                        textStyle :{
+                            color:'white'
+                        }
                     },
                     tooltip:{
-                    trigger:'axis',
-                    axisPointer:{
-                    type: 'line',
-                    z: 0,
-                    lineStyle: {
-                        width:40,
-                        color:'#2D3443'
-                    }
-                    }
+                        trigger:'axis',
+                        axisPointer:{
+                            type: 'line',
+                            z: 0,
+                            lineStyle: {
+                                width:40,
+                                color:'#2D3443'
+                            }
+                        }
                     },
                     series :[{
                         type:'bar',
@@ -118,12 +165,12 @@
                                 y2: 1,
                                 colorStops: [
                                     {
-                                    offset: 0,
-                                    color:'#5052EE'
+                                        offset: 0,
+                                        color:this.color1
                                     },
                                     {
-                                    offset: 1,
-                                    color:'#AB6EE5'
+                                        offset: 1,
+                                        color:this.color2
                                     }
                                 ]
 
@@ -136,7 +183,7 @@
             updateChart(){
                 const dataOption = {
                     xAxis:{
-                        data:['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15'],
+                        data:dataList1,
                     },
                     dataZoom:{
                         show:false,
@@ -145,7 +192,7 @@
                     },
                     series:[
                         {
-                            data:['72','90','87','75','63','52','98','41','32','49','54','63','74','66','31'],
+                            data:dataList2,
                         },
                     ]
                 }
@@ -153,165 +200,166 @@
             },
             startInterval () {
                 this.timeId = setInterval(() => {
-                this.startValue ++
-                this.endValue ++
-                if (this.endValue > 14){
-                this.startValue = 0,
-                this.endValue = 7
-                }
-                console.log(this.endValue)
-                this.updateChart()
-            },1000)
-        }
-            
+                    this.startValue ++
+                    this.endValue ++
+                    if (this.endValue > 14){
+                        this.startValue = 0,
+                            this.endValue = 7
+                    }
+                    this.updateChart()
+                },1000)
+            }
+
         },
-        
+
     })
-        var vm2 = new Vue({
-            el:'#two',
-            data:{
-                return : {
-                    initChart:null,
-                    currentPage:1,
-                    totPage:3,
-                    timeId:null,
-                    xdata:null,
-                    ydata:null,
-                    xd:null,
-                    yd:null
-                }
-            },
-            mounted() {
-                this.initChart()
-                this.updateChart()
-                this.startInterval()
-            },
-            destroyed(){
-                clearInterval(this.timeId)
-                console.log(123)
-            },
-            methods:{
-                initChart(){
-                    this.initChart = echarts.init(document.querySelector('.cenTop'),'chalk')
-                    this.xdata = ['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15']
-                    this.ydata = ['72','90','87','75','63','52','98','41','32','49','54','63','74','66','31']
-                    this.currentPage = 1
-                    var option = {
-                        xAxis :{
-                            type:'value',
-                        },
-                        yAxis :{
-                            type:'category',
-                        },
-                        barWidth:30,
-                        label: {
+    console.log(vm1.color1)
+    var vm2 = new Vue({
+        el:'#two',
+        data:{
+            return : {
+                initChart:null,
+                currentPage:1,
+                totPage:3,
+                timeId:null,
+                xdata:null,
+                ydata:null,
+                xd:null,
+                yd:null,
+                color1:'',
+                color2:''
+            }
+        },
+        mounted() {
+            this.color1 = c1
+            this.color2 = c2
+            this.initChart()
+            this.updateChart()
+            this.startInterval()
+        },
+        destroyed(){
+            clearInterval(this.timeId)
+        },
+        methods:{
+            initChart(){
+                this.initChart = echarts.init(document.querySelector('.cenTop'),chalkNum)
+                this.xdata = dataList3
+                this.ydata = dataList4
+                this.currentPage = 1
+                var option = {
+                    xAxis :{
+                        type:'value',
+                    },
+                    yAxis :{
+                        type:'category',
+                    },
+                    barWidth:30,
+                    label: {
                         show : true,
                         position : 'right',
                         textStyle :{
-                        color:'white'
+                            color:'white'
                         }
-                        },
-                        tooltip:{
+                    },
+                    tooltip:{
                         trigger:'axis',
                         axisPointer:{
-                        type: 'line',
-                        z: 0,
-                        lineStyle: {
-                            width:40,
-                            color:'#2D3443'
-                        }
-                        }
-                        },
-                        series :[{
-                            type:'bar',
-                            itemStyle: {
-                                barBorderRadius:[0,10,10,0],
-                                color: {
-                                    type: 'linear', // 线性渐变
-                                    x: 0,
-                                    y: 0,
-                                    x2: 1,
-                                    y2: 0,
-                                    colorStops: [
-                                        {
-                                        offset: 0,
-                                        color:'#5052EE'
-                                        },
-                                        {
-                                        offset: 1,
-                                        color:'#AB6EE5'
-                                        }
-                                    ]
-
-                                }
+                            type: 'line',
+                            z: 0,
+                            lineStyle: {
+                                width:40,
+                                color:'#2D3443'
                             }
-                        }]
-                    }
-                    this.initChart.setOption(option)
-                },
-                updateChart(){
-                    const start = (this.currentPage - 1) * 5
-                    const end = this.currentPage * 5
-                    xdata = this.xdata.slice(start,end)
-                    ydata = this.ydata.slice(start,end)
-                    const dataOption = {
-                        yAxis:{
-                            data:xdata
+                        }
+                    },
+                    series :[{
+                        type:'bar',
+                        itemStyle: {
+                            barBorderRadius:[0,10,10,0],
+                            color: {
+                                type: 'linear', // 线性渐变
+                                x: 0,
+                                y: 0,
+                                x2: 1,
+                                y2: 0,
+                                colorStops: [
+                                    {
+                                        offset: 0,
+                                        color:this.color1
+                                    },
+                                    {
+                                        offset: 1,
+                                        color:this.color2
+                                    }
+                                ]
+
+                            }
+                        }
+                    }]
+                }
+                this.initChart.setOption(option)
+            },
+            updateChart(){
+                const start = (this.currentPage - 1) * 5
+                const end = this.currentPage * 5
+                xdata = this.xdata.slice(start,end)
+                ydata = this.ydata.slice(start,end)
+                const dataOption = {
+                    yAxis:{
+                        data:xdata
+                    },
+                    series:[
+                        {
+                            data:ydata
                         },
-                        series:[
-                            {
-                                data:ydata
-                            },
-                        ]
-                    }
-                    this.initChart.setOption(dataOption)
-                },
-                startInterval () {
-                    this.timeId = setInterval(() => {
+                    ]
+                }
+                this.initChart.setOption(dataOption)
+            },
+            startInterval () {
+                this.timeId = setInterval(() => {
                     this.currentPage++
                     if (this.currentPage > 3){
-                    this.currentPage = 1
+                        this.currentPage = 1
                     }
                     this.updateChart()
                 },3000)
             }
-                
-            },
-            
-        })
-        var vm3 = new Vue({
-            el:'#thr',
-            data:{
-                return : {
-                    initChart:null
+
+        },
+
+    })
+    var vm3 = new Vue({
+        el:'.thr',
+        data:{
+            return : {
+                initChart:null,
+                color1:'',
+                color2:''
+            }
+        },
+        mounted() {
+            this.color1 = '#5052EE'
+            this.color2 = '#AB6EE5'
+            this.initChart()
+        },
+        methods:{
+            initChart(){
+                this.initChart = echarts.init(document.querySelector('.cenRight'),chalkNum)
+                var option = {
+                    series:[
+                        {
+                            type: 'pie',
+                            data:dataList5
+                        }
+                    ],
+                    color:[c1,c2]
                 }
+                this.initChart.setOption(option)
             },
-            mounted() {
-                this.initChart()
-            },
-            methods:{
-                initChart(){
-                    this.initChart = echarts.init(document.querySelector('.cenRight'),'chalk')
-                    var option = {
-                        series:[
-                            {
-                                type: 'pie',
-                                data:[
-                                {value:235, name:'1'},
-                                {value:274, name:'2'},
-                                {value:310, name:'3'},
-                                {value:335, name:'4'},
-                                {value:400, name:'5'}
-                                ]
-                            }
-                        ],
-                        color:['#5052EE','#4d258e','#8d4dca','#8d4dca','#AB6EE5']
-                    }
-                    this.initChart.setOption(option)
-                },
-                
-            },
-            
-        })
-    </script>
+
+        },
+
+    })
+</script>
 </html>

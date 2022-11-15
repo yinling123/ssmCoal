@@ -20,7 +20,7 @@ html,body{
     display: inline-block;
 }
 .showBox{
-    width: 1250px;
+    width: 1300px;
     height: 750px;
     background-color: var(--cen_color);
     position: absolute;
@@ -61,7 +61,7 @@ html,body{
     height: 300px;
     position: absolute;
     top: 10px;
-    left: 10px;
+    left: 25px;
     background-color: var(--comp_color);
     border-radius: 20px;
 }
@@ -71,7 +71,7 @@ html,body{
     display: inline-block;
     position: absolute;
     top: 320px;
-    left: 10px;
+    left: 25px;
     background-color: var(--comp_color);
     border-radius: 20px;
 }
@@ -102,9 +102,9 @@ ion-icon {
     border-radius: 20px;
     background: linear-gradient(
                 to right bottom,
-                rgba(255,255,255,0.3),
-                rgba(255,255,255,0.2),
-                rgba(255,255,255,0.1)
+                var(--time_bg1),
+                var(--time_bg2),
+                var(--time_bg3)
             );
     backdrop-filter: blur(7px);
 }
@@ -115,7 +115,7 @@ ion-icon {
     top: 0px;
     left: 10px;
     border-radius: 20px;
-    color: rgb(161, 185, 253);
+    color: var(--hour_color);
     font-size: 110px;
     font-weight: 600;
     line-height: 220px;
@@ -128,7 +128,7 @@ ion-icon {
     top: 0px;
     left: 230px;
     border-radius: 20px;
-    color: rgb(161, 185, 253);
+    color: var(--minute_color);
     font-size: 110px;
     font-weight: 600;
     line-height: 220px;
@@ -141,7 +141,7 @@ ion-icon {
     top: 0px;
     left: 460px;
     border-radius: 20px;
-    color: rgb(187, 205, 255);
+    color: var(--second_color);
     font-size: 110px;
     font-weight: 600;
     line-height: 220px;
@@ -151,7 +151,7 @@ ion-icon {
     width: 400px;
     height: 50px;
     border-radius: 20px;
-    border: 3px solid rgb(0, 86, 245);
+    border: 3px solid var(--word_color);
     position: absolute;
     top: 20px;
     left: 200px;
@@ -186,9 +186,9 @@ ion-icon {
     border-radius: 20px;
     background: linear-gradient(
             to right bottom,
-            rgba(46, 60, 217, 0.9),
-            rgba(96, 46, 205, 0.7),
-            rgba(139, 31, 189, 0.6)
+            var(--event_block1),
+            var(--event_block2),
+            var(--event_block3)
         );
     color: white;
     font-size: 30px;
@@ -216,13 +216,8 @@ ion-icon {
     position: absolute;
     top: 180px;
     left: 0px;
-    background: linear-gradient(
-                to right bottom,
-                rgba(255,255,255,0.3),
-                rgba(255,255,255,0.2),
-                rgba(255,255,255,0.1)
-            );
-    backdrop-filter: blur(7px);
+    background-color: var(--change_color1);
+    border: none;
 }
 .right_b{
     width: 40px;
@@ -231,14 +226,9 @@ ion-icon {
     position: absolute;
     top: 180px;
     right: 0px;
-    background: linear-gradient(
-                to right bottom,
-                rgba(255,255,255,0.3),
-                rgba(255,255,255,0.2),
-                rgba(255,255,255,0.2)
-            );
-    backdrop-filter: blur(7px);
+    background-color: var(--change_color1);
     text-decoration: none;
+    border: none;
 }
 .clim{
     width: 350px;
@@ -246,14 +236,14 @@ ion-icon {
     margin: 20px auto;
     font-size: 100px; 
     font-weight:600; 
-    color:white;
-    background-color: rgba(250, 235, 215, 0.1);
+    background-color: var(--wend_bg);
     border-radius: 20px;
     text-indent: 50px;
 }
 .clim > p{
     margin: 0;
     padding: 0;
+    color:var(--wend_color)
 }
 .clim-cion{
     width: 100px;
@@ -265,6 +255,9 @@ ion-icon {
     top: 20px;
     left: 200px;
     margin-bottom: 40px;
+}
+.tianq > p{
+    color:var(--tianq_block);
 }
 .eveBox{
     width: 100%;
