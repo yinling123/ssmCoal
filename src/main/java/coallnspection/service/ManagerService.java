@@ -47,5 +47,5 @@ public interface ManagerService {
      */
     public boolean updateManager(Manager manager);
 
-    public boolean updatePassword(String username, String password);
+    public boolean updatePassword(String username, String oldPassword, String newPassword);
 }

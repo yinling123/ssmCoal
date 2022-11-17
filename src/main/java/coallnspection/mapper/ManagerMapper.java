@@ -28,5 +28,5 @@ public interface ManagerMapper {
     public List<Manager> checkUsername(Manager manager);
 
     //修改管理员密码
-    public boolean updatePassword(@Param("username") String username, @Param("password") String password);
+    public boolean updatePassword(@Param("username") String username, @Param("oldPassword") String oldPassword, @Param("password") String newPassword);
 }

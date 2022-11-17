@@ -30,6 +30,6 @@
 
 <!--    boolean updatePassword(String username, String password)-->
     <update id="updatePassword">
-        update managers set password = #{password} where username = #{username}
+        update managers set password = #{newPassword} where username = #{username} and password = #{oldPassword}
     </update>
 </mapper>

@@ -1,8 +1,12 @@
 package coallnspection.servlet;
 
+import coallnspection.service.WeatherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.jws.WebParam;
 
 /**
  * 用户功能的跳转实现
@@ -12,12 +16,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class UserServlet {
 
+    @Autowired
+    WeatherService weatherService;
+
     /**
      * 跳转到主题外观界面
      * @return
      */
     @RequestMapping(value = "/toAppearance")
-    public String toAppearance(){
+    public String toAppearance(Model model){
+        model.addAttribute("themes", "theme2.css");
         return "user/appearance";
     }
 
@@ -53,7 +61,10 @@ public class UserServlet {
      * @return
      */
     @RequestMapping(value = "/toUser")
-    public String toUser(){
+    public String toUser(Model model){
+        //获取当前的气温
+        String temperature = weatherService.getTemperature();
+        model.addAttribute("temperature", temperature);
         return "user/user";
     }
 

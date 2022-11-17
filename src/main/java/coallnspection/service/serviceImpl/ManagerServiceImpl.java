@@ -65,8 +65,8 @@ public class ManagerServiceImpl implements ManagerService {
     }
 
     @Override
-    public boolean updatePassword(String username, String password) {
-        boolean b = managerMapper.updatePassword(username, password);
+    public boolean updatePassword(String username, String oldPassword, String newPassword) {
+        boolean b = managerMapper.updatePassword(username, oldPassword, newPassword);
         return b;
     }
 

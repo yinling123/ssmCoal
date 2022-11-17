@@ -163,10 +163,10 @@ public class LoginServlet {
         }
 
         if(userService.signUp(new User(username,password,phone))){
-            model.addAttribute("error","用户已经存在");
+            model.addAttribute("error","注册成功");
             return "login/login";
         }else{
-            model.addAttribute("error","登录成功");
+            model.addAttribute("error","注册失败");
             return "redirect:login/register";
         }
     }

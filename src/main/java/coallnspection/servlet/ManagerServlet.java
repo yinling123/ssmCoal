@@ -161,12 +161,15 @@ public class ManagerServlet {
     public String updatePassword(String oldPassword, String rePassword, String newPassword, HttpServletRequest request, Model model){
         //获取当前用户名
         String username = (String)request.getSession().getAttribute("username");
+        System.out.println(username);
         //进行密码修改
-        boolean b = managerService.updatePassword(username, newPassword);
+        boolean b = managerService.updatePassword(username, oldPassword, newPassword);
         //如果修改成功
         if(b){
+            model.addAttribute("error", "修改成功");
             return "redirect:/toAccount";
         }else{
+            model.addAttribute("error", "原密码错误");
             return "manager/account";
         }
     }

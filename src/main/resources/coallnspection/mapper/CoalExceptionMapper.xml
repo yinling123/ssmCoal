@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="coallnspection.mapper.CoalExceptionMapper">
+
+<!--    public List<CoalException> selectAll()-->
+    <select id="selectAll" resultType="coalException">
+        select * from coalException
+    </select>
+
+<!--    public int updateCoalException(int id);-->
+    <update id="updateCoalException">
+        update coalException set `state` = 1 - `state` where id = #{id}
+    </update>
+
+<!--    int addCoalException(CoalException coalException)-->
+    <insert id="addCoalException" useGeneratedKeys="true">
+        insert into coalException values(null, #{state}, #{time}, #{content})
+    </insert>
+
+<!--    int deleteCoalException(int id);-->
+    <delete id="deleteCoalException">
+        delete from coalException where id = #{id}
+    </delete>
+
+<!--    int deleteAllCoalException()-->
+    <delete id="deleteAllCoalException">
+        delete * from coalException
+    </delete>
+</mapper>

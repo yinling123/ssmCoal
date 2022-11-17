@@ -83,7 +83,7 @@
 <script th:inline = 'javascript'>
     var the = 'theme3'
     // 温度
-    var climeData = 21
+    var climeData = '[[${temperature}]]'
     var vm1 = new Vue({
         el:'.showBox',
         data() {
