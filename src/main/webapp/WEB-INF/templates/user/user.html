@@ -13,6 +13,7 @@
     <script src="../importFile/echarts.min.js"></script>
     <script src="../importFile/jquery.min.js"></script>  -->
     <link rel="stylesheet" th:href="@{/static/css/user.css}">
+    <link rel="stylesheet" th:href="@{/static/css/theme1.css}">
 </head>
 <body>
 <div class = 'external'>
@@ -41,7 +42,6 @@
         </div>
     </div>
     <div class = 'showBox'>
-        <link rel="stylesheet" th:href="'/static/css/' + theme + '.css'">
         <div class = 'cenTop'>
             <div class = "time">
                 <div class = 'hour'>{{hour}}</div>
@@ -70,7 +70,8 @@
         <div class = 'cenRight'>
             <div class="clim">
                 <div class = 'clim-cion'></div>
-                <p>{{clime}}°</p>
+                <p> <span>低温 :</span>{{v_l_temp}}°</p>
+                <p> <span>高温 :</span>{{v_h_temp}}°</p>
             </div>
             <div class = 'tianq'>
                 <p style="font-size: 50px; font-weight:600;  text-indent: 50px;">你好啊！</p>
@@ -81,9 +82,12 @@
 </div>
 </body>
 <script th:inline = 'javascript'>
-    var the = 'theme3'
-    // 温度
-    var climeData = '[[${temperature}]]'
+    //低温
+    var l_temp = '[[${minTemperature}]]'
+    //高温
+    var h_temp = '[[${maxTemperature}]]'
+    // var l_temp = '[[${temperature}]]'
+    // var h_temp = '[[${temperature}]]'
     var vm1 = new Vue({
         el:'.showBox',
         data() {
@@ -100,8 +104,8 @@
                 dis:0,
                 listWidth:700,
                 is_show_e:false,
-                clime:climeData,
-                theme:the
+                v_l_temp:l_temp,
+                v_h_temp:h_temp,
             }
         },
         mounted() {

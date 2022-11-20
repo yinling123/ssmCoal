@@ -5,13 +5,18 @@
 <mapper namespace="coallnspection.mapper.CoalExceptionMapper">
 
 <!--    public List<CoalException> selectAll()-->
-    <select id="selectAll" resultType="coalException">
-        select * from coalException
+    <select id="selectUnfinished" resultType="coalException">
+        select * from coalException where `state` = 1
+    </select>
+
+<!--    List<CoalException> selectFinished-->
+    <select id="selectFinished" resultType="coalException">
+        select * from coalException where `state` = 0
     </select>
 
 <!--    public int updateCoalException(int id);-->
     <update id="updateCoalException">
-        update coalException set `state` = 1 - `state` where id = #{id}
+        update coalException set `state` = 0 where id = #{id}
     </update>
 
 <!--    int addCoalException(CoalException coalException)-->

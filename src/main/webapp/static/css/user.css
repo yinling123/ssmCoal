@@ -92,7 +92,7 @@ ion-icon {
     font-size: 24px;
     /* color: rgb(34, 122, 253); */
     color: var(--word_color);
-  }
+}
 .time{
     width: 750px;
     height: 250px;
@@ -101,11 +101,11 @@ ion-icon {
     left: 30px;
     border-radius: 20px;
     background: linear-gradient(
-                to right bottom,
-                var(--time_bg1),
-                var(--time_bg2),
-                var(--time_bg3)
-            );
+            to right bottom,
+            var(--time_bg1),
+            var(--time_bg2),
+            var(--time_bg3)
+    );
     backdrop-filter: blur(7px);
 }
 .hour{
@@ -189,7 +189,7 @@ ion-icon {
             var(--event_block1),
             var(--event_block2),
             var(--event_block3)
-        );
+    );
     color: white;
     font-size: 30px;
     font-weight: 500;
@@ -232,10 +232,10 @@ ion-icon {
 }
 .clim{
     width: 350px;
-    height: 300px;
+    height: 450px;
     margin: 20px auto;
-    font-size: 100px; 
-    font-weight:600; 
+    font-size: 90px;
+    font-weight:600;
     background-color: var(--wend_bg);
     border-radius: 20px;
     text-indent: 50px;
@@ -243,7 +243,13 @@ ion-icon {
 .clim > p{
     margin: 0;
     padding: 0;
-    color:var(--wend_color)
+    color:var(--second_color);
+}
+.clim > p > span{
+    font-size: 50px;
+    font-weight: 500;
+    color: white;
+    margin-right: 20px;
 }
 .clim-cion{
     width: 100px;
@@ -267,25 +273,25 @@ ion-icon {
 }
 .hby-enter-active{
     animation: lai 0.2s ;
-  }
+}
 .hby-leave-active{
     animation: hui 0.2s linear;
-} 
+}
 @keyframes lai{
     0%{
-         height:0px;
-      }
+        height:0px;
+    }
     100%{
         height: 100%;
-      }
+    }
 }
 @keyframes hui{
     0%{
-         height:100%;
-      }
+        height:100%;
+    }
     100%{
         height: 0px;
-      }
+    }
 }
 .wancheng{
     width: 100%;

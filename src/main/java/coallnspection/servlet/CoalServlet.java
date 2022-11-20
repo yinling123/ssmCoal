@@ -26,7 +26,7 @@ public class CoalServlet {
      * 获取各个四个区域各自的变化值
      * @return
      */
-    @RequestMapping(value = "/coal/ajax")
+    @RequestMapping(value = "/ajax")
     @ResponseBody
     public Map<Integer,Integer> accountArea(){
         Map<Integer, Integer> map = new HashMap<>();

@@ -84,7 +84,7 @@ html,body{
     right: 20px;
     background-color: var(--comp_color);
 }
-ion-icon {
+.LeftBox > ion-icon {
     float: left;
     margin-left: 30px;
     margin-top: 20px;
@@ -207,4 +207,17 @@ label{
     border: 1px solid var(--mid_color);
     background-color: rgb(6, 6, 32);
     color: white;
+}
+.start{
+    float: right;
+    width: 60px;
+    height: 50px;
+    color: white;
+    line-height: 50px;
+    text-align: center;
+    font-size: 25px;
+    background-color: var(--dark_color);
+    border: none;
+    margin-left: 1px;
+    outline-style: none;
 }

@@ -25,8 +25,8 @@ public interface ManagerMapper {
     public Manager selectManager(Manager manager);
 
     //查看管理员用户名是否存在
-    public List<Manager> checkUsername(Manager manager);
+    public Manager checkUsername(String username);
 
     //修改管理员密码
-    public boolean updatePassword(@Param("username") String username, @Param("oldPassword") String oldPassword, @Param("password") String newPassword);
+    public boolean updatePassword(@Param("username") String username, @Param("oldPassword") String oldPassword, @Param("newPassword") String newPassword);
 }

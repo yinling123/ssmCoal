@@ -48,8 +48,8 @@ public class ManagerServiceImpl implements ManagerService {
     }
 
     @Override
-    public List<Manager> checkUsername(Manager manager) {
-        List<Manager> managers = managerMapper.checkUsername(manager);
+    public Manager checkUsername(String username) {
+        Manager managers = managerMapper.checkUsername(username);
         return managers;
     }
 

@@ -10,10 +10,16 @@ import java.util.List;
 public interface CoalExceptionMapper {
 
     /**
-     * 查询所有异常的信息
+     * 查询所有未解决的异常信息
      * @return
      */
-    public List<CoalException> selectAll();
+    public List<CoalException> selectUnfinished();
+
+    /**
+     * 查询已经解决的异常信息
+     * @return
+     */
+    public List<CoalException> selectFinished();
 
     /**
      * 更新当前煤块的状态

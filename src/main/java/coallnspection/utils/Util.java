@@ -13,7 +13,9 @@ import java.awt.image.BufferedImage;
 import java.io.*;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 /**
  * @author hyb
@@ -71,8 +73,9 @@ public class Util {
      */
 
     public static Timestamp getCurrentTime(int ts){
+        // 获取当前时间
         Date date = new Date();
-        date.setTime(ts);
+        date.setTime(date.getTime() + ts);
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String format = simpleDateFormat.format(date);
         return new Timestamp(date.getTime());

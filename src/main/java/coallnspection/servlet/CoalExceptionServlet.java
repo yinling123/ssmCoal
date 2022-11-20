@@ -4,6 +4,7 @@ import coallnspection.pojo.CoalException;
 import coallnspection.service.CoalExceptionService;
 import com.alibaba.fastjson.JSON;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -13,6 +14,7 @@ import java.util.List;
  * 进行异常信息的操作
  */
 
+@Controller
 @RequestMapping(value = "/coalException")
 public class CoalExceptionServlet {
 
@@ -23,13 +25,37 @@ public class CoalExceptionServlet {
      * 查询信息结果
      * @return
      */
-    @RequestMapping(value = "/selectAll")
-    public String selectAll(Model model){
+    @RequestMapping(value = "/selectUnfinished")
+    public String selectUnfinished(Model model){
         //查询对用的结果
-        List<CoalException> coalExceptions = coalExceptionService.selectAll();
+        List<CoalException> coalExceptions = coalExceptionService.selectUnfinished();
         String string = JSON.toJSONString(coalExceptions);
-        model.addAttribute("coalExceptions", string);
-        return "";
+        model.addAttribute("unfinished", string);
+        return "user/information";
     }
+
+    /**
+     * 查询所有被解决的值
+     * @return
+     */
+    @RequestMapping(value = "/selectFinished")
+    public String selectFinished(Model model){
+        List<CoalException> coalExceptions = coalExceptionService.selectFinished();
+        String string = JSON.toJSONString(coalExceptions);
+        model.addAttribute("finished", string);
+        return "user/information";
+    }
+
+    /**
+     * 解决已经处理的请求
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "/updateException")
+    public String updateException(String id){
+        int i = coalExceptionService.updateCoalException(Integer.parseInt(id));
+        return "redirect:user/selectFinished";
+    }
+
 
 }

@@ -10,10 +10,16 @@ import java.util.List;
 public interface CoalExceptionService {
 
     /**
-     * 查询coalException表
+     * 查询coalException表中未被处理的数据
      * @return
      */
-    public List<CoalException> selectAll();
+    public List<CoalException> selectUnfinished();
+
+    /**
+     * 查询已经处理完的
+     * @return
+     */
+    public List<CoalException> selectFinished();
 
     /**
      * 更新对应的状态

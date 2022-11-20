@@ -1,6 +1,7 @@
 import coallnspection.mapper.*;
 import coallnspection.pojo.*;
 import coallnspection.service.ManagerService;
+import coallnspection.utils.Util;
 import com.alibaba.fastjson.JSON;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -38,6 +39,9 @@ public class TestMappers {
     @Autowired
     CoalExceptionMapper coalExceptionMapper;
 
+    @Autowired
+    DeviceMapper deviceMapper;
+
     @Test
     public void testUserMapper() {
 //        final int i = userMapper.addUser(new User("houyinbo3", "1232132", "ddddd"));
@@ -71,8 +75,8 @@ public class TestMappers {
 
     @Test
     public void testCoalException(){
-        List<CoalException> coalExceptions = coalExceptionMapper.selectAll();
-        System.out.println(coalExceptions);
+//        List<CoalException> coalExceptions = coalExceptionMapper.selectAll();
+//        System.out.println(coalExceptions);
     }
 
 
@@ -83,4 +87,14 @@ public class TestMappers {
         String format = simpleDateFormat.format(date);
         return new Timestamp(date.getTime());
     }
+
+    @Test
+    public void testDevice(){
+        System.out.println(getCurrentTime(0));
+        final Device device = new Device("hyb", "区域1", Util.getCurrentTime(0));
+        System.out.println(device);
+        final int i = deviceMapper.addDevice(device);
+        System.out.println(i);
+    }
+
 }

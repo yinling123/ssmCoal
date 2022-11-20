@@ -38,7 +38,7 @@ public interface ManagerService {
      * @param manager
      * @return
      */
-    public List<Manager> checkUsername(Manager manager);
+    public Manager checkUsername(String manager);
 
     /**
      * 进行用户更新

@@ -1,7 +1,10 @@
 package coallnspection.servlet;
 
 import coallnspection.Thread.ThreadPool;
+import coallnspection.pojo.Device;
+import coallnspection.service.DeviceService;
 import coallnspection.service.WebSocketService;
+import coallnspection.utils.Util;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.imageio.ImageIO;
+import javax.servlet.http.HttpSession;
 import java.awt.image.BufferedImage;
 import java.io.*;
 
@@ -28,20 +32,30 @@ public class WebSocketServlet {
     @Autowired
     ThreadPool threadPool;
 
+    @Autowired
+    DeviceService deviceService;
+
     /**
      *启动单个线程
      * @param id
      */
     @RequestMapping(value = "/start/{id}")
-    public void sendOne(@PathVariable("id") String id){
+    public void sendOne(@PathVariable("id") String id, HttpSession httpSession){
+        //获取当前的对象名称
+        String username = (String)httpSession.getAttribute("username");
         //启动对应的线程并且进行对应的会话
         if(id.equals("1")){
+            System.out.println(new Device(username, "区域1", Util.getCurrentTime(0)));
+            deviceService.addDevice(new Device(username, "区域1", Util.getCurrentTime(0)));
             threadPool.startOne();
         }else if(id.equals("2")){
+            deviceService.addDevice(new Device(username, "区域2", Util.getCurrentTime(0)));
             threadPool.startTwo();
         }else if(id.equals("3")){
+            deviceService.addDevice(new Device(username, "区域3", Util.getCurrentTime(0)));
             threadPool.startThree();
         }else if(id.equals("4")){
+            deviceService.addDevice(new Device(username, "区域4", Util.getCurrentTime(0)));
             threadPool.startFour();
         }else{
             throw new RuntimeException("连接不符合");

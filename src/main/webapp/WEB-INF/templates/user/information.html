@@ -9,7 +9,9 @@
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
     <script type="text/javascript" th:src="@{/static/js/vue.js}"></script>
     <script th:src="@{/static/js/theme_change.js}"></script>
+    <script th:src="@{/static/js/axios.min.js}"></script>
     <link rel="stylesheet" th:href="@{/static/css/information.css}">
+    <link rel="stylesheet" th:href="@{/static/css/{theme}(theme=${themes})}">
 </head>
 <body>
 <div class = 'external'>
@@ -38,7 +40,6 @@
         </div>
     </div>
     <div class = 'showBox'>
-        <link rel="stylesheet" th:href="'/static/css/' + theme + '.css'">
         <div class = 'cenTop'>
             <div @click="changeList = true; upDate()">已处理<p>{{chuli}}</p></div>
             <div @click="changeList = false; upDate()">未处理<p>{{meichuli}}</p></div>
@@ -47,7 +48,10 @@
         <div class = 'cenFoot'>
             <div class="msgList">
                 <transition-group name="hby" :appear="true">
-                    <div v-for="event in newList" class="event" :key="event.id"><div class="bloBox" @click="deleteE(event)">已处理</div >{{event.content}}&emsp;&emsp;&emsp;&emsp;&emsp;{{event.Time}}</div>
+                    <div v-for="event in newList" class="event" :key="event.id">
+                        <div class="bloBox" @click="deleteE(event)">已处理</div >
+                        {{event.content}}&emsp;&emsp;&emsp;&emsp;&emsp;{{event.Time}}
+                    </div>
                 </transition-group>
             </div>
         </div>
@@ -114,8 +118,21 @@
                     }
                 });
                 this.upDate()
+                let date={url:eve.id}
+                axios.get("/coalException/updateException",date).then (function (eve) {
+                    alert("数据修改成功")
+                })
             },
         },
     })
+    // let ws1 = new WebSocket('ws://localhost:5004')
+    // //链接成功后
+    // ws1.onopen = function(evt){
+    //     ws1.send('连接成功3')
+    // }
+    // //传递和接收信息
+    // ws1.onmessage = function(evt){
+    //     eventLists = evt.data
+    // }
 </script>
 </html>

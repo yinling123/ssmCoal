@@ -4,18 +4,26 @@ import coallnspection.mapper.CoalExceptionMapper;
 import coallnspection.pojo.CoalException;
 import coallnspection.service.CoalExceptionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class CoalExceptionImpl implements CoalExceptionService {
 
     @Autowired
     CoalExceptionMapper coalExceptionMapper;
 
+
     @Override
-    public List<CoalException> selectAll() {
-        //返回对应的存储列表
-        List<CoalException> coalExceptions = coalExceptionMapper.selectAll();
+    public List<CoalException> selectUnfinished() {
+        List<CoalException> coalExceptions = coalExceptionMapper.selectUnfinished();
+        return coalExceptions;
+    }
+
+    @Override
+    public List<CoalException> selectFinished() {
+        List<CoalException> coalExceptions = coalExceptionMapper.selectFinished();
         return coalExceptions;
     }
 

@@ -9,10 +9,12 @@
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
     <script type="text/javascript" th:src="@{/static/js/vue.js}"></script>
     <script th:src="@{/static/js/theme_change.js}"></script>
+    <script th:src="@{/static/js/axios.min.js}"></script>
     <script th:src="@{/static/js/jquery.min.js}"></script>
     <!-- <script src="./js/echarts.min.js"></script>
     <script src="./js/chalk.js"></script> -->
     <link rel="stylesheet" th:href="@{/static/css/monitor.css}">
+    <link rel="stylesheet" th:href="@{/static/css/theme1.css}">
 </head>
 <body>
 <div class = 'external'>
@@ -48,7 +50,6 @@
 
         </div>
         <div class = 'cenRight'>
-            <link rel="stylesheet" :href="'../Themecss.css/' + theme + '.css'">
             <div class = 'add' @click="addDevice">添加设备</div>
             <div v-if="if_show" class = 'menus_bg'>
                 <div class = 'menus'>
@@ -67,11 +68,20 @@
                     </form>
                 </div>
             </div>
-            <!-- <div v-for="ins in numb" :key="ins.id" class = 'view' ><img :id = "'hby' + ins.id" style="width: 350px;height: 220px;"> <div class = 'state'>{{ins.name}} </div> </div> -->
+
 
             <div v-for="ins in numb" :key="ins.id" class = 'view' :style="'border:'+ ins.is_focus +'px solid var(--mid_color);'" @click="getFocuse(ins)">
                 <img :id="'hby' + ins.id" style="width: 350px;height: 220px;">
-                <div class = 'state'>{{ins.name}} </div>
+                <div class = 'state' >{{ins.name}}
+                    <el-button class="start" @click="start_or_pause(ins)" name="startOrPause">
+                        <div v-show="ins.state">
+                            <ion-icon name="caret-forward" ></ion-icon>
+                        </div>
+                        <div v-show="(!ins.state)">
+                            <ion-icon name="pause" ></ion-icon>
+                        </div>
+                    </el-button>
+                </div>
             </div>
         </div>
     </div>
@@ -80,9 +90,9 @@
 <script>
     var the = 'theme3'
     var deviceList = [
-        {id:'1',name:'1号区域',zoom:'1',path:'ws://localhost:5000',is_focus:'0'},
-        {id:'2',name:'2号区域',zoom:'2',path:'ws://localhost:5001',is_focus:'0'},
-        {id:'3',name:'3号区域',zoom:'3',path:'ws://localhost:5002',is_focus:'0'},
+        {id:'1',name:'1号区域',zoom:'1',path:'ws://localhost:8080/ssmCoal/websocketDemo/1',is_focus:'0',state:false},
+        {id:'2',name:'2号区域',zoom:'2',path:'ws://localhost:8080/ssmCoal/websocketDemo/2',is_focus:'0',state:false},
+        {id:'3',name:'3号区域',zoom:'3',path:'ws://localhost:8080/ssmCoal/websocketDemo/3',is_focus:'0',state:false},
     ]
     var vm1 = new Vue({
         el:'.cenRight',
@@ -110,6 +120,14 @@
                     this.if_show = false
                 }
             },
+            start_or_pause(element){
+                element.state = !element.state
+                axios.post('http://localhost:8080/ssmCoal/websocket/start/1', element.state).then(function (response) {
+                    console.log(response);
+                }).catch(function (error) {
+                        console.log(error);
+                });
+            },
             getFocuse(e){
                 this.numb.forEach(element => {
                     if(element.id  === e.id){
@@ -119,7 +137,7 @@
                     }
                 });
                 mainViewChange(e.path)
-            }
+            },
         },
     })
     // var img1 = document.getElementById('hby1')
@@ -154,7 +172,7 @@
         img1.src = evt.data
     }
     //实例化
-    let ws1 = new WebSocket('ws://localhost:5001')
+    let ws1 = new WebSocket('ws://localhost:8080/ssmCoal/websocketDemo/1')
     //链接成功后
     ws1.onopen = function(evt){
         ws1.send('连接成功1')
@@ -164,7 +182,7 @@
         img1.src = evt.data
     }
     //实例化
-    let ws2 = new WebSocket('ws://localhost:5002')
+    let ws2 = new WebSocket('ws://localhost:8080/ssmCoal/websocketDemo/2')
     //链接成功后
     ws2.onopen = function(evt){
         ws2.send('连接成功2')
@@ -174,7 +192,7 @@
         img3.src = evt.data
     }
     // 实例化
-    let ws3 = new WebSocket('ws://localhost:5003')
+    let ws3 = new WebSocket('ws://localhost:8080/ssmCoal/websocketDemo/3')
     //链接成功后
     ws3.onopen = function(evt){
         ws3.send('连接成功3')

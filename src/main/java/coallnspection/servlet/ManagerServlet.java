@@ -1,19 +1,23 @@
 package coallnspection.servlet;
 
+import coallnspection.pojo.Device;
 import coallnspection.pojo.Manager;
 import coallnspection.pojo.User;
 import coallnspection.pojo.Worker;
+import coallnspection.service.DeviceService;
 import coallnspection.service.ManagerService;
 import coallnspection.service.UserService;
 import coallnspection.service.WorkerService;
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.jws.WebParam;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,13 +40,25 @@ public class ManagerServlet {
     @Autowired
     ManagerService managerService;
 
+    @Autowired
+    DeviceService deviceService;
+
     /**
      * 跳转到管理员个人界面
      * @return
      */
     @RequestMapping(value = "/toUser")
     public String toUser(){
-        return "manager/user";
+        return "redirect:/manager/getUsers";
+    }
+
+    /**
+     * 跳转到管理员个人界面
+     * @return
+     */
+    @RequestMapping(value = "/toWorker")
+    public String toWorker(){
+        return "redirect:/manager/getWorkers";
     }
 
     /**
@@ -51,7 +67,7 @@ public class ManagerServlet {
      */
     @RequestMapping(value = "/toDevice")
     public String toDevice(){
-        return "manager/device";
+        return "redirect:/manager/getDevices";
     }
 
     /**
@@ -60,7 +76,7 @@ public class ManagerServlet {
      */
     @RequestMapping(value = "/toAccount")
     public String toAccount(){
-        return "manager/account";
+        return "redirect:/manager/getAccount";
     }
 
     /**
@@ -76,7 +92,7 @@ public class ManagerServlet {
         }else{
             model.addAttribute("error","增加失败");
         }
-        return "manager/user";
+        return "manager/worker";
     }
 
     /**
@@ -93,7 +109,16 @@ public class ManagerServlet {
         }else{
             model.addAttribute("error","删除失败");
         }
-        return "manager/user";
+        return "manager/worker";
+    }
+
+    @RequestMapping(value = "/getWorkers")
+    public String getWorkers(Model model){
+        List<Worker> workers = workerService.checkAllWorkers();
+        String string = JSON.toJSONString(workers);
+        model.addAttribute("workers",string);
+        System.out.println(string);
+        return "manager/worker";
     }
 
     /**
@@ -102,13 +127,17 @@ public class ManagerServlet {
      * @return
      */
     @RequestMapping("/addUser")
-    public String addUser(User user){
+    public String addUser(User user, Model model){
         // 进行用户增加
         boolean b = userService.signUp(user);
         if(b){
-            return "";
+            //如果删除成功,重定向到其他程序进行数据查找
+            model.addAttribute("error", "删除成功");
+            return "forward:/manager/getUsers";
         }else{
-            return "";
+            //删除失败返回原界面
+            model.addAttribute("error", "删除失败");
+            return "manager/user";
         }
     }
 
@@ -118,13 +147,17 @@ public class ManagerServlet {
      * @return
      */
     @RequestMapping("/deleteUser")
-    public String deleteUser(User user){
+    public String deleteUser(User user, Model model){
         // 进行用户删除
         boolean b = userService.deleteUser(user);
         if(b){
-            return "";
+            //如果删除成功,重定向到其他程序进行数据查找
+            model.addAttribute("error", "删除成功");
+            return "forward:/manager/getUsers";
         }else{
-            return "";
+            //删除失败返回原界面
+            model.addAttribute("error", "删除失败");
+            return "manager/user";
         }
     }
 
@@ -133,32 +166,108 @@ public class ManagerServlet {
      * @return
      */
     @RequestMapping(value = "/getUsers")
-    public String getUser(Model model){
-        List<Worker> workers = workerService.checkAllWorkers();
-        String string = JSON.toJSONString(workers);
-        model.addAttribute("userdata",string);
+    public String getUsers(Model model){
+        List<User> users = userService.checkUsers();
+        String string = JSON.toJSONString(users);
+        model.addAttribute("users",string);
+        System.out.println(string);
         return "manager/user";
     }
 
     /**
-     * 进行用户页面的修改
+     * 查询设备信息
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "/getDevices")
+    public String getDevices(Model model){
+        //查询所有的设备信息
+        List<Device> devices = deviceService.selectAll();
+        String string = JSON.toJSONString(devices);
+        model.addAttribute("devices", string);
+        return "manager/device";
+    }
+
+    /**
+     * 增加设备信息
+     * @param device
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "/addDevice")
+    public String addDevice(Device device, Model model){
+        boolean b = deviceService.addDevice(device);
+        if(b){
+            //如果增加成功
+            model.addAttribute("error", "增加成功");
+            return "forward:/manager/getDevices";
+        }else{
+            model.addAttribute("error", "增加失败");
+            return "manager/device";
+        }
+    }
+
+    /**
+     * 删除设备信息
+     * @param device
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "/deleteDevice")
+    public String deleteDevice(Device device, Model model){
+        boolean b = deviceService.addDevice(device);
+        if(b){
+            //如果增加成功
+            model.addAttribute("error", "删除成功");
+            return "forward:/manager/getDevices";
+        }else{
+            model.addAttribute("error", "删除失败");
+            return "manager/device";
+        }
+    }
+
+    /**
+     * 获取管理员账号信息
+     * @return
+     */
+    @RequestMapping(value = "/getAccount")
+    public String getAccount(HttpSession httpSession, Model model){
+        //获取当前登录的管理员信息
+        String username = (String)httpSession.getAttribute("username");
+        //进行查询
+        Manager manager = managerService.checkUsername(username);
+        //将各项数据存储到域对象中
+        model.addAttribute("username", manager.getUsername());
+        model.addAttribute("phone", manager.getPhone());
+        model.addAttribute("company", manager.getCompany());
+        //返回到该视图
+        return "manager/account";
+    }
+
+    /**
+     * 进行管理员信息修改
      * @param phone
      * @param company
      * @return
      */
     @RequestMapping(value = "/updateManager")
-    public String updateManager(String username, String password,String phone, String company){
+    public String updateManager(String username, String password, String phone, String company, Model model){
         boolean b = managerService.updateManager(new Manager(username, password, phone, company));
+        model.addAttribute("username", username);
+        model.addAttribute("password", password);
+        model.addAttribute("phone", phone);
+        model.addAttribute("company", company);
+        //如果修改成功
         if(b){
-
+            model.addAttribute("error", "修改成功");
         }else{
-
+            model.addAttribute("error", "修改失败");
         }
         return "manager/account";
     }
 
     @RequestMapping(value = "/updatePassword")
-    public String updatePassword(String oldPassword, String rePassword, String newPassword, HttpServletRequest request, Model model){
+    public String updatePassword(String oldPassword, String newPassword, String rePassword, HttpServletRequest request, Model model){
         //获取当前用户名
         String username = (String)request.getSession().getAttribute("username");
         System.out.println(username);
@@ -167,7 +276,7 @@ public class ManagerServlet {
         //如果修改成功
         if(b){
             model.addAttribute("error", "修改成功");
-            return "redirect:/toAccount";
+            return "manager/account";
         }else{
             model.addAttribute("error", "原密码错误");
             return "manager/account";

@@ -13,11 +13,11 @@
     <script th:src="@{/static/js/echarts.min.js}"></script>
     <script th:src="@{/static/js/chalk1.js}"></script>
     <link rel="stylesheet" th:href="@{/static/css/dataChart.css}">
+    <link rel="stylesheet" th:href="@{/static/css/{theme}(theme=${session.themes})}">
 </head>
 <body>
 <div class = 'external'>
     <div id = 'boxx'>
-        <link rel="stylesheet" th:href="'/static/css/' + theme + '.css'">
     </div>
     <div class = 'leftBox'>
         <!-- 用户头像 -->

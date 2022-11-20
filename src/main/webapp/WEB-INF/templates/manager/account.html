@@ -26,7 +26,7 @@
     <div class = 'TopBox'>
         <div class = 'formBox'>
             <!-- 个人信息的表单 -->
-            <form th:action="/manager/updateManager">
+            <form th:action="@{/manager/updateManager}">
                 <div class="change" @click="changePassword()">修改密码</div>
                 <p style="margin-left: 50px; margin-top: 20px;">用户：&emsp;&emsp;manager</p>
                 <label for="phone" class="l_phone">
@@ -41,21 +41,21 @@
                 <button class = 'submit' @click="zhendns" type="button">保存</button>
             </form>
             <!-- 修改密码的表单 -->
-            <form th:action="/manager/updatePassword">
+            <form th:action="@{/manager/updatePassword}">
 
                 <div v-if="this.is_show" class = 'bg'>
                     <button class="changef" @click="changef" type="button">返回</button>
                     <div class="changeP">
                         <label for="i1">
-                            旧密码：&emsp;<input type="password" v-model="old_password" id = 'i1' name="oldPassword">
+                            旧密码：&emsp;<input type="password" v-model="oldPassword" id = 'i1' name="oldPassword">
                             <p v-if="this.oldP" style="color: red;">密码错误</p>
                         </label>
                         <label for="i2">
-                            新密码：&emsp;<input type="password" v-model="new_password" id = 'i2' name="rePassword">
+                            新密码：&emsp;<input type="password" v-model="newPassword" id = 'i2' name="rePassword">
                             <p v-if="this.newP" style="color: red;">输入格式错误</p>
                         </label>
                         <label for="i3">
-                            确认密码：<input type="password" v-model="current_password" id = 'i3' name="newPassword">
+                            确认密码：<input type="password" v-model="rePassword" id = 'i3' name="newPassword">
                             <p v-if="this.currentP" style="color: red;">两次输入密码不一致</p>
                         </label>
                         <button class="queRen" type="submit" @click="baoCun">确认</button>
