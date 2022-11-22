@@ -1,5 +1,7 @@
 package coallnspection.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.sql.Timestamp;
 
 /**
@@ -11,6 +13,8 @@ public class Device {
     private int id;
     private String name;
     private String area;
+
+    @JsonFormat(locale="zh", timezone="GMT+8", pattern="yyyy-MM-dd HH:mm:ss")
     private Timestamp startTime;
 
     public Device() {
@@ -46,6 +50,7 @@ public class Device {
         this.area = area;
     }
 
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     public Timestamp getStartTime() {
         return startTime;
     }

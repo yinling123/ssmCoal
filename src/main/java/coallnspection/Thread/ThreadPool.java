@@ -37,10 +37,14 @@ public class ThreadPool {
     CoalmineMapper coalmineMapper;
 
     //创建6个检测类,分别表示六个监控录像
-    private RealDetect realDetect1 = new RealDetect();
-    private RealDetect realDetect2 = new RealDetect();
-    private RealDetect realDetect3 = new RealDetect();
-    private RealDetect realDetect4 = new RealDetect();
+    @Autowired
+    private RealDetect realDetect1;
+    @Autowired
+    private RealDetect realDetect2;
+    @Autowired
+    private RealDetect realDetect3;
+    @Autowired
+    private RealDetect realDetect4;
 
     //记录总开启线程
     private int num;

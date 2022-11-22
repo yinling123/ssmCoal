@@ -72,7 +72,7 @@ public class LoginServlet {
         if(manager != null){
             //存储当前的用户名
             req.getSession().setAttribute("username", username);
-            return "redirect:/manager/toUser";
+            return "redirect:/manager/toDevice";
         }
         //当管理员登录失败，进行用户登录
         //当登录成功时进行页面跳转

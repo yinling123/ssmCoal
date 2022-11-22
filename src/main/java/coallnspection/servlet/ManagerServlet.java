@@ -183,7 +183,7 @@ public class ManagerServlet {
     public String getDevices(Model model){
         //查询所有的设备信息
         List<Device> devices = deviceService.selectAll();
-        String string = JSON.toJSONString(devices);
+        String string = JSON.toJSONStringWithDateFormat(devices,"yyyy-MM-dd HH:mm:ss");
         model.addAttribute("devices", string);
         return "manager/device";
     }

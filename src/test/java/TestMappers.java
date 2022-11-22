@@ -90,11 +90,13 @@ public class TestMappers {
 
     @Test
     public void testDevice(){
-        System.out.println(getCurrentTime(0));
-        final Device device = new Device("hyb", "区域1", Util.getCurrentTime(0));
-        System.out.println(device);
-        final int i = deviceMapper.addDevice(device);
-        System.out.println(i);
+//        System.out.println(getCurrentTime(0));
+//        final Device device = new Device("hyb", "区域1", Util.getCurrentTime(0));
+//        System.out.println(device);
+//        final int i = deviceMapper.addDevice(device);
+//        System.out.println(i);
+        final List<Device> devices = deviceMapper.selectAll();
+        System.out.println(devices);
     }
 
 }

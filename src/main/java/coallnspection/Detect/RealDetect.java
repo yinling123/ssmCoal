@@ -27,6 +27,7 @@ import java.util.Date;
  * 进行实时检测
  */
 
+@Component
 public class RealDetect {
 
     @Autowired
@@ -46,7 +47,7 @@ public class RealDetect {
     private int start = 0;
 
     //进行辅助转化为字节流
-    private ByteArrayOutputStream byteArrayOutputStream;
+    private ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 
     public ByteArrayOutputStream getByteArrayOutputStream() {
         return byteArrayOutputStream;
@@ -101,27 +102,26 @@ public class RealDetect {
                         Graphics g = bi.getGraphics();
                         g.setColor(Color.RED);//画笔颜色
                         g.drawRect(analyzing.getLeft(), analyzing.getTop(), analyzing.getWidth(), analyzing.getLength());
-                        try {
-                            //将数据写入对应的输出流
-                            ImageIO.write(bi, img_type, byteArrayOutputStream);
-                        } catch (IOException e) {
-                            e.printStackTrace();
+                        ImageIO.write(bi, img_type, byteArrayOutputStream);
+                        if(num > 1){
+                            addCoal(new Coalmine(area,new Timestamp(new Date().getTime()),analyzing.getType(),analyzing.getLength(),analyzing.getWidth()));
+                        }else{
+                            coalmineMapper.addCoalmine(new Coalmine(area,new Timestamp(new Date().getTime()),analyzing.getType(),analyzing.getLength(),analyzing.getWidth()));
                         }
+                    }else{
+                        ImageIO.write(bi, img_type, byteArrayOutputStream);
                     }
                     //如果此时有多个对象进行方法调用
-                    if(num > 1){
-                        addCoal(new Coalmine(area,new Timestamp(new Date().getTime()),analyzing.getType(),analyzing.getLength(),analyzing.getWidth()));
-                    }else{
-                        coalmineMapper.addCoalmine(new Coalmine(area,new Timestamp(new Date().getTime()),analyzing.getType(),analyzing.getLength(),analyzing.getWidth()));
-                    }
                     //更新窗口内图片
-                    i++;
-                    if (i == 10) {
-                        i = 1;
-                    }
+//                    i++;
+//                    if (i == 10) {
+//                        i = 1;
+//                    }
                     System.out.println(s);
                     //将四个区的数据同一规划为1，2，3，4
-                    webSocketService.sendImage(byteArrayOutputStream,String.valueOf(area));
+                    if(byteArrayOutputStream != null){
+                        webSocketService.sendImage(byteArrayOutputStream,String.valueOf(area));
+                    }
                     Thread.sleep(200);
                 }else if(start == 2){
                     break;
@@ -132,13 +132,16 @@ public class RealDetect {
 
         } catch (InterruptedException e) {
             e.printStackTrace();
-        } finally {
-            try {
-                ff.stop();
-            } catch (FrameGrabber.Exception e) {
-                e.printStackTrace();
-            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+//        finally {
+//            try {
+//                ff.stop();
+//            } catch (FrameGrabber.Exception e) {
+//                e.printStackTrace();
+//            }
+//        }
     }
 
     //创建共有加锁方法

@@ -19,7 +19,7 @@ public class Weather {
     public String getWeather() {
         String temperatue = null;
         try {
-            URL url = new URL("http://t.weather.itboy.net/api/weather/city/101250601");
+            URL url = new URL("http://t.weather.itboy.net/api/weather/city/101110103");
             InputStreamReader isReader = new InputStreamReader(url.openStream(), "UTF-8");//“UTF- 8”万国码，可以显示中文，这是为了防止乱码
             BufferedReader br = new BufferedReader(isReader);//采用缓冲式读入
             String str;

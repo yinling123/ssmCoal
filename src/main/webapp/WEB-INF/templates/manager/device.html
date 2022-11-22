@@ -8,6 +8,7 @@
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
     <script type="text/javascript" th:src="@{/static/js/vue.js}"></script>
+    <script th:src="@{/static/js/axios.min.js}"></script>
     <link rel="stylesheet" th:href="@{/static/css/decive.css}">
 </head>
 <body>
@@ -82,10 +83,10 @@
                 </div>
             </div>
             <div v-for="user in users" :key="user.no" class = 'usList' @click="showMsg(user)">
+                <p>{{user.id}}</p>
                 <p>{{user.name}}</p>
-                <p>{{user.time}}</p>
-                <p>{{user.zoom}}</p>
-                <p>{{user.no}}</p>
+                <p>{{user.area}}</p>
+                <p>{{user.startTime}}</p>
             </div>
         </div>
         <button class = 'huif' @click = 'huif'>返回</button>
@@ -93,7 +94,7 @@
 </div>
 </body>
 <script th:inline = 'javascript'>
-    new Vue({
+    var vm0 = new Vue({
         el:'.cenBox',
         data() {
             return {
@@ -145,6 +146,11 @@
                 {
                     const ele = {name:this.dName,time:this.dTime,zoom:this.dZoom,no:this.dNo}
                     this.users.unshitf(ele)
+                    axios.post('', ele).then(function (response) {
+                        console.log(response);
+                    }).catch(function (error) {
+                        console.log(error);
+                    });
                     this.is_msg_show = false
                     this.dn = false
                     this.dt = false
@@ -208,7 +214,6 @@
             },
             huif(){
                 this.users = this.save
-                console.log(123)
             },
             addf(){
                 this.is_show = false
