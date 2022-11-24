@@ -3,9 +3,11 @@ package coallnspection.servlet;
 import coallnspection.pojo.CoalException;
 import coallnspection.service.CoalExceptionService;
 import com.alibaba.fastjson.JSON;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
@@ -48,11 +50,10 @@ public class CoalExceptionServlet {
 
     /**
      * 解决已经处理的请求
-     * @param id
      * @return
      */
-    @RequestMapping(value = "/updateException")
-    public String updateException(String id){
+    @RequestMapping(value = "/updateException/{id}")
+    public String updateException(@PathVariable("id") String id){
         int i = coalExceptionService.updateCoalException(Integer.parseInt(id));
         return "redirect:user/selectFinished";
     }

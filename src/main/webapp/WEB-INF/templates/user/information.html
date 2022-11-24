@@ -119,7 +119,7 @@
                 });
                 this.upDate()
                 let date={url:eve.id}
-                axios.post("/coalException/updateException",date).then (eve => {
+                axios.post("http://localhost:8080/ssmCoal/coalException/" + date,date).then (eve => {
                     console.log(eve)
                 }).catch(error =>{
                     console.log(error)
