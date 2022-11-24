@@ -11,7 +11,7 @@
     <script th:src="@{/static/js/theme_change.js}"></script>
     <script th:src="@{/static/js/axios.min.js}"></script>
     <link rel="stylesheet" th:href="@{/static/css/information.css}">
-    <link rel="stylesheet" th:href="@{/static/css/{theme}(theme=${themes})}">
+    <link rel="stylesheet" th:href="@{/static/css/{theme}(theme=${session.themes})}">
 </head>
 <body>
 <div class = 'external'>

@@ -28,7 +28,23 @@
         </property>
     </bean>
 
-<!--    配置开启默认的servlet处理静态-->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <bean class="org.springframework.web.servlet.theme.ThemeChangeInterceptor">
+                <property name="paramName" value="theme"/>
+            </bean>
+        </mvc:interceptor>
+    </mvc:interceptors>
+    <bean id="themeSource" class="org.springframework.ui.context.support.ResourceBundleThemeSource">
+        <property name="basenamePrefix" value="theme."/>
+    </bean>
+    <bean id="themeResolver" class="org.springframework.web.servlet.theme.SessionThemeResolver">
+        <property name="defaultThemeName" value="blue"/>
+    </bean>
+
+
+    <!--    配置开启默认的servlet处理静态-->
     <mvc:default-servlet-handler/>
 
 <!--    配置首页视图控制器-->

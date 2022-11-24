@@ -83,6 +83,7 @@ public class LoginServlet {
             if(userService.signIn(new User(username,password,null))){
                 //存储当前的用户名
                 req.getSession().setAttribute("username", username);
+                req.getSession().setAttribute("themes", "theme1.css");
                 return "redirect:/user/toUser";
             }else{
                 //当用户登录失败

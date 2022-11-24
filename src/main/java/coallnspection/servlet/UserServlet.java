@@ -5,7 +5,11 @@ import coallnspection.service.WeatherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 
 /**
@@ -25,7 +29,6 @@ public class UserServlet {
      */
     @RequestMapping(value = "/toAppearance")
     public String toAppearance(Model model){
-        model.addAttribute("themes", "theme2.css");
         return "user/appearance";
     }
 
@@ -65,9 +68,16 @@ public class UserServlet {
         //获取当前的气温
         String temperature = weatherService.getTemperature();
         String[] split = temperature.split("~");
-        model.addAttribute("minTemperature", split[0]);
-        model.addAttribute("maxTemperature", split[1]);
+        model.addAttribute("minTemperature", split[0].split(" ")[1]);
+        model.addAttribute("maxTemperature", split[1].split(" ")[1]);
         return "user/user";
+    }
+
+    @RequestMapping(value = "/changeTheme/{theme}")
+    public void changeTheme(@PathVariable("theme") String theme, HttpServletRequest request){
+        //设置主题颜色
+        request.getSession().setAttribute("themes", theme + ".css");
+//        return "redirect:/user/toAppearance";
     }
 
 

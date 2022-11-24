@@ -13,7 +13,7 @@
     <script src="../importFile/echarts.min.js"></script>
     <script src="../importFile/jquery.min.js"></script>  -->
     <link rel="stylesheet" th:href="@{/static/css/user.css}">
-    <link rel="stylesheet" th:href="@{/static/css/theme1.css}">
+    <link rel="stylesheet" th:href="@{/static/css/{theme}(theme=${session.themes})}">
 </head>
 <body>
 <div class = 'external'>

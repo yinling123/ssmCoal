@@ -13,7 +13,9 @@ public class TestWeather {
     Weather weather;
     @Test
     public void testWeather(){
-        String weather = this.weather.getWeather();
-        System.out.println("温度" + weather);
+        String temperature = weather.getWeather();
+        String[] split = temperature.split("~");
+        System.out.println(split[0].split(" ")[1]);
+        System.out.println(split[1].split(" ")[1]);
     }
 }

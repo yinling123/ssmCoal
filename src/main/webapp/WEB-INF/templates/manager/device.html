@@ -64,11 +64,11 @@
                 <button class="close" @click="closeB">返回</button>
                 <div class="showD">
                     <label for="i1">
-                        设备名称：&emsp;<input type="text" v-model="dName" id = 'i1' name="">
+                        编号：&emsp;<input type="text" v-model="dName" id = 'i1' name="">
                         <p v-if="this.dn" style="color: red;">输入信息不能为空</p>
                     </label>
                     <label for="i2">
-                        使用时间：&emsp;<input type="text" v-model="dTime" id = 'i2' name="">
+                        使用人员：&emsp;<input type="text" v-model="dTime" id = 'i2' name="">
                         <p v-if="this.dt" style="color: red;">输入信息不能为空</p>
                     </label>
                     <label for="i3">
@@ -76,7 +76,7 @@
                         <p v-if="this.dz" style="color: red;">输入信息不能为空</p>
                     </label>
                     <label for="i4">
-                        编&emsp;&emsp;号：&emsp;<input type="text" v-model="dNo" id = 'i4' name="">
+                        使用时间：&emsp;<input type="text" v-model="dNo" id = 'i4' name="">
                         <p v-if="this.dno" style="color: red;">输入信息不能为空</p>
                     </label>
                     <button class="queRen" type="button" @click="xiuGai">确认</button>
@@ -94,6 +94,9 @@
 </div>
 </body>
 <script th:inline = 'javascript'>
+    var reg = /^["|'](.*)["|']$/g;
+    var usersList = '[[${devices}]]'.replace(reg,"$1")
+    var obj = JSON.parse(usersList)
     var vm0 = new Vue({
         el:'.cenBox',
         data() {
@@ -113,7 +116,7 @@
                 //     {name:'张三',time:'1232121',zoom:'区域一',no:'0011'},
                 // ],
                 //解开下面这个注掉users接收数据
-                users : '[[${devices}]]',
+                users: obj,
                 save:null,
                 dName:'',
                 dTime:'',
