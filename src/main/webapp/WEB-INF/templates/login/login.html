@@ -21,7 +21,7 @@
             background-color: rgb(23, 23, 23);
             margin: 10px auto;
             border-radius: 10px;
-
+            
         }
         .word{
             width: 100%;
@@ -39,10 +39,10 @@
             width: 450px;
             height:450px;
             background: linear-gradient(
-                    to right bottom,
-                    rgba(255,255,255,0.7),
-                    rgba(255,255,255,0.6),
-                    rgba(255,255,255,0.4)
+                to right bottom,
+                rgba(255,255,255,0.7),
+                rgba(255,255,255,0.6),
+                rgba(255,255,255,0.4)
             );
             backdrop-filter: blur(7px);
             border-top: 2px solid rgba(255,255,255,0.9);
@@ -104,7 +104,7 @@
             font-weight: 600;
             margin-left: 190px;
             margin-top: 20px;
-
+    
             color: rgb(51, 51, 51);
         }
         .yanz{
@@ -112,7 +112,7 @@
             height: 100px;
         }
         .yanz > label > #yan{
-
+        
             display: inline-block;
             width: 100px;
             height: 40px;
@@ -135,35 +135,36 @@
     </style>
 </head>
 <body>
-<div class = 'box'>
-    <div class = 'word'>
-        welcome to login
-    </div>
-    <form th:action="@{/login/signIn}">
-        <div class = 'log'>
-            <span>登 录</span>
-            <label for="userw" >
-                账 号：<input type="text" class="u_input" id="userw" v-model="userNameValue" name="username">
-                <p v-if="userName" style="color: red; margin-left: 80px;">输入的信息不能为空</p>
-                <p v-if="denglu" style="color: red; margin-left: 80px;">账号或密码错误</p>
-            </label>
-            <label for="passw">
-                密 码：<input type="password" class="u_input" id="passw" v-model="passWordValue" name="password">
-                <p v-if="passWord" style="color: red; margin-left: 80px;">输入的信息不能为空</p>
-            </label>
-            <div class = 'yanz'>
-                <label for="yan" v-if="Yanzheng">
-                    验证码：<input type="text" id = 'yan'>
-                    <img src="ma.png" title = "看不清，点击换一张">
-                    <p style="color: red;">验证码错误</p>
+    <div class = 'box'>
+        <div class = 'word'>
+            welcome to login
+        </div>
+        <form th:action="@{/login/signIn}" method="post">
+            <div class = 'log'>
+                <span>登 录</span>
+
+                <label for="userw" >
+                    账 号：<input type="text" class="u_input" id="userw" v-model="userNameValue" name="username">
+                    <p v-if="userName" style="color: red; margin-left: 80px;">输入的信息不能为空</p>
+                    <p v-if="denglu" style="color: red; margin-left: 80px;">账号或密码错误</p>
                 </label>
-                <a href="">忘记密码</a>
-            </div>
-            <button class = 'log_b' @click="Login()" type="submit">登 录</button>
+                <label for="passw">
+                    密 码：<input type="password" class="u_input" id="passw" v-model="passWordValue" name="password">
+                    <p v-if="passWord" style="color: red; margin-left: 80px;">输入的信息不能为空</p>
+                </label>
+                <div class = 'yanz'>
+                    <label for="yan" v-if="Yanzheng">
+                        验证码：<input type="text" id = 'yan' v-model="verification" name = "verification">
+                        <img src="ma.png" title = "看不清，点击换一张">
+                        <p style="color: red;">验证码错误</p>
+                    </label>
+                    <a href="">忘记密码</a>
+                </div>
+                <button class = 'log_b' @click="Login()" type="submit">登 录</button>
             <a th:href="@{/login/toSignUp}" class = 'reg_b'>注 册</a>
         </div>
-    </form>
-</div>
+        </form>
+    </div>
 </body>
 <script th:inline = 'javascript'>
     new Vue({
@@ -172,6 +173,7 @@
             return {
                 userNameValue:'',
                 passWordValue:'',
+                verification:'',
                 userName:false,
                 passWord:false,
                 // 如果多次登录不成功就把下面这个值改为true就会显示验证码
@@ -184,12 +186,28 @@
         methods: {
             Login(){
                 if(this.userNameValue.trim() && this.passWordValue.trim())
-                {
+                { 
                     this.userName = false
                     this.passWord = false
+                    userNameValue = this.userNameValue
+                    passWordValue = this.passWordValue
+                    verification = this.verification
+                    if(this.Yanzheng){
+                        axios.post('', {userNameValue,passWordValue,verification}).then(function (response) {
+                            console.log(response);
+                        }).catch(function (error) {
+                            console.log(error);
+                        });
+                    }else{
+                        axios.post('', {userNameValue,passWordValue}).then(function (response) {
+                            console.log(response);
+                        }).catch(function (error) {
+                            console.log(error);
+                        });
+                    }
                     axios.get('api').then(res=>{
-                        this.false_num ++
-                        if (this.false_num === 3) this.Yanzheng = true
+                    this.false_num ++
+                    if (this.false_num === 3) this.Yanzheng = true
                     }).catch(erroe=>{
                         this.denglu = true
                     })
@@ -198,7 +216,6 @@
                     this.passWord = false
                     if(!this.userNameValue.trim()) this.userName = true
                     if(!this.passWordValue.trim()) this.passWord = true
-
                 }
             }
         },

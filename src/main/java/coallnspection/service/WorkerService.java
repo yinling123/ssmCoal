@@ -27,4 +27,11 @@ public interface WorkerService {
      * @return 若删除失败，返回false
      */
     public boolean deleteWorker(Worker worker);
+
+    /**
+     * 进行工作人员查询
+     * @param area
+     * @return
+     */
+    public Worker checkWorker(String area);
 }

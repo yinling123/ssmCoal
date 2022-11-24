@@ -20,4 +20,7 @@ public interface WorkerMapper {
     //查询所有员工
     public List<Worker> selectAllWorkers();
 
+    //查找某个区域
+    public Worker selectWorker(String area);
+
 }

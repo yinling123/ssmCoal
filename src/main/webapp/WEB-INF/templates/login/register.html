@@ -7,6 +7,7 @@
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript" th:src="@{/static/js/axios.min.js}"></script>
     <title>Document</title>
     <style>
         body{
@@ -138,7 +139,7 @@
        <form>
            <div class = 'log'>
                <span>注 册</span>
-               <form th:action="@{/login/register}">
+               <form th:action="@{/login/register}" method="post">
                     <label for="userw" >
                     手机号：<input type="text" class="u_input" id="userw" v-model="phoneValue" name="phone">
                     <p v-if="Phone" style="color: red; margin-left: 80px;">输入的信息不能为空</p>
@@ -152,12 +153,11 @@
                         短信验证码：<input type="text" id = 'yan' name="code">
                         <p v-if="yanzheng" style="color:red;">验证码错误</p>
                     </label>
-                    <button class = 'inf_b' th:action="@{/login/sendCode}">获取短信</button>
+                    <button class = 'inf_b' @click="veritication" type="button">获取短信</button>
                     <a href="">收不到验证码？点击帮助</a>
                 </div>
-                <button class = 'com_b' @click="submit" type="submit">提交</button>
+                <button class = 'com_b' type="submit">提交</button>
                </form>
-               
            </div>
        </form>
     </div>
@@ -188,6 +188,15 @@
                     if(!this.phoneValue.trim()) this.Phone = true
                     if(!this.passWordValue.trim()) this.passWord = true
                 }
+            },
+            veritication(){
+                var phoneNumber = this.phoneValue
+                axios.post('http://localhost:8080/ssmCoal/login/sendCode/' + phoneNumber, phoneNumber).then(function (response) {
+                    console.log(response);
+                }).catch(function (error) {
+                    console.log(error);
+                });
+                console.log(this.theme)
             }
         },
     })

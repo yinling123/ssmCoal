@@ -41,4 +41,10 @@ public class WorkerServiceImpl implements WorkerService {
         }
         return false;
     }
+
+    @Override
+    public Worker checkWorker(String area) {
+        final Worker worker = workerMapper.selectWorker(area);
+        return worker;
+    }
 }

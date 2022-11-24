@@ -24,7 +24,7 @@ public class MessageServiceImpl implements MessageService {
     @Override
     public void codeMessage(String phone,String randomCode) {
         //进行验证码发送
-        MsgResult msgResult = sendMessage.sendMsgPost("19880036651","19880036651","58a04cd1","B96FC554",phone,randomCode);
+        MsgResult msgResult = sendMessage.sendMsgPost("19880036651","19880036651","860aa858","B96FC554",phone,randomCode);
         //进行判断
         if("success".equals(msgResult.getReturnstatus()) && msgResult.getCode()==0){
             System.out.println("发送成功");

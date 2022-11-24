@@ -17,4 +17,9 @@
     <select id="selectAllWorkers" resultType="Worker">
         select * from workers
     </select>
+
+<!--    Worker selectWork(String area)-->
+    <select id="selectWorker" resultType="Worker">
+        select * from workers where job = #{area}
+    </select>
 </mapper>

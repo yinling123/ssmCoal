@@ -26,7 +26,7 @@ public class EasyDl {
      * @param bi 本地图片路径
      * @return java.lang.String
      **/
-    public static String doPostFile(String reqUrl, BufferedImage bi) {
+    public synchronized static String doPostFile(String reqUrl, BufferedImage bi) {
         HttpURLConnection url_con = null;
         String responseContent = null;
         try {

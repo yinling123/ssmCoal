@@ -12,6 +12,7 @@ import coallnspection.utils.Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -49,7 +50,7 @@ public class LoginServlet {
     @RequestMapping(value = "/toSignIn")
     public String toSignIn(){
         //进行登录页面跳转
-        return "redirect:login/login";
+        return "login/login";
     }
 
 
@@ -113,14 +114,14 @@ public class LoginServlet {
     @RequestMapping(value = "/toSignUp")
     public String toRegiste(){
         //进行用户注册
-        return "redirect:/login/register";
+        return "login/register";
     }
 
     /**
      * 获取验证码并且进行发送
      */
-    @RequestMapping(value = "/sendCode")
-    public String sendCode(String phone, String username, String pwd, String repwd, Model model){
+    @RequestMapping(value = "/sendCode1")
+    public String sendCode1(String phone, String username, String pwd, String repwd, Model model){
         model.addAttribute("username",username);
         model.addAttribute("pwd",pwd);
         model.addAttribute("repwd",repwd);
@@ -128,13 +129,28 @@ public class LoginServlet {
 
         //生成随机验证码，并进行存储
         String randomCode = RandomCode.randomCode(4);
-        int i = codeService.addCode(new Code(phone, randomCode, Util.getCurrentTime(0), Util.getCurrentTime(1000 * 60)));
+        int i = codeService.addCode(new Code(phone, randomCode, Util.getCurrentTime(0), Util.getCurrentTime(1000 * 300)));
 
         //进行验证码发送
         messageService.codeMessage(phone,randomCode);
 
         //跳转回原页面
         return "login/register";
+
+    }
+
+    /**
+     * 获取验证码并且发送
+     * @return
+     */
+    @RequestMapping(value = "/sendCode/{phone}")
+    public void sendCode(@PathVariable("phone") String phone){
+        //生成随机验证码，并进行存储
+        String randomCode = RandomCode.randomCode(4);
+        int i = codeService.addCode(new Code(phone, randomCode, Util.getCurrentTime(0), Util.getCurrentTime(1000 * 60)));
+
+        //进行验证码发送
+        messageService.codeMessage(phone,randomCode);
 
     }
 

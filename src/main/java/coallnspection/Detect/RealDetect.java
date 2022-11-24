@@ -3,7 +3,10 @@ package coallnspection.Detect;
 import coallnspection.mapper.CoalmineMapper;
 import coallnspection.pojo.Analysis;
 import coallnspection.pojo.Coalmine;
+import coallnspection.pojo.Worker;
+import coallnspection.service.MessageService;
 import coallnspection.service.WebSocketService;
+import coallnspection.service.WorkerService;
 import coallnspection.utils.Util;
 import org.bytedeco.javacv.FFmpegFrameGrabber;
 import org.bytedeco.javacv.Frame;
@@ -35,6 +38,12 @@ public class RealDetect {
 
     @Autowired
     public WebSocketService webSocketService;
+
+    @Autowired
+    public MessageService messageService;
+
+    @Autowired
+    public WorkerService workerService;
 
     static String videoPath = "D:\\CoalImage\\meiliu.mp4";
     static String file_name = "coal";
@@ -98,6 +107,19 @@ public class RealDetect {
                     String s = EasyDl.doPostFile("http://127.0.0.1:24401/", bi);
                     Analysis analyzing = Analyzing.analyzing(s);
 
+                    //当当前检测到的数目比较多，则发送短信提醒
+                    //当1分钟出现的数目超过10条，则发送短信
+                    if(coalmineMapper.countArea(area) > 10){
+                        //查询该地点的工作人员
+                        synchronized (workerService){
+                            final Worker worker = workerService.checkWorker("区域" + area);
+                            if(worker != null){
+                                //发送短信
+                                messageService.coalMessage(worker.getPhone(), "14AF275E");
+                            }
+                        }
+                    }
+
                     if (analyzing != null) {
                         Graphics g = bi.getGraphics();
                         g.setColor(Color.RED);//画笔颜色
@@ -122,15 +144,11 @@ public class RealDetect {
                     if(byteArrayOutputStream != null){
                         webSocketService.sendImage(byteArrayOutputStream,String.valueOf(area));
                     }
-                    Thread.sleep(200);
                 }else if(start == 2){
                     break;
                 }
             }
         } catch (FrameGrabber.Exception e) {
-            e.printStackTrace();
-
-        } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
