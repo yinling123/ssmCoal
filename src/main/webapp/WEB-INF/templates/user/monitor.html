@@ -122,7 +122,7 @@
             },
             start_or_pause(element){
                 element.state = !element.state
-                axios.post('http://localhost:8080/ssmCoal/websocket/start/1', element.state).then(function (response) {
+                axios.post('http://localhost:8080/ssmCoal/websocket/start/1' + element.state, element.state).then(function (response) {
                     console.log(response);
                 }).catch(function (error) {
                         console.log(error);

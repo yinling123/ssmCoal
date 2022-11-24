@@ -92,12 +92,12 @@ public class LoginServlet {
                 //进行参数回显
 //                model.addAttribute("username",username);
 //                model.addAttribute("password",password);
-                model.addAttribute("error","用户名或者密码错误");
+                model.addAttribute("errorMsg","用户名或者密码错误");
             }
         }else{
 //            model.addAttribute("username",username);
 //            model.addAttribute("password",password);
-            model.addAttribute("error","验证码错误");
+            model.addAttribute("errorMsg","验证码错误");
         }
 
         //登录失败的话，返回登录页面，并且进行数据回显
