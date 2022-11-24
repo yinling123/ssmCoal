@@ -160,13 +160,13 @@
             </label>
             <div class = 'yanz'>
                 <label for="yan" v-if="Yanzheng">
-                    验证码：<input type="text" id = 'yan' name = "verification" placeholder="请输入验证码" th:value="${code}">
+                    验证码：<input type="text" id = 'yan' name = "code" placeholder="请输入验证码" th:value="${code}">
                     <img id="code_img" th:src="@{/kaptcha.jpg}" title = "看不清，点击换一张">
 <!--                    <p style="color: red;">验证码错误</p>-->
                 </label>
                 <a href="">忘记密码</a>
             </div>
-            <input class = 'log_b' @click="Login()" type="submit" value="登 录">
+            <button class = 'log_b' type="submit">登录</button>
             <a th:href="@{/login/toSignUp}" class = 'reg_b'>注 册</a>
         </div>
     </form>

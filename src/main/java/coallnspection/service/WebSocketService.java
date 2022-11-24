@@ -10,4 +10,11 @@ public interface WebSocketService {
      */
     public void sendImage(ByteArrayOutputStream byteArrayOutputStream, String id);
 
+    /**
+     * 将websocket的消息发送给前台
+     * @param s
+     * @param id
+     */
+    public void sendMessage(String s, String id);
+
 }

@@ -8,6 +8,7 @@ import coallnspection.service.MessageService;
 import coallnspection.service.WebSocketService;
 import coallnspection.service.WorkerService;
 import coallnspection.utils.Util;
+import com.alibaba.fastjson.JSON;
 import org.bytedeco.javacv.FFmpegFrameGrabber;
 import org.bytedeco.javacv.Frame;
 import org.bytedeco.javacv.FrameGrabber;
@@ -130,6 +131,7 @@ public class RealDetect {
                         }else{
                             coalmineMapper.addCoalmine(new Coalmine(area,new Timestamp(new Date().getTime()),analyzing.getType(),analyzing.getLength(),analyzing.getWidth()));
                         }
+                        webSocketService.sendMessage(JSON.toJSONString(new Coalmine(area,new Timestamp(new Date().getTime()),analyzing.getType(),analyzing.getLength(),analyzing.getWidth())), String.valueOf(area));
                     }else{
                         ImageIO.write(bi, img_type, byteArrayOutputStream);
                     }

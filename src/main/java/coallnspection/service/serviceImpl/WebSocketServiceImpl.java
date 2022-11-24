@@ -19,4 +19,9 @@ public class WebSocketServiceImpl implements WebSocketService {
     public void sendImage(ByteArrayOutputStream byteArrayOutputStream, String id) {
         webSocket.sendImage(byteArrayOutputStream,id);
     }
+
+    @Override
+    public void sendMessage(String s, String id) {
+        webSocket.sendOneMessage(id, s);
+    }
 }

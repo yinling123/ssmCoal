@@ -16,6 +16,7 @@ import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.server.standard.SpringConfigurator;
 
@@ -26,6 +27,7 @@ import org.springframework.web.socket.server.standard.SpringConfigurator;
 @Component
 @Slf4j
 @ServerEndpoint(value="/websocketDemo/{userId}",configurator = SpringConfigurator.class)
+@Scope("prototype")
 public class WebSocket {
 
     //与某个客户端的连接会话，需要通过它来给客户端发送数据
@@ -122,7 +124,7 @@ public class WebSocket {
             if (session != null && session.isOpen()) {
                 try {
 //                    log.info("发送图片");
-                    session.getBasicRemote().sendText(stringBuilder.toString());
+                    session.getAsyncRemote().sendText(stringBuilder.toString());
 //                    System.out.println("发送图片时间:" + (System.currentTimeMillis() - l));
                 } catch (Exception e) {
                     e.printStackTrace();
