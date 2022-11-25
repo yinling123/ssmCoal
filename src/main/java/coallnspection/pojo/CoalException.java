@@ -23,6 +23,12 @@ public class CoalException {
 
     }
 
+    public CoalException(byte state, Timestamp time, String context) {
+        this.state = state;
+        this.time = time;
+        this.context = context;
+    }
+
     public void setId(int id) {
         this.id = id;
     }

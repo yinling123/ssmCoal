@@ -2,12 +2,10 @@ package coallnspection.Detect;
 
 import coallnspection.mapper.CoalmineMapper;
 import coallnspection.pojo.Analysis;
+import coallnspection.pojo.CoalException;
 import coallnspection.pojo.Coalmine;
 import coallnspection.pojo.Worker;
-import coallnspection.service.CoalService;
-import coallnspection.service.MessageService;
-import coallnspection.service.WebSocketService;
-import coallnspection.service.WorkerService;
+import coallnspection.service.*;
 import coallnspection.utils.Util;
 import com.alibaba.fastjson.JSON;
 import com.sun.org.apache.xpath.internal.operations.Bool;
@@ -47,6 +45,9 @@ public class RealDetect {
 
     @Autowired
     public WorkerService workerService;
+
+    @Autowired
+    public CoalExceptionService coalExceptionService;
 
     static String videoPath = "D:\\CoalImage\\meiliu.mp4";
     static String file_name = "coal";
@@ -135,6 +136,9 @@ public class RealDetect {
                             }
                         }else{
                             coalService.addCoal(new Coalmine(area,new Timestamp(new Date().getTime()),analyzing.getType(),analyzing.getLength(),analyzing.getWidth()));
+                        }
+                        synchronized (coalExceptionService){
+                            coalExceptionService.addCoalException(new CoalException((byte) 1, Util.getCurrentTime(0), "区域" + area + "出现异常"));
                         }
 //                        webSocketService.sendMessage(JSON.toJSONString(new Coalmine(area,new Timestamp(new Date().getTime()),analyzing.getType(),analyzing.getLength(),analyzing.getWidth())), String.valueOf(area));
                     }else{
