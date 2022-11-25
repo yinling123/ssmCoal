@@ -36,10 +36,6 @@ public class User {
         this.password = password;
     }
 
-    public String getEmail() {
-        return phone;
-    }
-
     public int getId() {
         return id;
     }

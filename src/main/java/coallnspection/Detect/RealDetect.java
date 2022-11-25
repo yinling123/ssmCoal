@@ -4,11 +4,13 @@ import coallnspection.mapper.CoalmineMapper;
 import coallnspection.pojo.Analysis;
 import coallnspection.pojo.Coalmine;
 import coallnspection.pojo.Worker;
+import coallnspection.service.CoalService;
 import coallnspection.service.MessageService;
 import coallnspection.service.WebSocketService;
 import coallnspection.service.WorkerService;
 import coallnspection.utils.Util;
 import com.alibaba.fastjson.JSON;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.bytedeco.javacv.FFmpegFrameGrabber;
 import org.bytedeco.javacv.Frame;
 import org.bytedeco.javacv.FrameGrabber;
@@ -35,7 +37,7 @@ import java.util.Date;
 public class RealDetect {
 
     @Autowired
-    private static CoalmineMapper coalmineMapper;
+    private CoalService coalService;
 
     @Autowired
     public WebSocketService webSocketService;
@@ -84,6 +86,7 @@ public class RealDetect {
                 if(start == 0){
                     continue;
                 }else if(start == 1){
+                    ByteArrayOutputStream temp = new ByteArrayOutputStream();
                     // 获取每一帧的数据
                     Frame frame = ff.grabImage();
                     if (frame == null) break;
@@ -110,7 +113,7 @@ public class RealDetect {
 
                     //当当前检测到的数目比较多，则发送短信提醒
                     //当1分钟出现的数目超过10条，则发送短信
-                    if(coalmineMapper.countArea(area) > 10){
+                    if(coalService.countArea(area) > 10){
                         //查询该地点的工作人员
                         synchronized (workerService){
                             final Worker worker = workerService.checkWorker("区域" + area);
@@ -125,15 +128,17 @@ public class RealDetect {
                         Graphics g = bi.getGraphics();
                         g.setColor(Color.RED);//画笔颜色
                         g.drawRect(analyzing.getLeft(), analyzing.getTop(), analyzing.getWidth(), analyzing.getLength());
-                        ImageIO.write(bi, img_type, byteArrayOutputStream);
+                        ImageIO.write(bi, img_type, temp);
                         if(num > 1){
-                            addCoal(new Coalmine(area,new Timestamp(new Date().getTime()),analyzing.getType(),analyzing.getLength(),analyzing.getWidth()));
+                            synchronized (coalService){
+                                addCoal(new Coalmine(area,new Timestamp(new Date().getTime()),analyzing.getType(),analyzing.getLength(),analyzing.getWidth()));
+                            }
                         }else{
-                            coalmineMapper.addCoalmine(new Coalmine(area,new Timestamp(new Date().getTime()),analyzing.getType(),analyzing.getLength(),analyzing.getWidth()));
+                            coalService.addCoal(new Coalmine(area,new Timestamp(new Date().getTime()),analyzing.getType(),analyzing.getLength(),analyzing.getWidth()));
                         }
-                        webSocketService.sendMessage(JSON.toJSONString(new Coalmine(area,new Timestamp(new Date().getTime()),analyzing.getType(),analyzing.getLength(),analyzing.getWidth())), String.valueOf(area));
+//                        webSocketService.sendMessage(JSON.toJSONString(new Coalmine(area,new Timestamp(new Date().getTime()),analyzing.getType(),analyzing.getLength(),analyzing.getWidth())), String.valueOf(area));
                     }else{
-                        ImageIO.write(bi, img_type, byteArrayOutputStream);
+                        ImageIO.write(bi, img_type, temp);
                     }
                     //如果此时有多个对象进行方法调用
                     //更新窗口内图片
@@ -143,8 +148,8 @@ public class RealDetect {
 //                    }
                     System.out.println(s);
                     //将四个区的数据同一规划为1，2，3，4
-                    if(byteArrayOutputStream != null){
-                        webSocketService.sendImage(byteArrayOutputStream,String.valueOf(area));
+                    if(temp != null){
+                        webSocketService.sendImage(temp, String.valueOf(area));
                     }
                 }else if(start == 2){
                     break;
@@ -165,8 +170,8 @@ public class RealDetect {
     }
 
     //创建共有加锁方法
-    public synchronized static void addCoal(Coalmine coalmine){
-        coalmineMapper.addCoalmine(coalmine);
+    public void addCoal(Coalmine coalmine){
+        coalService.addCoal(coalmine);
     }
 
     /**

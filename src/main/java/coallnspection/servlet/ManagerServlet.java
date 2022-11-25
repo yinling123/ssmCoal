@@ -115,8 +115,11 @@ public class ManagerServlet {
     @RequestMapping(value = "/getWorkers")
     public String getWorkers(Model model){
         List<Worker> workers = workerService.checkAllWorkers();
+        final List<User> users = userService.checkUsers();
         String string = JSON.toJSONString(workers);
+        final String string1 = JSON.toJSONString(users);
         model.addAttribute("workers",string);
+        model.addAttribute("users", string1);
         System.out.println(string);
         return "manager/worker";
     }

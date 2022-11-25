@@ -8,6 +8,7 @@
     <!-- 下面这两是我导图标的网站 -->
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
     <script type="text/javascript" th:src="@{/static/js/vue.js}"></script>
     <link rel="stylesheet" th:href="@{/static/css/manager.css}">
 </head>
@@ -15,7 +16,7 @@
 <div class = 'leftBox'>
     <div class = 'hun'></div>
     <div class = 'a_bg'>
-        <a th:href = "@{/manager/toUser}" style="font-size: 28px; font-weight: 800;"><ion-icon name="person" ></ion-icon>用户信息</a>
+        <a th:href = "@{/manager/toWorker}" style="font-size: 28px; font-weight: 800;"><ion-icon name="person" ></ion-icon>用户信息</a>
         <a th:href = "@{/manager/toDevice}"><ion-icon name="build"></ion-icon>设备信息</a>
         <a th:href = "@{/manager/toAccount}"><ion-icon name="settings"></ion-icon>账号信息</a>
     </div>
@@ -40,8 +41,8 @@
                 <div v-for="user in users" :key="user.no" class = 'usList' @click="showMsg(user)">
                     <p>{{user.name}}</p>
                     <p>{{user.phone}}</p>
-                    <p>{{user.zoom}}</p>
-                    <p>{{user.no}}</p>
+                    <p>{{user.job}}</p>
+                    <p>{{user.id}}</p>
                 </div>
             </div>
             <button class = 'huif' @click="huif">返回</button>
@@ -57,10 +58,10 @@
                 </div>
                 <div class = 'occupy'></div>
                 <div v-for="sup in supervisor" :key="sup.no" class = 'usList' @click="showMsg(sup)">
-                    <p>{{sup.name}}</p>
+                    <p>{{sup.username}}</p>
+                    <p>{{sup.password}}</p>
                     <p>{{sup.phone}}</p>
-                    <p>{{sup.job}}</p>
-                    <p>{{sup.no}}</p>
+                    <p>{{sup.id}}</p>
                 </div>
             </div>
             <button class = 'huif' @click="huif">返回</button>
@@ -102,41 +103,21 @@
 </div>
 </body>
 <script th:inline = 'javascript'>
-    var data1 = [
-        {name:'张三',phone:'1232121',zoom:'区域一',no:'0001'},
-        {name:'李四',phone:'1232122',zoom:'区域二',no:'0002'},
-        {name:'王五',phone:'1232123',zoom:'区域三',no:'0003'},
-        {name:'赵华',phone:'1232124',zoom:'区域四',no:'0004'},
-        {name:'你干嘛~',phone:'1232125',zoom:'区域五',no:'0005'},
-        {name:'张三',phone:'1232121',zoom:'区域一',no:'0005'},
-        {name:'张三',phone:'1232121',zoom:'区域一',no:'0006'},
-        {name:'张三',phone:'1232121',zoom:'区域一',no:'0007'},
-        {name:'张三',phone:'1232121',zoom:'区域一',no:'0008'},
-        {name:'张三',phone:'1232121',zoom:'区域一',no:'0009'},
-        {name:'张三',phone:'1232121',zoom:'区域一',no:'0010'},
-        {name:'张三',phone:'1232121',zoom:'区域一',no:'0011'},
-    ]
+    //把data1换掉应该就可以完成数据传递
+    //至于点击按钮完成信息修改可以后面再交流下我不知道后端是咋弄的
+    var reg = /^["|'](.*)["|']$/g;
+    var data1 = '[[${workers}]]'.replace(reg,"$1")
+    var data1 = JSON.parse(data1)
+    var data2 = '[[${users}]]'.replace(reg,"$1")
+    var data2 = JSON.parse(data2)
+    var reg = /^["|'](.*)["|']$/g;
     new Vue({
         el:'.cenBox',
         data() {
             return {
                 users:data1,
-                supervisor:[
-                    {name:'张三',phone:'1232121',zoom:'区域一',no:'0001'},
-                    {name:'李四',phone:'1232122',zoom:'区域二',no:'0002'},
-                    {name:'王五',phone:'1232123',zoom:'区域三',no:'0003'},
-                    {name:'赵华',phone:'1232124',zoom:'区域四',no:'0004'},
-                    {name:'你干嘛~',phone:'1232125',zoom:'区域五',no:'0005'},
-                    {name:'张三',phone:'1232121',zoom:'区域一',no:'0005'},
-                    {name:'张三',phone:'1232121',zoom:'区域一',no:'0006'},
-                    {name:'张三',phone:'1232121',zoom:'区域一',no:'0007'},
-                    {name:'张三',phone:'1232121',zoom:'区域一',no:'0008'},
-                    {name:'张三',phone:'1232121',zoom:'区域一',no:'0009'},
-                    {name:'张三',phone:'1232121',zoom:'区域一',no:'0010'},
-                    {name:'张三',phone:'1232121',zoom:'区域一',no:'0011'},
-                ],
+                supervisor:data2,
                 //解开下面这个注掉users接收数据
-                users : '[[${workers}]]',
                 usName:'',
                 usPhone:'',
                 usZoom:'',
@@ -205,7 +186,7 @@
                     alert('input can not be null')
                 }else{
                     this.users = this.users.filter((user)=>{
-                        return worker.no === e.target.value
+                        return user.no === e.target.value
                     })
                 }
             },

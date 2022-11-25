@@ -47,4 +47,28 @@ public interface CoalExceptionService {
      * @return
      */
     public int deleteAll();
+
+    /**
+     * 查询所有信息
+     * @return
+     */
+    public List<CoalException> selectALl();
+
+    /**
+     * 查询异常总数目
+     * @return
+     */
+    public int countAll();
+
+    /**
+     * 查询完成的数目
+     * @return
+     */
+    public int countFinished();
+
+    /**
+     * 查询未完成数目
+     * @return
+     */
+    public int countUnfinished();
 }

@@ -64,6 +64,7 @@
             height: 55%;
             border-radius: 10px;
             border: none;
+            position: relative;
         }
         .log_b{
             width: 100px;
@@ -139,6 +140,12 @@
             margin-top: 8px;
             color: black;
         }
+        .errorMsg{
+            position: absolute;
+            top: 50px;
+            left: 190px;
+            color: red;
+        }
     </style>
 </head>
 <body>
@@ -149,19 +156,19 @@
     <form th:action="@{/login/signIn}" method="post">
         <div class = 'log'>
             <span>登 录</span>
-            <p style="color: red; margin-left: 80px;" th:text="${errorMsg}"></p>
+            <p class="errorMsg" th:text="${errorMsg}"></p>
             <label for="userw" >
                 账 号：<input type="text" class="u_input" id="userw" placeholder="请输入账号" name="username"  th:value="${username}" >
             </label>
             <label for="passw">
                 密 码：<input type="password" class="u_input" id="passw" name="password" placeholder="请输入密码" autocomplete="off" tabindex="1" th:value="${password}">
-<!--                <p style="color: red; margin-left: 80px;">${isPassWordEmpty}</p>-->
+                <!--                <p style="color: red; margin-left: 80px;">${isPassWordEmpty}</p>-->
             </label>
             <div class = 'yanz'>
                 <label for="yan">
                     验证码：<input type="text" id = 'yan' name = "code" placeholder="请输入验证码" th:value="${code}">
                     <img id="code_img" th:src="@{/kaptcha.jpg}" title = "看不清，点击换一张">
-<!--                    <p style="color: red;">验证码错误</p>-->
+                    <!--                    <p style="color: red;">验证码错误</p>-->
                 </label>
                 <a href="">忘记密码</a>
             </div>
@@ -172,9 +179,9 @@
 </div>
 </body>
 <script th:inline = 'javascript'>
-    var userNameValue = '[[${userName}]]'
+    var userNameValue = '[[${username}]]'
     userNameValue = JSON.parse(userNameValue)
-    var passWordValue = '[[${passWord}]]'
+    var passWordValue = '[[${password}]]'
     passWordValue = JSON.parse(passWordValue)
     new Vue({
         el:'.box',

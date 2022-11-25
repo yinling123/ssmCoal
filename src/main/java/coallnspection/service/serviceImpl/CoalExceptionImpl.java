@@ -54,4 +54,25 @@ public class CoalExceptionImpl implements CoalExceptionService {
         int i = coalExceptionMapper.deleteAllCoalException();
         return i;
     }
+
+    @Override
+    public List<CoalException> selectALl() {
+        final List<CoalException> coalExceptions = coalExceptionMapper.selectAll();
+        return coalExceptions;
+    }
+
+    @Override
+    public int countAll() {
+        return coalExceptionMapper.countAll();
+    }
+
+    @Override
+    public int countFinished() {
+        return coalExceptionMapper.countFinished();
+    }
+
+    @Override
+    public int countUnfinished() {
+        return coalExceptionMapper.countUnfinished();
+    }
 }

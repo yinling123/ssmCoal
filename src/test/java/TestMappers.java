@@ -51,7 +51,8 @@ public class TestMappers {
 
     @Test
     public void testCoalmineMapper(){
-        coalmineMapper.addCoalmine(new Coalmine(22,getCurrentTime(0),"ss",22,22));
+//        coalmineMapper.addCoalmine(new Coalmine(22,getCurrentTime(0),"ss",22,22));
+        System.out.println(JSON.toJSONString(new Coalmine(22,getCurrentTime(0),"ss",22,22)));
     }
 
     @Test

@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.jws.WebParam;
 import java.util.List;
 
 /**
@@ -56,6 +57,25 @@ public class CoalExceptionServlet {
     public String updateException(@PathVariable("id") String id){
         int i = coalExceptionService.updateCoalException(Integer.parseInt(id));
         return "redirect:user/selectFinished";
+    }
+
+    /**
+     * 查询所有信息
+     * @return
+     */
+    @RequestMapping(value = "/selectAll")
+    public String selectAll(Model model){
+        final List<CoalException> coalExceptions = coalExceptionService.selectALl();
+        final int i = coalExceptionService.countAll();
+        final int i1 = coalExceptionService.countFinished();
+        final int i2 = coalExceptionService.countUnfinished();
+        final String string = JSON.toJSONString(coalExceptions);
+        System.out.println(string);
+        model.addAttribute("exceptions", string);
+        model.addAttribute("all", i);
+        model.addAttribute("finished", i1);
+        model.addAttribute("unfinished", i2);
+        return "user/information";
     }
 
 

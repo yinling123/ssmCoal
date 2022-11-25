@@ -89,6 +89,7 @@
 </body>
 <script>
     var the = 'theme3'
+
     var deviceList = [
         {id:'1',name:'1号区域',zoom:'1',path:'ws://localhost:8080/ssmCoal/websocketDemo/1',is_focus:'0',state:false},
         {id:'2',name:'2号区域',zoom:'2',path:'ws://localhost:8080/ssmCoal/websocketDemo/2',is_focus:'0',state:false},
@@ -122,7 +123,7 @@
             },
             start_or_pause(element){
                 element.state = !element.state
-                axios.post('http://localhost:8080/ssmCoal/websocket/start/1' + element.state, element.state).then(function (response) {
+                axios.post('http://localhost:8080/ssmCoal/websocket/start/1', element.state).then(function (response) {
                     console.log(response);
                 }).catch(function (error) {
                         console.log(error);
@@ -136,7 +137,7 @@
                         element.is_focus = 0
                     }
                 });
-                mainViewChange(e.path)
+                // mainViewChange(e)
             },
         },
     })
@@ -157,11 +158,10 @@
     //   img3.src = evt.data
     // //   img4.src = evt.data
     // }
+    //实例化
     var img1 = document.getElementById('hby1')
     var img2 = document.getElementById('hby2')
-    var img3 = document.getElementById('hby3')
     var img4 = document.getElementById('mainView')
-    //实例化
     let ws = new WebSocket(vm1.numb[0].path)
     //链接成功后
     ws.onopen = function(evt){
@@ -170,47 +170,26 @@
     //传递和接收信息
     ws.onmessage = function(evt){
         img1.src = evt.data
-    }
-    //实例化
-    let ws1 = new WebSocket('ws://localhost:8080/ssmCoal/websocketDemo/1')
-    //链接成功后
-    ws1.onopen = function(evt){
-        ws1.send('连接成功1')
-    }
-    //传递和接收信息
-    ws1.onmessage = function(evt){
-        img1.src = evt.data
-    }
-    //实例化
-    let ws2 = new WebSocket('ws://localhost:8080/ssmCoal/websocketDemo/2')
-    //链接成功后
-    ws2.onopen = function(evt){
-        ws2.send('连接成功2')
-    }
-    //传递和接收信息
-    ws2.onmessage = function(evt){
-        img3.src = evt.data
-    }
-    // 实例化
-    let ws3 = new WebSocket('ws://localhost:8080/ssmCoal/websocketDemo/3')
-    //链接成功后
-    ws3.onopen = function(evt){
-        ws3.send('连接成功3')
-    }
-    //传递和接收信息
-    ws3.onmessage = function(evt){
+        img2.src = evt.data
         img4.src = evt.data
     }
-    function mainViewChange(e_Path){
-        let ws3 = new WebSocket(e_Path)
-        //链接成功后
-        ws3.onopen = function(evt){
-            ws3.send('连接成功3')
-        }
-        //传递和接收信息
-        ws3.onmessage = function(evt){
-            img4.src = evt.data
-        }
-    }
+    // //实例化
+    // let ws2 = new WebSocket(vm1.numb[0].path)
+    // //链接成功后
+    // ws2.onopen = function(evt){
+    //     ws2.send('连接成功2')
+    // }
+    // //传递和接收信息
+    // ws2.onmessage = function(evt){
+    //     img2.src = evt.data
+    // }
+    // function mainViewChange(e_Path){
+    //     if(e.id === 1){
+    //         img4.src = img1.src
+    //     }else{
+    //         img4.src = img2.src
+    //     }
+    //
+    // }
 </script>
 </html>

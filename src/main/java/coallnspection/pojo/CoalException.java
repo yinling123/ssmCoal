@@ -11,7 +11,6 @@ public class CoalException {
 
     private int id; //编号索引
 
-    @JsonIgnore
     private byte state = 1; //处理状态
 
     private Timestamp time; //当前异常时间
@@ -49,5 +48,25 @@ public class CoalException {
 
     public void setFlag(String flag) {
         this.flag = flag;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public byte getState() {
+        return state;
+    }
+
+    public Timestamp getTime() {
+        return time;
+    }
+
+    public String getContext() {
+        return context;
+    }
+
+    public String getFlag() {
+        return flag;
     }
 }

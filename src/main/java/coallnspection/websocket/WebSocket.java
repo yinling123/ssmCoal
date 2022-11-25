@@ -44,6 +44,8 @@ public class WebSocket {
     // 用来存在线连接用户信息
     private static ConcurrentHashMap<String,Session> sessionPool = new ConcurrentHashMap<String,Session>();
 
+//    String temp = null;
+
     /**
      * 链接成功调用的方法
      */
@@ -120,18 +122,24 @@ public class WebSocket {
         stringBuilder.append(content);
         //将结果发动到对应的对象
         Session session = sessionPool.get(userId);
-//        synchronized (session){
+        synchronized (session){
             if (session != null && session.isOpen()) {
                 try {
 //                    log.info("发送图片");
-                    session.getAsyncRemote().sendText(stringBuilder.toString());
+//                    System.out.println("发送图片-------------------------------------------\n");
+//                    if(temp != null){
+//                        System.out.println(temp.equals(stringBuilder.toString()));
+//                    }
+//                    temp = stringBuilder.toString();
+//                    System.out.println(stringBuilder.toString());
+                    session.getBasicRemote().sendText(stringBuilder.toString());
 //                    System.out.println("发送图片时间:" + (System.currentTimeMillis() - l));
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
         }
-//    }
+    }
 
 
     // 此为广播消息
@@ -151,12 +159,14 @@ public class WebSocket {
     // 此为单点消息
     public void sendOneMessage(String userId, String message) {
         Session session = sessionPool.get(userId);
-        if (session != null && session.isOpen()) {
-            try {
-                log.info("【websocket消息】 单点消息:"+message);
-                session.getAsyncRemote().sendText(message);
-            } catch (Exception e) {
-                e.printStackTrace();
+        synchronized (session){
+            if (session != null && session.isOpen()) {
+                try {
+                    log.info("【websocket消息】 单点消息:"+message);
+                    session.getAsyncRemote().sendText(message);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         }
     }

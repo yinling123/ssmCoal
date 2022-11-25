@@ -12,6 +12,7 @@
     <script th:src="@{/static/js/axios.min.js}"></script>
     <link rel="stylesheet" th:href="@{/static/css/information.css}">
     <link rel="stylesheet" th:href="@{/static/css/{theme}(theme=${session.themes})}">
+    <script th:src="@{/static/js/axios.min.js}"></script>
 </head>
 <body>
 <div class = 'external'>
@@ -61,25 +62,17 @@
 </div>
 </div>
 </body>
-<script>
+<script th:inline = 'javascript'>
     var the = 'theme1'
     // 信息通知列表
-    var eventLists = [
-        {content:'一号皮带出现异常',state:false,Time:'nicai',id:'0001'},
-        {content:'二号皮带出现异常',state:false,Time:'nicai',id:'0002'},
-        {content:'三号皮带出现异常',state:false,Time:'nicai',id:'0003'},
-        {content:'四号皮带出现异常',state:false,Time:'nicai',id:'0004'},
-        {content:'五号皮带出现异常',state:false,Time:'nicai',id:'0005'},
-        {content:'六号皮带出现异常',state:false,Time:'nicai',id:'0006'},
-        {content:'一号皮带出现异常',state:false,Time:'nicai',id:'0007'},
-        {content:'二号皮带出现异常',state:false,Time:'nicai',id:'0008'},
-        {content:'三号皮带出现异常',state:false,Time:'nicai',id:'0009'},
-    ]
+    var reg = /^["|'](.*)["|']$/g;
+    var eventLists = '[[${exceptions}]]'.replace(reg,"$1")
+    eventLists = JSON.parse(eventLists)
     new Vue({
         el:'.showBox',
         data() {
             return {
-                eventList:eventLists,
+                eventList:this.eventList,
                 chuliList:[],
                 meichuliList:[],
                 newList:[],
@@ -87,10 +80,12 @@
                 sum:null,
                 chuli:null,
                 meichuli:null,
-                theme:the
+                theme:the,
+                timeId:''
             }
         },
         mounted() {
+            this.startInterval()
             this.sum = this.eventList.length
             this.upDate()
             this.newList = this.meichuliList
@@ -119,28 +114,24 @@
                 });
                 this.upDate()
                 let date={url:eve.id}
-                axios.post("http://localhost:8080/ssmCoal/coalException/" + date,date).then (eve => {
+                axios.post("http://localhost:8080/ssmCoal/coalException/updateException/" + date,date).then (eve => {
                     console.log(eve)
                 }).catch(error =>{
                     console.log(error)
                 })
             },
+            startInterval () {
+                this.timeId = setInterval(() => {
+                    axios.post("http://localhost:8080/ssmCoal/coalException/selectAll").then (eve => {
+                        if(!eve.isEmpty()){
+                            console.log(eve)
+                        }
+                    }).catch(error =>{
+                        console.log(error)
+                    })
+                },1000)
+            }
         },
     })
-    var webSocket;
-    webSocket = new WebSocket("ws://localhost:8080/ssmCoal/websocketDemo/1");
-    webSocket.onerror = function (event) {
-        console.log("连接失败");
-        console.log(event.data );
-    }
-    webSocket.onopen = function (event) {
-        console.log('连接成功');
-    }
-    webSocket.onmessage = function (event) {
-        //后端传来的是JSON字符串，前端转为json
-        var data = JSON.parse(event.data);
-        console.log(data)
-    }
-
 </script>
 </html>

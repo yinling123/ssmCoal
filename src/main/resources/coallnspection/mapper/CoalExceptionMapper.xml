@@ -33,4 +33,24 @@
     <delete id="deleteAllCoalException">
         delete * from coalException
     </delete>
+
+<!--    List<CoalException> selectAll()-->
+    <select id="selectAll" resultType="coalException">
+        select * from coalException
+    </select>
+
+<!--    int countAll();-->
+    <select id="countAll" resultType="int">
+        select count(*) from coalException
+    </select>
+
+<!--    int countFinished()-->
+    <select id="countFinished" resultType="int">
+        select count(*) from coalException where state = 0
+    </select>
+
+<!--    int countUnfinished()-->
+    <select id="countUnfinished" resultType="int">
+        select count(*) from coalException where state = 1
+    </select>
 </mapper>
