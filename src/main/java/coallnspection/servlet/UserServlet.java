@@ -47,7 +47,7 @@ public class UserServlet {
      */
     @RequestMapping(value = "/toInformation")
     public String toInformation(){
-        return "user/information";
+        return "forward:/coalException/information";
     }
 
     /**

@@ -67,15 +67,15 @@
     // 信息通知列表
     var reg = /^["|'](.*)["|']$/g;
     var eventLists = '[[${exceptions}]]'.replace(reg,"$1")
-    eventLists = JSON.parse(eventLists)
-    new Vue({
+    var eventLists = JSON.parse(eventLists)
+    var vm = new Vue({
         el:'.showBox',
         data() {
             return {
                 eventList:this.eventList,
-                chuliList:[],
-                meichuliList:[],
-                newList:[],
+                chuliList:'[[${uf}]]',
+                meichuliList:'[[${uf}]]',
+                newList:'[[${exceptions}]]',
                 changeList:false,
                 sum:null,
                 chuli:null,
@@ -86,32 +86,24 @@
         },
         mounted() {
             this.startInterval()
-            this.sum = this.eventList.length
+            this.sum = '[[${all}]]'
             this.upDate()
             this.newList = this.meichuliList
         },
         methods: {
             upDate(){
-                this.chuliList = this.eventList.filter(ele =>{
-                    return ele.state == true
-                })
-                this.meichuliList = this.eventList.filter(ele =>{
-                    return ele.state == false
-                })
+                this.chuliList = '[[${f}]]'
+                this.meichuliList = '[[${uf}]]'
                 if(this.changeList){
                     this.newList = this.chuliList
                 }else{
                     this.newList = this.meichuliList
                 }
-                this.chuli = this.chuliList.length
-                this.meichuli = this.meichuliList.length
+                this.chuli = '[[${finished}]]'
+                this.meichuli = '[[${unfinished}]]'
             },
             deleteE(eve){
-                this.eventList.forEach(element => {
-                    if(element.id === eve.id) {
-                        element.state = true
-                    }
-                });
+                this.eventList = '[[${all}]]'
                 this.upDate()
                 let date={url:eve.id}
                 axios.post("http://localhost:8080/ssmCoal/coalException/updateException/" + date,date).then (eve => {
@@ -129,7 +121,7 @@
                     }).catch(error =>{
                         console.log(error)
                     })
-                },1000)
+                },60000)
             }
         },
     })

@@ -64,14 +64,44 @@ public class CoalExceptionServlet {
      * @return
      */
     @RequestMapping(value = "/selectAll")
-    public String selectAll(Model model){
-        final List<CoalException> coalExceptions = coalExceptionService.selectALl();
+    public void selectAll(Model model){
+        List<CoalException> coalExceptions = coalExceptionService.selectALl();
+        final List<CoalException> coalExceptions1 = coalExceptionService.selectFinished();
+        final List<CoalException> coalExceptions2 = coalExceptionService.selectUnfinished();
         final int i = coalExceptionService.countAll();
         final int i1 = coalExceptionService.countFinished();
         final int i2 = coalExceptionService.countUnfinished();
-        final String string = JSON.toJSONString(coalExceptions);
+        final String string = JSON.toJSONStringWithDateFormat(coalExceptions,"yyyy-MM-dd HH:mm:ss");
+        final String string1 = JSON.toJSONStringWithDateFormat(coalExceptions1, "yyyy-MM-dd HH:mm:ss");
+        final String string2 = JSON.toJSONStringWithDateFormat(coalExceptions2, "yyyy-MM-dd HH:mm:ss");
         System.out.println(string);
         model.addAttribute("exceptions", string);
+        model.addAttribute("f", string1);
+        model.addAttribute("uf", string2);
+        model.addAttribute("all", i);
+        model.addAttribute("finished", i1);
+        model.addAttribute("unfinished", i2);
+    }
+
+    /**
+     * 查询所有信息
+     * @return
+     */
+    @RequestMapping(value = "/information")
+    public String selectA(Model model){
+        List<CoalException> coalExceptions = coalExceptionService.selectALl();
+        final List<CoalException> coalExceptions1 = coalExceptionService.selectFinished();
+        final List<CoalException> coalExceptions2 = coalExceptionService.selectUnfinished();
+        final int i = coalExceptionService.countAll();
+        final int i1 = coalExceptionService.countFinished();
+        final int i2 = coalExceptionService.countUnfinished();
+        final String string = JSON.toJSONStringWithDateFormat(coalExceptions,"yyyy-MM-dd HH:mm:ss");
+        final String string1 = JSON.toJSONStringWithDateFormat(coalExceptions1, "yyyy-MM-dd HH:mm:ss");
+        final String string2 = JSON.toJSONStringWithDateFormat(coalExceptions2, "yyyy-MM-dd HH:mm:ss");
+        System.out.println(string);
+        model.addAttribute("exceptions", string);
+        model.addAttribute("f", string1);
+        model.addAttribute("uf", string2);
         model.addAttribute("all", i);
         model.addAttribute("finished", i1);
         model.addAttribute("unfinished", i2);
